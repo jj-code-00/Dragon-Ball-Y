@@ -103,7 +103,7 @@ func _input(event):
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
-		body.take_damage(damage, facing, knockback)
+		body.take_damage(get_node("Stats").strength, facing, knockback)
 
 func _on_Enemies_enemy_died(powerLevel):
 	print("got: ", powerLevel, " xp")
