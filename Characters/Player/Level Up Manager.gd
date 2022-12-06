@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var stats = get_parent()
 var level
 var xpToLevelUp = 10
 var totalXp
@@ -9,15 +10,20 @@ var totalXp
 
 signal level_up()
 
-
+func _process(delta):
+	level = get_parent().powerLevel
+	var string = "PL: "
+	string += str(level)
+	$Level.text = string
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	level = 1
+	print(stats)
+	level = stats.powerLevel
 	totalXp = 0
 	
-	var string = "Level: "
+	var string = "PL: "
 	string += str(level)
-	get_node("Level").display_text(string)
+	$Level.text = string
 
 func getXp():
 	pass
@@ -26,10 +32,10 @@ func getXp():
 func _on_Player_enemyPowerLevel(powerLevel):
 	totalXp += powerLevel
 	while (totalXp >= xpToLevelUp):
-		level = level + 1
 		emit_signal("level_up")
+		level = get_parent().powerLevel
 		xpToLevelUp = xpToLevelUp * 2
 		print("Leveled Up!")
-		var string = "Level: "
+		var string = "PL: "
 		string += str(level)
-		get_node("Level").display_text(string)
+		$Level.text = string

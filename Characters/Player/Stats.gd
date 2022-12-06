@@ -13,10 +13,13 @@ var force # Primary damage stat for Ki Damage.
 var accuracy # Increases your chance to hit. Reduced chance of deflection.
 var powerLevel # total Strength
 onready var healthBar = $ProgressBar
+var regen = false
 
 func _process(delta):
 	if (health <= 0):
 		get_tree().reload_current_scene()
+	if(regen && health < maxHealth):
+		change_health(0.001 * powerLevel)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,27 +35,6 @@ func _ready():
 	emit_signal("update_stats")
 	healthBar.value = (health * 100 / maxHealth)
 
-func get_health(): 
-	return health
-	
-func get_energy(): 
-	return energy
-	
-func get_strength(): 
-	return strength
-	
-func get_defense(): 
-	return defense
-	
-func get_agility(): 
-	return agility
-	
-func get_force(): 
-	return force
-
-func get_accuracy(): 
-	return accuracy
-	
 func set_stats(stat, amount):
 	match stat:
 		"health": 
@@ -88,9 +70,14 @@ func _on_Level_Up_Manager_level_up():
 func change_health(value):
 	health += value
 	healthBar.value = (health * 100 / maxHealth)
-	$"Damage Indicator".start(.1)
-	get_parent().get_node("Sprite").modulate = Color.red
+	if (value < 0):
+		$"Damage Indicator".start(.1)
+		get_parent().get_node("Sprite").modulate = Color.red
 
 
 func _on_Damage_Indicator_timeout():
 	get_parent().get_node("Sprite").modulate = Color.white
+
+
+func _on_Player_regen():
+	regen = !regen
