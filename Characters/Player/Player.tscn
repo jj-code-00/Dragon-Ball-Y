@@ -1,10 +1,9 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://Assets/DU-assets/Player Icons/Hades.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Characters/Stats.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Characters/Player/Level Up Manager.gd" type="Script" id=4]
-[ext_resource path="res://Characters/Player/Level.gd" type="Script" id=5]
 [ext_resource path="res://NotoSans-Regular.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=54]
@@ -56,7 +55,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=38]
 resource_name = "player_attack_down"
 length = 0.2
-step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -76,7 +74,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -88,7 +86,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0, 14 ), Vector2( 0, 4 ) ]
@@ -97,7 +95,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=39]
 resource_name = "player_attack_left"
 length = 0.2
-step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -117,7 +114,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -129,7 +126,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ Vector2( -21, 4 ), Vector2( 0, 4 ) ]
@@ -138,7 +135,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=40]
 resource_name = "player_attack_right"
 length = 0.2
-step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -158,7 +154,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -170,7 +166,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ Vector2( 21, 4 ), Vector2( 0, 4 ) ]
@@ -179,7 +175,6 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=41]
 resource_name = "player_attack_up"
 length = 0.2
-step = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -199,7 +194,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ false, true ]
@@ -211,7 +206,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
+"times": PoolRealArray( 0, 0.1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ Vector2( 0, -6 ), Vector2( 0, 4 ) ]
@@ -359,6 +354,24 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
+}
+
+[sub_resource type="Animation" id=83]
+resource_name = "player_meditation"
+length = 0.2
+loop = true
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 16 ]
 }
 
 [sub_resource type="Animation" id=25]
@@ -514,6 +527,9 @@ animation = "player_attack_right"
 [sub_resource type="AnimationNodeAnimation" id=58]
 animation = "player_attack_up"
 
+[sub_resource type="AnimationNodeAnimation" id=84]
+animation = "player_meditation"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=23]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=24]
@@ -586,6 +602,10 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id=82]
 switch_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=85]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=86]
+
 [sub_resource type="AnimationNodeStateMachine" id=12]
 states/Fly/node = SubResource( 22 )
 states/Fly/position = Vector2( -724, 90 )
@@ -601,9 +621,11 @@ states/player_attack_right/node = SubResource( 57 )
 states/player_attack_right/position = Vector2( -34, -327 )
 states/player_attack_up/node = SubResource( 58 )
 states/player_attack_up/position = Vector2( -7, -64 )
-transitions = [ "Idle", "Fly", SubResource( 23 ), "Fly", "Idle", SubResource( 24 ), "Idle", "Walk", SubResource( 34 ), "Walk", "Idle", SubResource( 35 ), "Fly", "Walk", SubResource( 36 ), "Walk", "Fly", SubResource( 37 ), "Idle", "player_attack_up", SubResource( 59 ), "Idle", "player_attack_down", SubResource( 60 ), "Idle", "player_attack_right", SubResource( 61 ), "Fly", "player_attack_up", SubResource( 62 ), "Fly", "player_attack_right", SubResource( 63 ), "Fly", "player_attack_left", SubResource( 64 ), "Fly", "player_attack_down", SubResource( 65 ), "Idle", "player_attack_left", SubResource( 66 ), "Walk", "player_attack_left", SubResource( 67 ), "Walk", "player_attack_up", SubResource( 68 ), "Walk", "player_attack_right", SubResource( 69 ), "Walk", "player_attack_down", SubResource( 70 ), "player_attack_down", "Fly", SubResource( 71 ), "player_attack_down", "Idle", SubResource( 72 ), "player_attack_down", "Walk", SubResource( 73 ), "player_attack_left", "Walk", SubResource( 74 ), "player_attack_left", "Fly", SubResource( 75 ), "player_attack_left", "Idle", SubResource( 76 ), "player_attack_up", "Fly", SubResource( 77 ), "player_attack_up", "Idle", SubResource( 78 ), "player_attack_up", "Walk", SubResource( 79 ), "player_attack_right", "Fly", SubResource( 80 ), "player_attack_right", "Idle", SubResource( 81 ), "player_attack_right", "Walk", SubResource( 82 ) ]
+states/player_meditation/node = SubResource( 84 )
+states/player_meditation/position = Vector2( -1273, -193 )
+transitions = [ "Idle", "Fly", SubResource( 23 ), "Fly", "Idle", SubResource( 24 ), "Idle", "Walk", SubResource( 34 ), "Walk", "Idle", SubResource( 35 ), "Fly", "Walk", SubResource( 36 ), "Walk", "Fly", SubResource( 37 ), "Idle", "player_attack_up", SubResource( 59 ), "Idle", "player_attack_down", SubResource( 60 ), "Idle", "player_attack_right", SubResource( 61 ), "Fly", "player_attack_up", SubResource( 62 ), "Fly", "player_attack_right", SubResource( 63 ), "Fly", "player_attack_left", SubResource( 64 ), "Fly", "player_attack_down", SubResource( 65 ), "Idle", "player_attack_left", SubResource( 66 ), "Walk", "player_attack_left", SubResource( 67 ), "Walk", "player_attack_up", SubResource( 68 ), "Walk", "player_attack_right", SubResource( 69 ), "Walk", "player_attack_down", SubResource( 70 ), "player_attack_down", "Fly", SubResource( 71 ), "player_attack_down", "Idle", SubResource( 72 ), "player_attack_down", "Walk", SubResource( 73 ), "player_attack_left", "Walk", SubResource( 74 ), "player_attack_left", "Fly", SubResource( 75 ), "player_attack_left", "Idle", SubResource( 76 ), "player_attack_up", "Fly", SubResource( 77 ), "player_attack_up", "Idle", SubResource( 78 ), "player_attack_up", "Walk", SubResource( 79 ), "player_attack_right", "Fly", SubResource( 80 ), "player_attack_right", "Idle", SubResource( 81 ), "player_attack_right", "Walk", SubResource( 82 ), "Idle", "player_meditation", SubResource( 85 ), "player_meditation", "Idle", SubResource( 86 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -1199, -376 )
+graph_offset = Vector2( -1232, -408 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
@@ -617,23 +639,22 @@ script = ExtResource( 2 )
 
 [node name="ProgressBar" type="ProgressBar" parent="Stats"]
 margin_left = -23.0
-margin_top = -33.0
+margin_top = -39.0
 margin_right = 24.0
-margin_bottom = -19.0
+margin_bottom = -25.0
 
 [node name="Damage Indicator" type="Timer" parent="Stats"]
 
-[node name="Level Up Manager" type="Node2D" parent="."]
+[node name="Level Up Manager" type="Node2D" parent="Stats"]
 script = ExtResource( 4 )
 
-[node name="Level" type="RichTextLabel" parent="Level Up Manager"]
+[node name="Level" type="RichTextLabel" parent="Stats/Level Up Manager"]
 margin_left = -19.0
 margin_top = -26.0
 margin_right = 33.0
 margin_bottom = -11.0
 custom_fonts/normal_font = SubResource( 54 )
 fit_content_height = true
-script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -660,6 +681,7 @@ anims/player_idle_down = SubResource( 3 )
 anims/player_idle_left = SubResource( 4 )
 anims/player_idle_right = SubResource( 5 )
 anims/player_idle_up = SubResource( 6 )
+anims/player_meditation = SubResource( 83 )
 anims/player_walk_down = SubResource( 25 )
 anims/player_walk_left = SubResource( 26 )
 anims/player_walk_right = SubResource( 27 )
@@ -680,9 +702,10 @@ parameters/Walk/blend_position = Vector2( 0, 0 )
 position = Vector2( -21, 4 )
 shape = SubResource( 53 )
 
-[connection signal="enemyPowerLevel" from="." to="Level Up Manager" method="_on_Player_enemyPowerLevel"]
+[connection signal="enemyPowerLevel" from="." to="Stats/Level Up Manager" method="_on_Player_enemyPowerLevel"]
+[connection signal="regen" from="." to="Stats" method="_on_Player_regen"]
 [connection signal="update_stats" from="Stats" to="." method="_on_Stats_update_stats"]
 [connection signal="timeout" from="Stats/Damage Indicator" to="Stats" method="_on_Damage_Indicator_timeout"]
-[connection signal="level_up" from="Level Up Manager" to="Stats" method="_on_Level_Up_Manager_level_up"]
+[connection signal="level_up" from="Stats/Level Up Manager" to="Stats" method="_on_Level_Up_Manager_level_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
