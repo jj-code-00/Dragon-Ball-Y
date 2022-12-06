@@ -1,15 +1,16 @@
 extends KinematicBody2D
 
-var maxHealth = 20
+var maxHealth = 20.0
 var currentHealth
 var knockedBack = false
 var directionHit
 var knockbackRecieved
-var powerLevel = 100
+var powerLevel = 5
 var canAttack = false
 var damage = 1
 var baseSpeed = 200
 var currentSpeed
+var defense = 1
 
 onready var healthBar = $TextureProgress
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
@@ -38,8 +39,13 @@ func _physics_process(delta):
 	if(knockedBack):
 		move_and_slide(directionHit * knockbackRecieved * delta)
 
-func take_damage(damage, direction, knockback):
-	currentHealth -= damage
+func take_damage(strength, direction, knockback):
+	var hitFor = 0.0
+	if (strength >= defense):
+		hitFor = strength * 2 - defense
+	else :
+		hitFor = strength * strength / defense
+	currentHealth -= hitFor
 	healthBar.value = (currentHealth * 100 / maxHealth)
 	$"Damage Indicator".start(.1)
 	$Sprite.modulate = Color.red
