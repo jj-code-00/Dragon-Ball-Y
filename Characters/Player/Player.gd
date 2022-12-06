@@ -10,7 +10,8 @@ var not_flying = true
 var damage = 1
 var knockback
 
-# On start values
+# On start 
+onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var animation_state = animation_tree.get("parameters/playback")
 onready var hitbox = $Area2D/Hitbox
@@ -47,14 +48,11 @@ func select_animation():
 		animation_state.travel("Walk")
 	elif(!not_flying):
 		animation_state.travel("Fly")
-		
 
-# 
 func setBlendPos(facing):
 	animation_tree.set("parameters/Idle/blend_position", facing)
 	animation_tree.set("parameters/Walk/blend_position", facing)
 	animation_tree.set("parameters/Fly/blend_position", facing)
-	animation_tree.set("parameters/Attack/blend_position", facing)
 
 func _input(event):
 	#print(event)
@@ -73,30 +71,27 @@ func _input(event):
 			set_collision_layer_bit(0, false)
 			set_collision_layer_bit(1, true)
 	if(event.is_action_pressed("i_attack")):
-		print("hit")
-		animation_state.travel("Attack")
-		$"Hitbox Cooldown".start(.2)
+		match facing.normalized():
+			Vector2.RIGHT: 
+				animation_state.travel("player_attack_right")
+			Vector2.LEFT: 
+				animation_state.travel("player_attack_left")
+			Vector2.DOWN: 
+				animation_state.travel("player_attack_down")
+			Vector2.UP: 
+				animation_state.travel("player_attack_up")
 
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		body.take_damage(damage, facing, knockback)
 
-# Timer to disable hitbox as animation gets 
-# interrupted and causes issues change animation to only rely on this for speed stat
-func _on_Timer_timeout():
-	hitbox.disabled = true
-	hitbox.position = Vector2(0,4)
-	$"Hitbox Cooldown".stop()
-
 func _on_Enemies_enemy_died(powerLevel):
 	print("got: ", powerLevel, " xp")
 	emit_signal("enemyPowerLevel",powerLevel)
-
 
 func _on_Stats_update_stats():
 	baseSpeed = (get_node("Stats").get_agility() * 10 + 240)
 	currentSpeed = baseSpeed
 	damage = (get_node("Stats").get_strength())
-	knockback = damage * 10
-	
+	knockback = damage * 100

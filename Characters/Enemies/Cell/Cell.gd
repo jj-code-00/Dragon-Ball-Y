@@ -31,7 +31,7 @@ func take_damage(damage, direction, knockback):
 	$"Damage Indicator".start(.1)
 	$Sprite.modulate = Color.red
 	directionHit = direction
-	knockbackRecieved = knockback * 20
+	knockbackRecieved = knockback
 	knockedBack = true
 
 func _on_Damage_Indicator_timeout():
