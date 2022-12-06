@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://Assets/DU-assets/Player Icons/Hades.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://images.jpg" type="Texture" id=5]
 [ext_resource path="res://NotoSans-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg" type="Texture" id=7]
+[ext_resource path="res://blue0517-4dfc85cb0200460ab717b101ac07888f.jpg" type="Texture" id=8]
+[ext_resource path="res://Black.png" type="Texture" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 10.0
@@ -623,7 +625,7 @@ states/player_meditation/node = SubResource( 84 )
 states/player_meditation/position = Vector2( -1273, -193 )
 transitions = [ "Idle", "Fly", SubResource( 23 ), "Fly", "Idle", SubResource( 24 ), "Idle", "Walk", SubResource( 34 ), "Walk", "Idle", SubResource( 35 ), "Fly", "Walk", SubResource( 36 ), "Walk", "Fly", SubResource( 37 ), "Idle", "player_attack_up", SubResource( 59 ), "Idle", "player_attack_down", SubResource( 60 ), "Idle", "player_attack_right", SubResource( 61 ), "Fly", "player_attack_up", SubResource( 62 ), "Fly", "player_attack_right", SubResource( 63 ), "Fly", "player_attack_left", SubResource( 64 ), "Fly", "player_attack_down", SubResource( 65 ), "Idle", "player_attack_left", SubResource( 66 ), "Walk", "player_attack_left", SubResource( 67 ), "Walk", "player_attack_up", SubResource( 68 ), "Walk", "player_attack_right", SubResource( 69 ), "Walk", "player_attack_down", SubResource( 70 ), "player_attack_down", "Fly", SubResource( 71 ), "player_attack_down", "Idle", SubResource( 72 ), "player_attack_down", "Walk", SubResource( 73 ), "player_attack_left", "Walk", SubResource( 74 ), "player_attack_left", "Fly", SubResource( 75 ), "player_attack_left", "Idle", SubResource( 76 ), "player_attack_up", "Fly", SubResource( 77 ), "player_attack_up", "Idle", SubResource( 78 ), "player_attack_up", "Walk", SubResource( 79 ), "player_attack_right", "Fly", SubResource( 80 ), "player_attack_right", "Idle", SubResource( 81 ), "player_attack_right", "Walk", SubResource( 82 ), "Idle", "player_meditation", SubResource( 85 ), "player_meditation", "Idle", SubResource( 86 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -1232, -408 )
+graph_offset = Vector2( -1518, -234 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
@@ -695,22 +697,33 @@ shape = SubResource( 53 )
 [node name="Level" type="RichTextLabel" parent="UI"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 35.0
-margin_top = -71.0
-margin_right = 87.0
-margin_bottom = -47.0
+margin_left = 34.0
+margin_top = -82.0
+margin_right = 86.0
+margin_bottom = -58.0
 custom_fonts/normal_font = SubResource( 54 )
 fit_content_height = true
 
-[node name="TextureProgress" type="TextureProgress" parent="UI"]
+[node name="HealthBar" type="TextureProgress" parent="UI"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 32.0
-margin_top = -41.0
+margin_top = -59.0
 margin_right = 247.0
-margin_bottom = -16.0
+margin_bottom = -34.0
 texture_under = ExtResource( 7 )
 texture_progress = ExtResource( 5 )
+nine_patch_stretch = true
+
+[node name="EnergyBar" type="TextureProgress" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -27.0
+margin_right = 247.0
+margin_bottom = -6.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 8 )
 nine_patch_stretch = true
 
 [connection signal="enemyPowerLevel" from="." to="Stats/Level Up Manager" method="_on_Player_enemyPowerLevel"]
