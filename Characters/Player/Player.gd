@@ -33,7 +33,10 @@ func _process(delta):
 		currentSpeed = get_node("Stats").agility * 10 + 240
 	else:
 		currentSpeed = (get_node("Stats").agility * 10 + 240) * 2
-	
+		$Stats.change_energy(-0.1)
+	if ($Stats.energy <= 0 && !not_flying):
+		not_flying = !not_flying
+		land()
 
 func _physics_process(delta):
 	if(canMove):
@@ -56,7 +59,7 @@ func select_animation():
 			animation_state.travel("Idle")
 		elif(not_flying):
 			animation_state.travel("Walk")
-		elif(!not_flying):
+		elif(!not_flying && $Stats.energy > 0):
 			animation_state.travel("Fly")
 
 func setBlendPos(facing):
@@ -66,24 +69,12 @@ func setBlendPos(facing):
 
 func _input(event):
 	#print(event)
-	if(event.is_action_pressed("i_fly") && canMove):
+	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 0):
 		not_flying = !not_flying
 		if (not_flying):
-			position.y += 8
-			#currentSpeed = (get_node("Stats").agility * 10 + 240)
-			z_index = 0
-			set_collision_layer_bit(0, true)
-			set_collision_layer_bit(1, false)
-			set_collision_mask_bit(1,false)
-			#set_collision_mask_bit(0,true)
+			land()
 		else:
-			position.y -= 8
-			#currentSpeed = (get_node("Stats").agility * 10 + 240) * 2
-			z_index = 1
-			set_collision_layer_bit(0, false)
-			set_collision_layer_bit(1, true)
-			set_collision_mask_bit(1,true)
-			#set_collision_mask_bit(0,false)
+			take_off()
 	if(event.is_action_pressed("i_attack") && canMove):
 		match facing.normalized():
 			Vector2.RIGHT: 
@@ -95,6 +86,9 @@ func _input(event):
 			Vector2.UP: 
 				animation_state.travel("player_attack_up")
 	if(event.is_action_pressed("i_meditate")):
+		if (!not_flying):
+			not_flying = !not_flying
+			land()
 		# consider restricting it to only non-flight
 		canMove = !canMove
 		animation_state.travel("player_meditation")
@@ -117,3 +111,20 @@ func _on_Stats_update_stats():
 		currentSpeed = baseSpeed * 2
 	damage = (get_node("Stats").strength)
 	knockback = damage * 100
+	
+func take_off():
+	position.y -= 8
+	#currentSpeed = (get_node("Stats").agility * 10 + 240) * 2
+	z_index = 1
+	set_collision_layer_bit(0, false)
+	set_collision_layer_bit(1, true)
+	set_collision_mask_bit(1,true)
+	#set_collision_mask_bit(0,false)
+func land():
+	position.y += 8
+	#currentSpeed = (get_node("Stats").agility * 10 + 240)
+	z_index = 0
+	set_collision_layer_bit(0, true)
+	set_collision_layer_bit(1, false)
+	set_collision_mask_bit(1,false)
+	#set_collision_mask_bit(0,true)
