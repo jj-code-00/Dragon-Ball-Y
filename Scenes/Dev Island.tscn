@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/DU-assets/2016/EarthTiles.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Characters/Enemies/Enemies.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Characters/Enemies/Cell/Cell.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Game Manager.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Spawner.gd" type="Script" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
@@ -81,6 +82,7 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 0/z_index = 0
 
 [node name="Dev Island" type="Node2D"]
+script = ExtResource( 4 )
 
 [node name="Ground Layers" type="Node2D" parent="."]
 
@@ -110,25 +112,22 @@ collision_mask = 0
 
 [node name="Enemies" parent="." instance=ExtResource( 3 )]
 
-[node name="Cell" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( -221, -144 )
+[node name="Spawner" type="Node2D" parent="Enemies"]
+script = ExtResource( 5 )
 
-[node name="Cell2" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 221, 137 )
+[node name="Timer" type="Timer" parent="Enemies/Spawner"]
 
-[node name="Cell3" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 225, -124 )
+[node name="Spawn1" type="Node2D" parent="Enemies/Spawner"]
+position = Vector2( -369, -220 )
 
-[node name="Cell4" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( -44, 150 )
+[node name="Spawn2" type="Node2D" parent="Enemies/Spawner"]
+position = Vector2( 323, -209 )
 
-[node name="Cell5" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( -302, 45 )
+[node name="Spawn3" type="Node2D" parent="Enemies/Spawner"]
+position = Vector2( -345, 138 )
 
-[node name="Cell6" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( 438, -193 )
-
-[node name="Cell7" parent="Enemies" instance=ExtResource( 4 )]
-position = Vector2( -29, -202 )
+[node name="Spawn4" type="Node2D" parent="Enemies/Spawner"]
+position = Vector2( 343, 156 )
 
 [connection signal="enemy_died" from="Enemies" to="Player" method="_on_Enemies_enemy_died"]
+[connection signal="timeout" from="Enemies/Spawner/Timer" to="Enemies/Spawner" method="_on_Timer_timeout"]
