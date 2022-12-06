@@ -610,10 +610,18 @@ graph_offset = Vector2( -1199, -376 )
 [sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 10, 15 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 2 )
 
 [node name="Stats" parent="." instance=ExtResource( 3 )]
+
+[node name="ProgressBar" type="ProgressBar" parent="Stats"]
+margin_left = -23.0
+margin_top = -33.0
+margin_right = 24.0
+margin_bottom = -19.0
+
+[node name="Damage Indicator" type="Timer" parent="Stats"]
 
 [node name="Level Up Manager" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -674,6 +682,7 @@ shape = SubResource( 53 )
 
 [connection signal="enemyPowerLevel" from="." to="Level Up Manager" method="_on_Player_enemyPowerLevel"]
 [connection signal="update_stats" from="Stats" to="." method="_on_Stats_update_stats"]
+[connection signal="timeout" from="Stats/Damage Indicator" to="Stats" method="_on_Damage_Indicator_timeout"]
 [connection signal="level_up" from="Level Up Manager" to="Stats" method="_on_Level_Up_Manager_level_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

@@ -3,6 +3,7 @@ extends Node2D
 signal update_stats()
 
 var health # Lifeforce, when it runs out you die
+var maxHealth
 var energy # Decreases drain from majority of actions.
 
 var strength # Primary damage stat for Physical Damage.
@@ -11,10 +12,16 @@ var agility # Decreases delay between actions &  Decreases your chance to be hit
 var force # Primary damage stat for Ki Damage.
 var accuracy # Increases your chance to hit. Reduced chance of deflection.
 var powerLevel # total Strength
+onready var healthBar = $ProgressBar
+
+func _process(delta):
+	if (health <= 0):
+		get_tree().reload_current_scene()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	health = 10
+	maxHealth = 10
+	health = maxHealth
 	energy = 20
 	strength = 1
 	defense = 1
@@ -23,6 +30,7 @@ func _ready():
 	accuracy = 1
 	powerLevel = 5
 	emit_signal("update_stats")
+	healthBar.value = (health * 100 / maxHealth)
 
 func get_health(): 
 	return health
@@ -48,7 +56,7 @@ func get_accuracy():
 func set_stats(stat, amount):
 	match stat:
 		"health": 
-			health += amount * 5
+			maxHealth += amount * 5
 		"energy":
 			energy += amount * 10
 		"strength":
@@ -62,7 +70,7 @@ func set_stats(stat, amount):
 		"accuracy":
 			accuracy += amount
 		"all":
-			health += amount * 5
+			maxHealth += amount * 5
 			energy += amount * 10
 			strength += amount
 			defense += amount
@@ -71,7 +79,18 @@ func set_stats(stat, amount):
 			accuracy += amount
 			
 	powerLevel = strength + defense + agility + force + accuracy
+	healthBar.value = (health * 100 / maxHealth)
 	emit_signal("update_stats")
 
 func _on_Level_Up_Manager_level_up():
 	set_stats("all", 1)
+	
+func change_health(value):
+	health += value
+	healthBar.value = (health * 100 / maxHealth)
+	$"Damage Indicator".start(.1)
+	get_parent().get_node("Sprite").modulate = Color.red
+
+
+func _on_Damage_Indicator_timeout():
+	get_parent().get_node("Sprite").modulate = Color.white

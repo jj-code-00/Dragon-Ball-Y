@@ -92,6 +92,9 @@ func _on_Enemies_enemy_died(powerLevel):
 
 func _on_Stats_update_stats():
 	baseSpeed = (get_node("Stats").get_agility() * 10 + 240)
-	currentSpeed = baseSpeed
+	if(not_flying):
+		currentSpeed = baseSpeed
+	else:
+		currentSpeed = baseSpeed * 2
 	damage = (get_node("Stats").get_strength())
 	knockback = damage * 100
