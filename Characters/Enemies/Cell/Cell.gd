@@ -59,7 +59,6 @@ func _on_Damage_Indicator_timeout():
 
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Player")):
-		print("in")
 		canAttack = true
 
 func _on_Area2D_body_exited(body):
