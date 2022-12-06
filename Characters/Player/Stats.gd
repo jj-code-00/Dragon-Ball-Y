@@ -27,8 +27,8 @@ func _process(delta):
 	if (health <= 0):
 		get_tree().reload_current_scene()
 	if(regen):
-		change_health(maxHealth * 0.0001)
-		change_energy(maxEnergy * 0.0001)
+		change_health(maxHealth * 0.0005)
+		change_energy(maxEnergy * 0.001)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -96,12 +96,12 @@ func change_health(value):
 	else:
 		health += value
 	
-	clamp(health, 0, maxHealth)
+	health = clamp(health, 0, maxHealth)
 	healthBar.value = (health * 100 / maxHealth)
 
 func change_energy(value):
 	energy += value
-	clamp(energy, 0, maxEnergy)
+	energy = clamp(energy, 0, maxEnergy)
 	energyBar.value = (energy * 100 / maxEnergy)
 
 func _on_Damage_Indicator_timeout():

@@ -8,7 +8,7 @@ func _ready():
 
 func _on_Player_ki_blast():
 	if(has_ki_blast && get_parent().energy > 5.0):
-		get_parent().change_energy(-5)
+		get_parent().change_energy(-2.5)
 		var scene = load("res://Ki Attacks/Ki Blast.tscn")
 		var ki_blast = scene.instance()
 		ki_blast.position = get_parent().get_parent().position + (get_parent().get_parent().facing.normalized() * 32)
