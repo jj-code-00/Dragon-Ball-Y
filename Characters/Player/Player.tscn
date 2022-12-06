@@ -1,14 +1,12 @@
-[gd_scene load_steps=81 format=2]
+[gd_scene load_steps=83 format=2]
 
 [ext_resource path="res://Assets/DU-assets/Player Icons/Hades.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Characters/Stats.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Characters/Player/Level Up Manager.gd" type="Script" id=4]
+[ext_resource path="res://images.jpg" type="Texture" id=5]
 [ext_resource path="res://NotoSans-Regular.ttf" type="DynamicFontData" id=6]
-
-[sub_resource type="DynamicFont" id=54]
-size = 10
-font_data = ExtResource( 6 )
+[ext_resource path="res://TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg" type="Texture" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 10.0
@@ -632,29 +630,19 @@ graph_offset = Vector2( -1232, -408 )
 [sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 10, 15 )
 
+[sub_resource type="DynamicFont" id=54]
+size = 14
+font_data = ExtResource( 6 )
+
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 2 )
 
 [node name="Stats" parent="." instance=ExtResource( 3 )]
 
-[node name="ProgressBar" type="ProgressBar" parent="Stats"]
-margin_left = -23.0
-margin_top = -39.0
-margin_right = 24.0
-margin_bottom = -25.0
-
 [node name="Damage Indicator" type="Timer" parent="Stats"]
 
 [node name="Level Up Manager" type="Node2D" parent="Stats"]
 script = ExtResource( 4 )
-
-[node name="Level" type="RichTextLabel" parent="Stats/Level Up Manager"]
-margin_left = -19.0
-margin_top = -26.0
-margin_right = 33.0
-margin_bottom = -11.0
-custom_fonts/normal_font = SubResource( 54 )
-fit_content_height = true
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -701,6 +689,29 @@ parameters/Walk/blend_position = Vector2( 0, 0 )
 [node name="Hitbox" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -21, 4 )
 shape = SubResource( 53 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Level" type="RichTextLabel" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 35.0
+margin_top = -71.0
+margin_right = 87.0
+margin_bottom = -47.0
+custom_fonts/normal_font = SubResource( 54 )
+fit_content_height = true
+
+[node name="TextureProgress" type="TextureProgress" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -41.0
+margin_right = 247.0
+margin_bottom = -16.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 5 )
+nine_patch_stretch = true
 
 [connection signal="enemyPowerLevel" from="." to="Stats/Level Up Manager" method="_on_Player_enemyPowerLevel"]
 [connection signal="regen" from="." to="Stats" method="_on_Player_regen"]
