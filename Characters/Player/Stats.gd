@@ -12,7 +12,7 @@ var agility # Decreases delay between actions &  Decreases your chance to be hit
 var force # Primary damage stat for Ki Damage.
 var accuracy # Increases your chance to hit. Reduced chance of deflection.
 var powerLevel # total Strength
-onready var healthBar = $ProgressBar
+onready var healthBar = get_parent().get_node("UI/TextureProgress")
 var regen = false
 
 func _process(delta):

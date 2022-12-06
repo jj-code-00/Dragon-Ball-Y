@@ -11,7 +11,7 @@ var damage = 1
 var baseSpeed = 200
 var currentSpeed
 
-onready var healthBar = $ProgressBar
+onready var healthBar = $TextureProgress
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
 onready var hitCooldown = $"Hit Cooldown"
 

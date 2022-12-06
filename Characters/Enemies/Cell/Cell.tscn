@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/DU-assets/display player.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Enemies/Cell/Cell.gd" type="Script" id=2]
+[ext_resource path="res://images.jpg" type="Texture" id=3]
+[ext_resource path="res://TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20, 31.5 )
@@ -21,12 +23,6 @@ shape = SubResource( 1 )
 
 [node name="Damage Indicator" type="Timer" parent="."]
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-margin_left = -21.0
-margin_top = -50.0
-margin_right = 22.0
-margin_bottom = -36.0
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -34,6 +30,17 @@ shape = SubResource( 2 )
 
 [node name="Hit Cooldown" type="Timer" parent="."]
 one_shot = true
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -19.5
+margin_top = -40.0
+margin_right = 19.5
+margin_bottom = -35.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
+nine_patch_stretch = true
 
 [connection signal="timeout" from="Damage Indicator" to="." method="_on_Damage_Indicator_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

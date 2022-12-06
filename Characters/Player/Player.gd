@@ -95,6 +95,7 @@ func _input(event):
 			Vector2.UP: 
 				animation_state.travel("player_attack_up")
 	if(event.is_action_pressed("i_meditate")):
+		# consider restricting it to only non-flight
 		canMove = !canMove
 		animation_state.travel("player_meditation")
 		emit_signal("regen")
