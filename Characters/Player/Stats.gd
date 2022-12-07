@@ -36,7 +36,7 @@ func _ready():
 	health = maxHealth
 	maxEnergy = 20.0
 	energy = maxEnergy
-	strength = 10.0
+	strength = 1.0
 	defense = 1.0
 	agility = 1.0
 	force = 1.0

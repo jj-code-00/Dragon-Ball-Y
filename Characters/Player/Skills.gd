@@ -24,4 +24,5 @@ func _on_Level_Up_Manager_ki_attack_unlocked():
 
 
 func _on_Level_Up_Manager_flight_unlocked():
+	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can now Fly! Hit R")
 	has_flight = true

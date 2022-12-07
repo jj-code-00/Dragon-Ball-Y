@@ -12,8 +12,8 @@ var killsNum = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	console.add_text("Welcome to Cell island!\nYour goal is to kill as many as possible without dying.\n")
-	console.add_text("Controls:\nMove - WASD\nFly - R\nPunch - SPACE or left click\nMeditate - J\n")
+	console.add_text("Welcome to Cell island!\nThere are Cells for you to kill to the left.\n")
+	console.add_text("Controls:\nMove - WASD\nPunch - SPACE or left click\nMeditate - J\n")
 	kills.text = "Kills: 0"
 	pass # Replace with function body.
 
