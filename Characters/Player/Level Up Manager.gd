@@ -3,7 +3,7 @@ extends Node2D
 onready var stats = get_parent()
 var powerLevel
 var level
-var xpToLevelUp = 10
+var xpToLevelUp
 var totalXp
 onready var levelDisplay = get_parent().get_parent().get_node("UI/Level")
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
@@ -23,14 +23,11 @@ func _process(delta):
 	levelDisplay.text = string
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(stats)
 	powerLevel = stats.powerLevel
 	level = 1
 	totalXp = 0
-	
-	var string = "PL: "
-	string += str(powerLevel)
-	levelDisplay.text = string
+	level_up_formula()
+	update_level_display()
 
 func _on_Player_enemyPowerLevel(powerLevel):
 	kills = kills + 1
@@ -43,8 +40,14 @@ func _on_Player_enemyPowerLevel(powerLevel):
 		elif (level == 3):
 			emit_signal("ki_attack_unlocked")
 		powerLevel = get_parent().powerLevel
-		xpToLevelUp = xpToLevelUp * 2
+		level_up_formula()
 		gameManager.print_to_console("Level Up!")
-		var string = "PL: "
-		string += str(powerLevel)
-		levelDisplay.text = string
+		update_level_display()
+
+func level_up_formula():
+	xpToLevelUp = pow(level/.5, 2)
+	
+func update_level_display():
+	var string = "PL: "
+	string += str(powerLevel)
+	levelDisplay.text = string

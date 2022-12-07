@@ -12,12 +12,14 @@ var not_flying = true
 var damage = 1
 var knockback
 var canMove = true
+var zoomLevel
 
 # On start 
 onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var animation_state = animation_tree.get("parameters/playback")
 onready var hitbox = $Area2D/Hitbox
+onready var cam = $Camera2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +28,7 @@ func _ready():
 	animation_state.travel("Idle")
 	currentSpeed = baseSpeed
 	knockback = damage * 10
+	zoomLevel = cam.get_zoom()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -96,6 +99,19 @@ func _input(event):
 		emit_signal("regen")
 	if(event.is_action_pressed("i_ki_blast")):
 		emit_signal("ki_blast")
+	if(event.is_action_pressed("i_zoom_in")):
+		zoomLevel.x -= .1
+		zoomLevel.y -= .1
+		zoomLevel.x = clamp(zoomLevel.x,0.1,1)
+		zoomLevel.y = clamp(zoomLevel.y,0.1,1)
+		cam.set_zoom(zoomLevel)
+
+	elif(event.is_action_pressed("i_zoom_out")):
+		zoomLevel.x += .1
+		zoomLevel.y += .1
+		zoomLevel.x = clamp(zoomLevel.x,0.1,1)
+		zoomLevel.y = clamp(zoomLevel.y,0.1,1)
+		cam.set_zoom(zoomLevel)
 
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
