@@ -16,12 +16,16 @@ var combatLogged = false
 onready var healthBar = $TextureProgress
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
 onready var hitCooldown = $"Hit Cooldown"
+var rng = RandomNumberGenerator.new()
+var angle
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.randomize()
 	currentSpeed = baseSpeed
 	healthBar.value = 100
 	currentHealth = maxHealth
+	angle = rng.randf_range(0.0, 360.0)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -37,6 +41,10 @@ func _physics_process(delta):
 	if (sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  >= 32 && sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  <= 512 || combatLogged):
 		var player_direction = player_distance.normalized()
 		move_and_slide(player_direction * currentSpeed)
+	else:
+		move_and_slide((Vector2.RIGHT.rotated((angle * PI)/180)) * (currentSpeed /2)) 
+	if($"Change Direction".is_stopped()):
+		$"Change Direction".start(3)
 	if(knockedBack):
 		move_and_slide(directionHit * knockbackRecieved * delta)
 
@@ -71,3 +79,7 @@ func _on_Area2D_body_exited(body):
 
 func _on_Combat_Log_Timer_timeout():
 	combatLogged = false
+
+
+func _on_Change_Direction_timeout():
+	angle = rng.randf_range(0.0, 360.0)

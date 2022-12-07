@@ -46,7 +46,11 @@ nine_patch_stretch = true
 [node name="Combat Log Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Change Direction" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Damage Indicator" to="." method="_on_Damage_Indicator_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="timeout" from="Combat Log Timer" to="." method="_on_Combat_Log_Timer_timeout"]
+[connection signal="timeout" from="Change Direction" to="." method="_on_Change_Direction_timeout"]
