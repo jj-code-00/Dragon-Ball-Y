@@ -13,6 +13,7 @@ onready var spawn7 = $Spawn7.position
 onready var spawn8 = $Spawn8.position
 onready var spawn9 = $Spawn9.position
 onready var spawn10 = $Spawn10.position
+signal spawned
 
 var num
 # Declare member variables here. Examples:
@@ -28,7 +29,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	num = num % 10
-	if(spawnAgain):
+	if(spawnAgain && !get_tree().get_root().get_node("Dev Island").enemyLimitReached):
 		spawn()
 		$Timer.start(5)
 		spawnAgain = false
@@ -60,6 +61,7 @@ func spawn():
 			cell.position = spawn10
 	
 	add_child(cell)
+	emit_signal("spawned")
 	num = num + 1
 	
 func _on_Timer_timeout():

@@ -38,10 +38,10 @@ func _process(delta):
 
 func _physics_process(delta):
 	var player_distance = gameManager.get_player_position() - self.position
-	if (sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  >= 32 && sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  <= 512 || combatLogged):
-		var player_direction = player_distance.normalized()
-		move_and_slide(player_direction * currentSpeed)
-	else:
+	if (player_distance.length() >= 32 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 32):
+			var player_direction = player_distance.normalized()
+			move_and_slide(player_direction * currentSpeed)
+	elif(player_distance.length() >= 512):
 		move_and_slide((Vector2.RIGHT.rotated((angle * PI)/180)) * (currentSpeed /2)) 
 	if($"Change Direction".is_stopped()):
 		$"Change Direction".start(3)

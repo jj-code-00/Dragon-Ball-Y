@@ -5,6 +5,8 @@ onready var console = $UI/RichTextLabel
 onready var kills = $UI/Kills
 var player_position
 var killsNum = 0
+var enemyNum = 0
+var enemyLimitReached = false
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -22,6 +24,10 @@ func _ready():
 func _process(delta):
 	player_position = player.position
 	
+	if(enemyNum >= 50):
+		enemyLimitReached = true
+	else:
+		enemyLimitReached = false
 func get_player_position():
 	return player_position
 func get_player():
@@ -37,3 +43,11 @@ func _on_Player_enemyPowerLevel(powerLevel):
 	kills.text = "Kills: "
 	var string = str(killsNum)
 	kills.add_text(string)
+
+
+func _on_Spawner_spawned():
+	enemyNum = enemyNum + 1
+
+
+func _on_Enemies_enemy_died(powerLevel):
+	enemyNum = enemyNum - 1
