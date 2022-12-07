@@ -160,7 +160,7 @@ func _input(event):
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
-		body.take_damage(get_node("Stats").strength, facing, knockback)
+		body.take_damage(get_node("Stats").strength, aiming, knockback)
 		$"Combat Log Timer".start(1)
 		combat_logged = true
 
