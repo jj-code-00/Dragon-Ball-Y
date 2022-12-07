@@ -42,7 +42,7 @@ func _physics_process(delta):
 		move_and_slide(directionHit * knockbackRecieved)
 	elif(canMove):
 		var player_distance = gameManager.get_player_position() - self.position
-		if (player_distance.length() >= 32 && player_distance.length() <= 256 || combatLogged && player_distance.length() >= 32):
+		if (player_distance.length() >= 32 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 32):
 			var player_direction = player_distance.normalized()
 			move_and_slide(player_direction * currentSpeed)
 		elif(player_distance.length() >= 512):
@@ -66,7 +66,7 @@ func take_damage(strength, direction, knockback):
 	knockedBack = true
 	$"Knockback Timer".start(.2)
 	combatLogged = true
-	$"Combat Log Timer".start(10)
+	$"Combat Log Timer".start(5)
 
 func _on_Damage_Indicator_timeout():
 	$Sprite.modulate = Color.white
@@ -75,7 +75,7 @@ func _on_Damage_Indicator_timeout():
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Player")):
 		combatLogged = true
-		$"Combat Log Timer".start(10)
+		$"Combat Log Timer".start(5)
 		canAttack = true
 
 func _on_Area2D_body_exited(body):
