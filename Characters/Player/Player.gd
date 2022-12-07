@@ -122,6 +122,8 @@ func _input(event):
 			take_off()
 	if(event.is_action_pressed("i_attack") && canMove && !blockInput):
 		animation_state.travel("Attack")
+		hitbox.disabled = false
+		$"Area2D/Attack Cooldown".start(.2)
 	if(event.is_action_pressed("i_meditate") && !blockInput):
 		if (!not_flying):
 			not_flying = !not_flying
@@ -201,3 +203,7 @@ func _on_Per_Second_Timer_timeout():
 
 func _on_Combat_Log_Timer_timeout():
 	combat_logged = false
+
+
+func _on_Attack_Cooldown_timeout():
+	hitbox.disabled = true
