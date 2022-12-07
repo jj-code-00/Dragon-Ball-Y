@@ -54,7 +54,7 @@ func _process(delta):
 		blockInput = true
 		animation_state.travel("Idle")
 		$Aura.visible = true
-	else :
+	elif(Input.is_action_just_released("i_increase_release")) :
 		canMove = true
 		blockInput = false
 		if(!is_transformed):
@@ -118,17 +118,17 @@ func _input(event):
 	if(event.is_action_pressed("i_ki_blast")):
 		emit_signal("ki_blast")
 	if(event.is_action_pressed("i_zoom_in")):
-		zoomLevel.x -= .1
-		zoomLevel.y -= .1
-		zoomLevel.x = clamp(zoomLevel.x,0.1,1)
-		zoomLevel.y = clamp(zoomLevel.y,0.1,1)
+		zoomLevel.x -= .5
+		zoomLevel.y -= .5
+		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
+		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
 
 	elif(event.is_action_pressed("i_zoom_out")):
-		zoomLevel.x += .1
-		zoomLevel.y += .1
-		zoomLevel.x = clamp(zoomLevel.x,0.1,1)
-		zoomLevel.y = clamp(zoomLevel.y,0.1,1)
+		zoomLevel.x += .5
+		zoomLevel.y += .5
+		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
+		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
 	if(event.is_action_pressed("i_transform_1")):
 		emit_signal("transform_one")

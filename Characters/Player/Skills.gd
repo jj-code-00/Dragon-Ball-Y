@@ -30,7 +30,7 @@ func _on_Level_Up_Manager_flight_unlocked():
 
 
 func _on_Player_transform_one():
-	get_parent().get_parent().get_node("Hair").modulate = Color(100.0,3.49,0.58)
+	get_parent().get_parent().get_node("Hair").modulate = Color(3.46,2.33,0)
 	get_parent().get_parent().get_node("Aura").modulate = Color(4.05,3.49,0.37) 
 	get_parent().get_parent().get_node("Aura").modulate.a = 0.25
 	get_parent().get_parent().get_node("Aura").visible = true

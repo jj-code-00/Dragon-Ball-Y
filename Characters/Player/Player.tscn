@@ -1235,7 +1235,6 @@ texture_progress = ExtResource( 8 )
 nine_patch_stretch = true
 
 [node name="Hair" type="Sprite" parent="."]
-modulate = Color( 1, 0.956863, 0.819608, 1 )
 position = Vector2( 0, 1 )
 texture = ExtResource( 11 )
 hframes = 38
@@ -1244,7 +1243,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 8
+frame = 9
 playing = true
 
 [connection signal="base_form" from="." to="Stats/Skills" method="_on_Player_base_form"]
