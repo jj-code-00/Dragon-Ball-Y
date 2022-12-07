@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://Assets/DU-assets/Player Icons/Hades.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=2]
@@ -107,48 +107,24 @@ tracks/0/keys = {
 "values": [ 25 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Area2D/Hitbox:disabled")
+tracks/1/path = NodePath("Hair:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Area2D/Hitbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( 0, 14 ), Vector2( 0, 4 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Hair:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 3 ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Hair:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hair:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -171,48 +147,24 @@ tracks/0/keys = {
 "values": [ 27 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Area2D/Hitbox:disabled")
+tracks/1/path = NodePath("Hair:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Area2D/Hitbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( -21, 4 ), Vector2( 0, 4 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Hair:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 3 ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Hair:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hair:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -235,48 +187,24 @@ tracks/0/keys = {
 "values": [ 26 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Area2D/Hitbox:disabled")
+tracks/1/path = NodePath("Hair:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Area2D/Hitbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( 21, 4 ), Vector2( 0, 4 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Hair:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 6 ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Hair:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hair:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -299,48 +227,24 @@ tracks/0/keys = {
 "values": [ 18 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Area2D/Hitbox:disabled")
+tracks/1/path = NodePath("Hair:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Area2D/Hitbox:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ Vector2( 0, -6 ), Vector2( 0, 4 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Hair:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 6 ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("Hair:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hair:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -893,6 +797,29 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 0 ), Vector2( 0, 1 ) ]
 }
 
+[sub_resource type="AnimationNodeAnimation" id=98]
+animation = "player_attack_left"
+
+[sub_resource type="AnimationNodeAnimation" id=99]
+animation = "player_attack_down"
+
+[sub_resource type="AnimationNodeAnimation" id=100]
+animation = "player_attack_right"
+
+[sub_resource type="AnimationNodeAnimation" id=101]
+animation = "player_attack_up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=102]
+blend_point_0/node = SubResource( 98 )
+blend_point_0/pos = Vector2( -1, 0 )
+blend_point_1/node = SubResource( 99 )
+blend_point_1/pos = Vector2( 0, 1 )
+blend_point_2/node = SubResource( 100 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 101 )
+blend_point_3/pos = Vector2( 0, -1 )
+blend_mode = 1
+
 [sub_resource type="AnimationNodeAnimation" id=18]
 animation = "player_fly_left"
 
@@ -962,18 +889,6 @@ blend_point_3/node = SubResource( 32 )
 blend_point_3/pos = Vector2( 0, -1 )
 blend_mode = 1
 
-[sub_resource type="AnimationNodeAnimation" id=55]
-animation = "player_attack_down"
-
-[sub_resource type="AnimationNodeAnimation" id=56]
-animation = "player_attack_left"
-
-[sub_resource type="AnimationNodeAnimation" id=57]
-animation = "player_attack_right"
-
-[sub_resource type="AnimationNodeAnimation" id=58]
-animation = "player_attack_up"
-
 [sub_resource type="AnimationNodeAnimation" id=84]
 animation = "player_meditation"
 
@@ -989,95 +904,44 @@ animation = "player_meditation"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=37]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=59]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=60]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=61]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=62]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=63]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=64]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=65]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=66]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=67]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=68]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=69]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=70]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=71]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=72]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=73]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=74]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=75]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=76]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=77]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=78]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=79]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=80]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=81]
-switch_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=82]
-switch_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=85]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=86]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=103]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=104]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=105]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=106]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=107]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=108]
+
 [sub_resource type="AnimationNodeStateMachine" id=12]
+states/Attack/node = SubResource( 102 )
+states/Attack/position = Vector2( -724, 194 )
 states/Fly/node = SubResource( 22 )
 states/Fly/position = Vector2( -724, 90 )
 states/Idle/node = SubResource( 11 )
 states/Idle/position = Vector2( -994, 90 )
 states/Walk/node = SubResource( 33 )
 states/Walk/position = Vector2( -994, 194 )
-states/player_attack_down/node = SubResource( 55 )
-states/player_attack_down/position = Vector2( -407, 295 )
-states/player_attack_left/node = SubResource( 56 )
-states/player_attack_left/position = Vector2( -787, -375 )
-states/player_attack_right/node = SubResource( 57 )
-states/player_attack_right/position = Vector2( -34, -327 )
-states/player_attack_up/node = SubResource( 58 )
-states/player_attack_up/position = Vector2( -7, -64 )
 states/player_meditation/node = SubResource( 84 )
 states/player_meditation/position = Vector2( -1273, -193 )
-transitions = [ "Idle", "Fly", SubResource( 23 ), "Fly", "Idle", SubResource( 24 ), "Idle", "Walk", SubResource( 34 ), "Walk", "Idle", SubResource( 35 ), "Fly", "Walk", SubResource( 36 ), "Walk", "Fly", SubResource( 37 ), "Idle", "player_attack_up", SubResource( 59 ), "Idle", "player_attack_down", SubResource( 60 ), "Idle", "player_attack_right", SubResource( 61 ), "Fly", "player_attack_up", SubResource( 62 ), "Fly", "player_attack_right", SubResource( 63 ), "Fly", "player_attack_left", SubResource( 64 ), "Fly", "player_attack_down", SubResource( 65 ), "Idle", "player_attack_left", SubResource( 66 ), "Walk", "player_attack_left", SubResource( 67 ), "Walk", "player_attack_up", SubResource( 68 ), "Walk", "player_attack_right", SubResource( 69 ), "Walk", "player_attack_down", SubResource( 70 ), "player_attack_down", "Fly", SubResource( 71 ), "player_attack_down", "Idle", SubResource( 72 ), "player_attack_down", "Walk", SubResource( 73 ), "player_attack_left", "Walk", SubResource( 74 ), "player_attack_left", "Fly", SubResource( 75 ), "player_attack_left", "Idle", SubResource( 76 ), "player_attack_up", "Fly", SubResource( 77 ), "player_attack_up", "Idle", SubResource( 78 ), "player_attack_up", "Walk", SubResource( 79 ), "player_attack_right", "Fly", SubResource( 80 ), "player_attack_right", "Idle", SubResource( 81 ), "player_attack_right", "Walk", SubResource( 82 ), "Idle", "player_meditation", SubResource( 85 ), "player_meditation", "Idle", SubResource( 86 ) ]
+transitions = [ "Idle", "Fly", SubResource( 23 ), "Fly", "Idle", SubResource( 24 ), "Idle", "Walk", SubResource( 34 ), "Walk", "Idle", SubResource( 35 ), "Fly", "Walk", SubResource( 36 ), "Walk", "Fly", SubResource( 37 ), "Idle", "player_meditation", SubResource( 85 ), "player_meditation", "Idle", SubResource( 86 ), "Walk", "Attack", SubResource( 103 ), "Attack", "Walk", SubResource( 104 ), "Attack", "Fly", SubResource( 105 ), "Fly", "Attack", SubResource( 106 ), "Attack", "Idle", SubResource( 107 ), "Idle", "Attack", SubResource( 108 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -1539, -493 )
+graph_offset = Vector2( -1402, 17 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
 [sub_resource type="RectangleShape2D" id=53]
-extents = Vector2( 10, 15 )
+extents = Vector2( 8.5, 14.5 )
 
 [sub_resource type="DynamicFont" id=54]
 size = 14
@@ -1190,6 +1054,7 @@ tree_root = SubResource( 12 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 13 )
+parameters/Attack/blend_position = Vector2( 0, 0 )
 parameters/Fly/blend_position = Vector2( 0, 0 )
 parameters/Idle/blend_position = Vector2( 0, 0 )
 parameters/Walk/blend_position = Vector2( 0, 0 )
@@ -1243,7 +1108,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 7
+frame = 3
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]

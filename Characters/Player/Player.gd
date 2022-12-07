@@ -21,6 +21,7 @@ var blockInput = false
 var is_transformed = false
 var combat_logged = false
 var is_meditating = false
+var aiming
 
 # On start 
 onready var animation_player = $AnimationPlayer
@@ -43,6 +44,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	aiming = (get_global_mouse_position() - self.position).normalized()
+	hitbox.position = aiming * 16
+	hitbox.look_at(get_global_mouse_position())
 	select_animation()
 	if(not_flying):
 		currentSpeed = get_node("Stats").agility * 10 + 240
@@ -103,6 +107,7 @@ func setBlendPos(facing):
 	animation_tree.set("parameters/Idle/blend_position", facing)
 	animation_tree.set("parameters/Walk/blend_position", facing)
 	animation_tree.set("parameters/Fly/blend_position", facing)
+	animation_tree.set("parameters/Attack/blend_position", aiming)
 
 func _input(event):
 	#print(event)
@@ -113,15 +118,21 @@ func _input(event):
 		else:
 			take_off()
 	if(event.is_action_pressed("i_attack") && canMove && !blockInput):
-		match facing.normalized():
-			Vector2.RIGHT: 
-				animation_state.travel("player_attack_right")
-			Vector2.LEFT: 
-				animation_state.travel("player_attack_left")
-			Vector2.DOWN: 
-				animation_state.travel("player_attack_down")
-			Vector2.UP: 
-				animation_state.travel("player_attack_up")
+		animation_state.travel("Attack")
+		hitbox.disabled = false
+		pass
+#		match facing.normalized():
+#			Vector2.RIGHT: 
+#				animation_state.travel("player_attack_right")
+#			Vector2.LEFT: 
+#				animation_state.travel("player_attack_left")
+#			Vector2.DOWN: 
+#				animation_state.travel("player_attack_down")
+#			Vector2.UP: 
+#				animation_state.travel("player_attack_up")
+	if(event.is_action_released("i_attack")):
+		hitbox.disabled = true
+		pass
 	if(event.is_action_pressed("i_meditate") && !blockInput):
 		if (!not_flying):
 			not_flying = !not_flying
