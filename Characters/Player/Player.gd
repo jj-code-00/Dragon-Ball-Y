@@ -29,6 +29,7 @@ onready var animation_tree = $AnimationTree
 onready var animation_state = animation_tree.get("parameters/playback")
 onready var hitbox = $Area2D/Hitbox
 onready var cam = $Camera2D
+onready var direction_cursor = $"Direction Cursor"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,7 +47,9 @@ func _ready():
 func _process(delta):
 	aiming = (get_global_mouse_position() - self.position).normalized()
 	hitbox.position = aiming * 16
+	direction_cursor.position = aiming * 16
 	hitbox.look_at(get_global_mouse_position())
+	direction_cursor.look_at(get_global_mouse_position())
 	select_animation()
 	if(not_flying):
 		currentSpeed = get_node("Stats").agility * 10 + 240
@@ -119,20 +122,6 @@ func _input(event):
 			take_off()
 	if(event.is_action_pressed("i_attack") && canMove && !blockInput):
 		animation_state.travel("Attack")
-		hitbox.disabled = false
-		pass
-#		match facing.normalized():
-#			Vector2.RIGHT: 
-#				animation_state.travel("player_attack_right")
-#			Vector2.LEFT: 
-#				animation_state.travel("player_attack_left")
-#			Vector2.DOWN: 
-#				animation_state.travel("player_attack_down")
-#			Vector2.UP: 
-#				animation_state.travel("player_attack_up")
-	if(event.is_action_released("i_attack")):
-		hitbox.disabled = true
-		pass
 	if(event.is_action_pressed("i_meditate") && !blockInput):
 		if (!not_flying):
 			not_flying = !not_flying
