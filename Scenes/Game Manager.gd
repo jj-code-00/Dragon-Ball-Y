@@ -15,7 +15,7 @@ var enemyLimitReached = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	console.add_text("Welcome to Cell island!\nThere are Cells for you to kill to the left.\n")
-	console.add_text("Controls:\nMove - WASD\nPunch - SPACE or left click\nMeditate - J\n")
+	console.add_text("Controls:\nMove - WASD\nPunch - SPACE or left click\nMeditate - J\nRemember to aim your punches with your mouse!\n")
 	kills.text = "Kills: 0"
 	pass # Replace with function body.
 

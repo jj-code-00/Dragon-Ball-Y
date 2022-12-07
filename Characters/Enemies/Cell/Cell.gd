@@ -42,7 +42,7 @@ func _physics_process(delta):
 		move_and_slide(directionHit * knockbackRecieved)
 	elif(canMove):
 		var player_distance = gameManager.get_player_position() - self.position
-		if (player_distance.length() >= 32 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 32):
+		if (player_distance.length() >= 32 && player_distance.length() <= 256 || combatLogged && player_distance.length() >= 32):
 			var player_direction = player_distance.normalized()
 			move_and_slide(player_direction * currentSpeed)
 		elif(player_distance.length() >= 512):
