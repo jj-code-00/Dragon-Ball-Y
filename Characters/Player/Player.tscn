@@ -1243,7 +1243,6 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 9
 playing = true
 
 [connection signal="base_form" from="." to="Stats/Skills" method="_on_Player_base_form"]
@@ -1256,5 +1255,6 @@ playing = true
 [connection signal="flight_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_flight_unlocked"]
 [connection signal="ki_attack_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_ki_attack_unlocked"]
 [connection signal="level_up" from="Stats/Level Up Manager" to="Stats" method="_on_Level_Up_Manager_level_up"]
+[connection signal="transform_1_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_transform_1_unlocked"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
