@@ -37,16 +37,17 @@ func _process(delta):
 		queue_free()
 
 func _physics_process(delta):
-	var player_distance = gameManager.get_player_position() - self.position
-	if (sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  >= 32 && sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  <= 512 || combatLogged):
-		var player_direction = player_distance.normalized()
-		move_and_slide(player_direction * currentSpeed)
-	else:
-		move_and_slide((Vector2.RIGHT.rotated((angle * PI)/180)) * (currentSpeed /2)) 
-	if($"Change Direction".is_stopped()):
-		$"Change Direction".start(3)
 	if(knockedBack):
 		move_and_slide(directionHit * knockbackRecieved * delta)
+	else:
+		var player_distance = gameManager.get_player_position() - self.position
+		if (player_distance.length() >= 32 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 32):
+			var player_direction = player_distance.normalized()
+			move_and_slide(player_direction * currentSpeed)
+		elif(player_distance.length() >= 512):
+			move_and_slide((Vector2.RIGHT.rotated((angle * PI)/180)) * (currentSpeed /2)) 
+		if($"Change Direction".is_stopped()):
+			$"Change Direction".start(3)
 
 func take_damage(strength, direction, knockback):
 	var hitFor = 0.0
@@ -70,6 +71,8 @@ func _on_Damage_Indicator_timeout():
 
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Player")):
+		combatLogged = true
+		$"Combat Log Timer".start(10)
 		canAttack = true
 
 func _on_Area2D_body_exited(body):

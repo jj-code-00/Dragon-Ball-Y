@@ -10,6 +10,7 @@ onready var gameManager = get_tree().get_root().get_node("Dev Island")
 var kills = 0
 signal ki_attack_unlocked
 signal flight_unlocked
+signal transform_1_unlocked
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -39,6 +40,8 @@ func _on_Player_enemyPowerLevel(powerLevel):
 			emit_signal("flight_unlocked")
 		elif (level == 3):
 			emit_signal("ki_attack_unlocked")
+		elif level == 4:
+			emit_signal("transform_1_unlocked")
 		powerLevel = get_parent().powerLevel
 		level_up_formula()
 		gameManager.print_to_console("Level Up!")

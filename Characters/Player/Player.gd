@@ -5,6 +5,7 @@ signal regen()
 signal ki_blast()
 signal transform_one()
 signal base_form()
+signal timer_tick()
 # Variables
 var facing = Vector2.ZERO
 var baseSpeed = 1
@@ -18,6 +19,7 @@ var zoomLevel
 var auraToggle = false
 var blockInput = false
 var is_transformed = false
+var combat_logged = false
 
 # On start 
 onready var animation_player = $AnimationPlayer
@@ -45,7 +47,6 @@ func _process(delta):
 		currentSpeed = get_node("Stats").agility * 10 + 240
 	else:
 		currentSpeed = (get_node("Stats").agility * 10 + 240) * 2
-		$Stats.change_energy(-0.1)
 	if ($Stats.energy <= 0 && !not_flying):
 		not_flying = !not_flying
 		land()
@@ -141,6 +142,8 @@ func _input(event):
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		body.take_damage(get_node("Stats").strength, facing, knockback)
+		$"Combat Log Timer".start(10)
+		combat_logged = true
 
 func _on_Enemies_enemy_died(powerLevel):
 	emit_signal("enemyPowerLevel",powerLevel)
@@ -170,3 +173,12 @@ func land():
 	set_collision_layer_bit(1, false)
 	set_collision_mask_bit(1,false)
 	#set_collision_mask_bit(0,true)
+
+
+func _on_Per_Second_Timer_timeout():
+	if (!not_flying):
+		$Stats.change_energy(-1)
+	emit_signal("timer_tick")
+
+func _on_Combat_Log_Timer_timeout():
+	combat_logged = false
