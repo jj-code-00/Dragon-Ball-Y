@@ -942,7 +942,7 @@ graph_offset = Vector2( -1402, 17 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
 [sub_resource type="RectangleShape2D" id=53]
-extents = Vector2( 8.5, 14.5 )
+extents = Vector2( 12.5, 16.5 )
 
 [sub_resource type="DynamicFont" id=54]
 size = 14
@@ -1076,7 +1076,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 34.0
 margin_top = -82.0
-margin_right = 86.0
+margin_right = 246.0
 margin_bottom = -58.0
 custom_fonts/normal_font = SubResource( 54 )
 fit_content_height = true
@@ -1103,6 +1103,15 @@ texture_under = ExtResource( 9 )
 texture_progress = ExtResource( 8 )
 nine_patch_stretch = true
 
+[node name="Release" type="RichTextLabel" parent="UI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 132.0
+margin_top = -23.0
+margin_right = 158.0
+margin_bottom = -8.0
+fit_content_height = true
+
 [node name="Hair" type="Sprite" parent="."]
 position = Vector2( 0, 1 )
 texture = ExtResource( 11 )
@@ -1112,7 +1121,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 4
+frame = 1
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]
@@ -1123,9 +1132,11 @@ scale = Vector2( 0.025, 0.025 )
 texture = ExtResource( 13 )
 
 [connection signal="base_form" from="." to="Stats/Skills" method="_on_Player_base_form"]
+[connection signal="end_release" from="." to="Stats" method="_on_Player_end_release"]
 [connection signal="enemyPowerLevel" from="." to="Stats/Level Up Manager" method="_on_Player_enemyPowerLevel"]
 [connection signal="ki_blast" from="." to="Stats/Skills" method="_on_Player_ki_blast"]
 [connection signal="regen" from="." to="Stats" method="_on_Player_regen"]
+[connection signal="start_release" from="." to="Stats" method="_on_Player_start_release"]
 [connection signal="timer_tick" from="." to="Stats" method="_on_Player_timer_tick"]
 [connection signal="transform_one" from="." to="Stats/Skills" method="_on_Player_transform_one"]
 [connection signal="update_stats" from="Stats" to="." method="_on_Stats_update_stats"]

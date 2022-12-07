@@ -19,9 +19,7 @@ signal level_up()
 
 func _process(delta):
 	powerLevel = get_parent().powerLevel
-	var string = "PL: "
-	string += str(powerLevel)
-	levelDisplay.text = string
+	update_level_display()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	powerLevel = get_parent().powerLevel

@@ -6,6 +6,8 @@ signal ki_blast()
 signal transform_one()
 signal base_form()
 signal timer_tick()
+signal start_release()
+signal end_release()
 # Variables
 var facing = Vector2.ZERO
 var baseSpeed = 1
@@ -52,20 +54,26 @@ func _process(delta):
 	direction_cursor.look_at(get_global_mouse_position())
 	select_animation()
 	if(not_flying):
-		currentSpeed = get_node("Stats").agility * 10 + 240
+		currentSpeed = baseSpeed
 	else:
-		currentSpeed = (get_node("Stats").agility * 10 + 240) * 2
-	if ($Stats.energy <= 0 && !not_flying):
+		currentSpeed = baseSpeed * 2
+	if ($Stats.energy <= 0.1 && !not_flying):
 		not_flying = !not_flying
 		land()
+	if ($Stats.energy <= 0.1 && is_transformed):
+		emit_signal("base_form")
+		is_transformed = false
 	if(Input.is_action_pressed("i_increase_release")):
 		canMove = false
 		blockInput = true
 		animation_state.travel("Idle")
 		$Aura.visible = true
+		emit_signal("start_release")
 	elif(Input.is_action_just_released("i_increase_release")) :
+		emit_signal("end_release")
 		canMove = true
 		blockInput = false
+		# mastering form may turn this off
 		if(!is_transformed):
 			$Aura.visible = false
 	if (is_meditating && combat_logged):
@@ -74,18 +82,15 @@ func _process(delta):
 			not_flying = !not_flying
 			land()
 		# consider restricting it to only non-flight
-		canMove = !canMove
-		animation_state.travel("player_meditation")
-		is_meditating = !is_meditating
-		if (is_meditating):
-			emit_signal("regen", true)
-		else:
-			emit_signal("regen", false)
+		canMove = true
+		is_meditating = false
+		emit_signal("regen", false)
 
 func _physics_process(delta):
 	if(canMove):
-		velocity.x = Input.get_axis("i_left","i_right") * currentSpeed
-		velocity.y = Input.get_axis("i_up","i_down") * currentSpeed
+		velocity.x = Input.get_axis("i_left","i_right")
+		velocity.y = Input.get_axis("i_up","i_down")
+		velocity = velocity.normalized() * currentSpeed
 		move_and_slide(velocity)
 		if (velocity != Vector2.ZERO):
 			facing = Vector2.ZERO
@@ -95,8 +100,6 @@ func _physics_process(delta):
 			elif(velocity.y != 0):
 				facing.y = velocity.y
 				setBlendPos(facing)
-	
-
 func select_animation():
 	if(canMove):
 		if(velocity == Vector2.ZERO):
@@ -136,7 +139,6 @@ func _input(event):
 			emit_signal("regen", true)
 		else:
 			emit_signal("regen", false)
-
 	if(event.is_action_pressed("i_ki_blast")):
 		emit_signal("ki_blast")
 	if(event.is_action_pressed("i_zoom_in")):
@@ -145,14 +147,13 @@ func _input(event):
 		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
 		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
-
 	elif(event.is_action_pressed("i_zoom_out")):
 		zoomLevel.x += .5
 		zoomLevel.y += .5
 		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
 		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
-	if(event.is_action_pressed("i_transform_1")):
+	if(event.is_action_pressed("i_transform_1") && $Stats.energy > 1 && $Stats/Skills.has_transformation_1):
 		emit_signal("transform_one")
 		is_transformed = true
 	elif(event.is_action_pressed("i_return_to_base")):
@@ -170,7 +171,7 @@ func _on_Enemies_enemy_died(powerLevel):
 	emit_signal("enemyPowerLevel",powerLevel)
 
 func _on_Stats_update_stats():
-	baseSpeed = (get_node("Stats").agility * 10 + 240)
+	baseSpeed = (get_node("Stats").agility + 250)
 	if(not_flying):
 		currentSpeed = baseSpeed
 	else:
@@ -199,6 +200,8 @@ func land():
 func _on_Per_Second_Timer_timeout():
 	if (!not_flying):
 		$Stats.change_energy(-1)
+	if (is_transformed) :
+		$Stats.change_energy(-2)
 	emit_signal("timer_tick")
 
 func _on_Combat_Log_Timer_timeout():

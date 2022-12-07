@@ -55,14 +55,15 @@ func take_damage(strength, direction, knockback):
 	var hitFor = 0.0
 	if (strength >= defense):
 		hitFor = strength * 2 - defense
+		knockbackRecieved = knockback * 2 - (defense * 10)
 	else :
 		hitFor = strength * strength / defense
+		knockbackRecieved = knockback * knockback / (defense * 10)
 	currentHealth -= hitFor
 	healthBar.value = (currentHealth * 100 / maxHealth)
 	$"Damage Indicator".start(.1)
 	$Sprite.modulate = Color.red
 	directionHit = direction.normalized()
-	knockbackRecieved = knockback
 	knockedBack = true
 	$"Knockback Timer".start(.2)
 	combatLogged = true
