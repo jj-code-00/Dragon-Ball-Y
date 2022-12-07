@@ -3,6 +3,8 @@ extends KinematicBody2D
 signal enemyPowerLevel(powerLevel)
 signal regen()
 signal ki_blast()
+signal transform_one()
+signal base_form()
 # Variables
 var facing = Vector2.ZERO
 var baseSpeed = 1
@@ -13,6 +15,9 @@ var damage = 1
 var knockback
 var canMove = true
 var zoomLevel
+var auraToggle = false
+var blockInput = false
+var is_transformed = false
 
 # On start 
 onready var animation_player = $AnimationPlayer
@@ -29,6 +34,9 @@ func _ready():
 	currentSpeed = baseSpeed
 	knockback = damage * 10
 	zoomLevel = cam.get_zoom()
+	$Aura.modulate = Color(0.53,1.74,3.47)
+	$Aura.modulate.a = 0.25
+	#hair_animation_state.travel("Hair")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -41,6 +49,16 @@ func _process(delta):
 	if ($Stats.energy <= 0 && !not_flying):
 		not_flying = !not_flying
 		land()
+	if(Input.is_action_pressed("i_increase_release")):
+		canMove = false
+		blockInput = true
+		animation_state.travel("Idle")
+		$Aura.visible = true
+	elif(Input.is_action_just_released("i_increase_release")) :
+		canMove = true
+		blockInput = false
+		if(!is_transformed):
+			$Aura.visible = false
 
 func _physics_process(delta):
 	if(canMove):
@@ -73,13 +91,13 @@ func setBlendPos(facing):
 
 func _input(event):
 	#print(event)
-	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 1 && $Stats/Skills.has_flight):
+	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 1 && $Stats/Skills.has_flight && !blockInput):
 		not_flying = !not_flying
 		if (not_flying):
 			land()
 		else:
 			take_off()
-	if(event.is_action_pressed("i_attack") && canMove):
+	if(event.is_action_pressed("i_attack") && canMove && !blockInput):
 		match facing.normalized():
 			Vector2.RIGHT: 
 				animation_state.travel("player_attack_right")
@@ -89,7 +107,7 @@ func _input(event):
 				animation_state.travel("player_attack_down")
 			Vector2.UP: 
 				animation_state.travel("player_attack_up")
-	if(event.is_action_pressed("i_meditate")):
+	if(event.is_action_pressed("i_meditate") && !blockInput):
 		if (!not_flying):
 			not_flying = !not_flying
 			land()
@@ -100,18 +118,24 @@ func _input(event):
 	if(event.is_action_pressed("i_ki_blast")):
 		emit_signal("ki_blast")
 	if(event.is_action_pressed("i_zoom_in")):
-		zoomLevel.x -= .1
-		zoomLevel.y -= .1
-		zoomLevel.x = clamp(zoomLevel.x,0.1,1)
-		zoomLevel.y = clamp(zoomLevel.y,0.1,1)
+		zoomLevel.x -= .5
+		zoomLevel.y -= .5
+		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
+		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
 
 	elif(event.is_action_pressed("i_zoom_out")):
-		zoomLevel.x += .1
-		zoomLevel.y += .1
-		zoomLevel.x = clamp(zoomLevel.x,0.1,1)
-		zoomLevel.y = clamp(zoomLevel.y,0.1,1)
+		zoomLevel.x += .5
+		zoomLevel.y += .5
+		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
+		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
+	if(event.is_action_pressed("i_transform_1")):
+		emit_signal("transform_one")
+		is_transformed = true
+	elif(event.is_action_pressed("i_return_to_base")):
+		emit_signal("base_form")
+		is_transformed = false
 
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
