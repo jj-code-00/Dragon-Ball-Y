@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal enemyPowerLevel(powerLevel)
 signal regen()
+signal ki_blast()
 # Variables
 var facing = Vector2.ZERO
 var baseSpeed = 1
@@ -69,7 +70,7 @@ func setBlendPos(facing):
 
 func _input(event):
 	#print(event)
-	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 0):
+	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 1 && $Stats/Skills.has_flight):
 		not_flying = !not_flying
 		if (not_flying):
 			land()
@@ -93,6 +94,8 @@ func _input(event):
 		canMove = !canMove
 		animation_state.travel("player_meditation")
 		emit_signal("regen")
+	if(event.is_action_pressed("i_ki_blast")):
+		emit_signal("ki_blast")
 
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
@@ -100,7 +103,6 @@ func _on_Area2D_body_entered(body):
 		body.take_damage(get_node("Stats").strength, facing, knockback)
 
 func _on_Enemies_enemy_died(powerLevel):
-	print("got: ", powerLevel, " xp")
 	emit_signal("enemyPowerLevel",powerLevel)
 
 func _on_Stats_update_stats():

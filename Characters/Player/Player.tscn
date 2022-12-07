@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://Assets/DU-assets/Player Icons/Hades.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg" type="Texture" id=7]
 [ext_resource path="res://blue0517-4dfc85cb0200460ab717b101ac07888f.jpg" type="Texture" id=8]
 [ext_resource path="res://Black.png" type="Texture" id=9]
+[ext_resource path="res://Characters/Player/Skills.gd" type="Script" id=10]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 10.0
@@ -625,7 +626,7 @@ states/player_meditation/node = SubResource( 84 )
 states/player_meditation/position = Vector2( -1273, -193 )
 transitions = [ "Idle", "Fly", SubResource( 23 ), "Fly", "Idle", SubResource( 24 ), "Idle", "Walk", SubResource( 34 ), "Walk", "Idle", SubResource( 35 ), "Fly", "Walk", SubResource( 36 ), "Walk", "Fly", SubResource( 37 ), "Idle", "player_attack_up", SubResource( 59 ), "Idle", "player_attack_down", SubResource( 60 ), "Idle", "player_attack_right", SubResource( 61 ), "Fly", "player_attack_up", SubResource( 62 ), "Fly", "player_attack_right", SubResource( 63 ), "Fly", "player_attack_left", SubResource( 64 ), "Fly", "player_attack_down", SubResource( 65 ), "Idle", "player_attack_left", SubResource( 66 ), "Walk", "player_attack_left", SubResource( 67 ), "Walk", "player_attack_up", SubResource( 68 ), "Walk", "player_attack_right", SubResource( 69 ), "Walk", "player_attack_down", SubResource( 70 ), "player_attack_down", "Fly", SubResource( 71 ), "player_attack_down", "Idle", SubResource( 72 ), "player_attack_down", "Walk", SubResource( 73 ), "player_attack_left", "Walk", SubResource( 74 ), "player_attack_left", "Fly", SubResource( 75 ), "player_attack_left", "Idle", SubResource( 76 ), "player_attack_up", "Fly", SubResource( 77 ), "player_attack_up", "Idle", SubResource( 78 ), "player_attack_up", "Walk", SubResource( 79 ), "player_attack_right", "Fly", SubResource( 80 ), "player_attack_right", "Idle", SubResource( 81 ), "player_attack_right", "Walk", SubResource( 82 ), "Idle", "player_meditation", SubResource( 85 ), "player_meditation", "Idle", SubResource( 86 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -1518, -234 )
+graph_offset = Vector2( -1539, -493 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
@@ -645,6 +646,9 @@ script = ExtResource( 2 )
 
 [node name="Level Up Manager" type="Node2D" parent="Stats"]
 script = ExtResource( 4 )
+
+[node name="Skills" type="Node2D" parent="Stats"]
+script = ExtResource( 10 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -727,9 +731,12 @@ texture_progress = ExtResource( 8 )
 nine_patch_stretch = true
 
 [connection signal="enemyPowerLevel" from="." to="Stats/Level Up Manager" method="_on_Player_enemyPowerLevel"]
+[connection signal="ki_blast" from="." to="Stats/Skills" method="_on_Player_ki_blast"]
 [connection signal="regen" from="." to="Stats" method="_on_Player_regen"]
 [connection signal="update_stats" from="Stats" to="." method="_on_Stats_update_stats"]
 [connection signal="timeout" from="Stats/Damage Indicator" to="Stats" method="_on_Damage_Indicator_timeout"]
+[connection signal="flight_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_flight_unlocked"]
+[connection signal="ki_attack_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_ki_attack_unlocked"]
 [connection signal="level_up" from="Stats/Level Up Manager" to="Stats" method="_on_Level_Up_Manager_level_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

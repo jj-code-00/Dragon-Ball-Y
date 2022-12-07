@@ -1,10 +1,19 @@
 extends Node2D
 
 var spawnAgain = true
+
+# change this abomination
 onready var spawn1 = $Spawn1.position
 onready var spawn2 = $Spawn2.position
 onready var spawn3 = $Spawn3.position
 onready var spawn4 = $Spawn4.position
+onready var spawn5 = $Spawn5.position
+onready var spawn6 = $Spawn6.position
+onready var spawn7 = $Spawn7.position
+onready var spawn8 = $Spawn8.position
+onready var spawn9 = $Spawn9.position
+onready var spawn10 = $Spawn10.position
+
 var num
 # Declare member variables here. Examples:
 # var a = 2
@@ -18,7 +27,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	num = num % 4
+	num = num % 10
 	if(spawnAgain):
 		spawn()
 		$Timer.start(5)
@@ -37,6 +46,18 @@ func spawn():
 			cell.position = spawn3
 		3:
 			cell.position = spawn4
+		4:
+			cell.position = spawn5
+		5:
+			cell.position = spawn6
+		6:
+			cell.position = spawn7
+		7:
+			cell.position = spawn8
+		8:
+			cell.position = spawn9
+		9:
+			cell.position = spawn10
 	
 	add_child(cell)
 	num = num + 1

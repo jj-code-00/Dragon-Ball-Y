@@ -24,11 +24,11 @@ func _process(delta):
 	release = energy * 100 / maxEnergy
 	change_health(passiveHealthRegen)
 	change_energy(passiveEnergyRegen)
-	if (health <= 0):
+	if (health <= 0.0001):
 		get_tree().reload_current_scene()
 	if(regen):
-		change_health(maxHealth * 0.0001)
-		change_energy(maxEnergy * 0.0001)
+		change_health(maxHealth * 0.0005)
+		change_energy(maxEnergy * 0.001)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,7 +36,7 @@ func _ready():
 	health = maxHealth
 	maxEnergy = 20.0
 	energy = maxEnergy
-	strength = 1.0
+	strength = 10.0
 	defense = 1.0
 	agility = 1.0
 	force = 1.0
@@ -87,7 +87,7 @@ func change_health(value):
 		value = value * -1
 		var hitFor = 0.0
 		if (value >= defense):
-			hitFor = strength * 2 - defense
+			hitFor = value * 2 - defense
 		else :
 			hitFor = value * value / defense
 		health = health - hitFor
@@ -96,12 +96,12 @@ func change_health(value):
 	else:
 		health += value
 	
-	clamp(health, 0, maxHealth)
+	health = clamp(health, 0, maxHealth)
 	healthBar.value = (health * 100 / maxHealth)
 
 func change_energy(value):
 	energy += value
-	clamp(energy, 0, maxEnergy)
+	energy = clamp(energy, 0, maxEnergy)
 	energyBar.value = (energy * 100 / maxEnergy)
 
 func _on_Damage_Indicator_timeout():

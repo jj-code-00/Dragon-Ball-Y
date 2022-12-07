@@ -9,7 +9,7 @@
 extents = Vector2( 20, 31.5 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 25, 36.5 )
+extents = Vector2( 36, 46 )
 
 [node name="Cell" type="KinematicBody2D" groups=["Enemy"]]
 script = ExtResource( 2 )
@@ -26,7 +26,7 @@ shape = SubResource( 1 )
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, -0.5 )
+position = Vector2( 1, -3 )
 shape = SubResource( 2 )
 
 [node name="Hit Cooldown" type="Timer" parent="."]
@@ -35,14 +35,18 @@ one_shot = true
 [node name="TextureProgress" type="TextureProgress" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -19.5
+margin_left = -20.0
 margin_top = -40.0
-margin_right = 19.5
+margin_right = 20.0
 margin_bottom = -35.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
 nine_patch_stretch = true
 
+[node name="Combat Log Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="timeout" from="Damage Indicator" to="." method="_on_Damage_Indicator_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="timeout" from="Combat Log Timer" to="." method="_on_Combat_Log_Timer_timeout"]
