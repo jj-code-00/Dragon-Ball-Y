@@ -71,6 +71,8 @@ func _on_Damage_Indicator_timeout():
 
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Player")):
+		combatLogged = true
+		$"Combat Log Timer".start(10)
 		canAttack = true
 
 func _on_Area2D_body_exited(body):

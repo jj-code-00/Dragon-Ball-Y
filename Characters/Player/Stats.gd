@@ -20,16 +20,6 @@ onready var healthBar = get_parent().get_node("UI/HealthBar")
 onready var energyBar = get_parent().get_node("UI/EnergyBar")
 var regen = false
 
-func _process(delta):
-	release = energy * 100 / maxEnergy
-	change_health(passiveHealthRegen)
-	change_energy(passiveEnergyRegen)
-	if (health <= 0.0001):
-		get_tree().reload_current_scene()
-	if(regen):
-		change_health(maxHealth * 0.0005)
-		change_energy(maxEnergy * 0.001)
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	maxHealth = 20.0
@@ -42,12 +32,18 @@ func _ready():
 	force = 1.0
 	accuracy = 1.0
 	powerLevel = 5.0
-	passiveHealthRegen = 0.0001
-	passiveEnergyRegen = 0.0001
+	passiveHealthRegen = 0.005
+	passiveEnergyRegen = 0.005
 	emit_signal("update_stats")
 	energyBar.value = (energy * 100 / maxEnergy)
 	healthBar.value = (health * 100 / maxHealth)
-	
+
+func _process(delta):
+	release = energy * 100 / maxEnergy
+	if (health <= 0.0001):
+		get_tree().reload_current_scene()
+	if get_parent().combat_logged:
+		regen = false
 
 func set_stats(stat, amount):
 	match stat:
@@ -76,6 +72,7 @@ func set_stats(stat, amount):
 			
 	powerLevel = strength + defense + agility + force + accuracy
 	healthBar.value = (health * 100 / maxHealth)
+	energyBar.value = (energy * 100 / maxEnergy)
 	emit_signal("update_stats")
 
 func _on_Level_Up_Manager_level_up():
@@ -93,6 +90,8 @@ func change_health(value):
 		health = health - hitFor
 		$"Damage Indicator".start(.1)
 		get_parent().get_node("Sprite").modulate = Color.red
+		get_parent().combat_logged = true
+		get_parent().get_node("Combat Log Timer").start(10)
 	else:
 		health += value
 	
@@ -110,3 +109,11 @@ func _on_Damage_Indicator_timeout():
 
 func _on_Player_regen():
 	regen = !regen
+
+
+func _on_Player_timer_tick():
+	change_health(passiveHealthRegen)
+	change_energy(passiveEnergyRegen)
+	if(regen):
+		change_health(maxHealth * 0.05)
+		change_energy(maxEnergy * 0.05)

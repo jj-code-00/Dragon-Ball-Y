@@ -3,6 +3,7 @@ extends Node2D
 var has_ki_blast
 var has_flight
 var has_transformation_1
+
 # Color(100.0,3.49,0.58)
 # master list of all skills 
 func _ready():
