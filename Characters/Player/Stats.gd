@@ -6,19 +6,24 @@ var health # Lifeforce, when it runs out you die
 var maxHealth
 var energy # Decreases drain from majority of actions.
 var maxEnergy
-var release
+var release 
 
-var strength # Primary damage stat for Physical Damage.
-var defense # Primary defensive stat for Physical Damage and Ki Damage
-var agility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection.
-var force # Primary damage stat for Ki Damage.
-var accuracy # Increases your chance to hit. Reduced chance of deflection.
+var baseStrength # Primary damage stat for Physical Damage.
+var baseDefense # Primary defensive stat for Physical Damage and Ki Damage
+var baseAgility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection.
+var baseForce # Primary damage stat for Ki Damage.
+var baseAccuracy # Increases your chance to hit. Reduced chance of deflection.
+
+var strength # Primary damage stat for Physical Damage. (used for math)
+var defense # Primary defensive stat for Physical Damage and Ki Damage (used for math)
+var agility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection. (used for math)
+var force # Primary damage stat for Ki Damage. (used for math)
+var accuracy # Increases your chance to hit. Reduced chance of deflection. (used for math)
 var powerLevel # total Strength
-var passiveHealthRegen
-var passiveEnergyRegen
 onready var healthBar = get_parent().get_node("UI/HealthBar")
 onready var energyBar = get_parent().get_node("UI/EnergyBar")
 var regen = false
+var formMulti
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,14 +31,19 @@ func _ready():
 	health = maxHealth
 	maxEnergy = 20.0
 	energy = maxEnergy
-	strength = 1.0
-	defense = 1.0
-	agility = 1.0
-	force = 1.0
-	accuracy = 1.0
-	powerLevel = 5.0
-	passiveHealthRegen = 0.005
-	passiveEnergyRegen = 0.005
+	baseStrength = 1.0
+	baseDefense = 1.0
+	baseAgility = 1.0
+	baseForce = 1.0
+	baseAccuracy = 1.0
+	powerLevel = 1
+	formMulti = 1.0
+	strength = baseStrength * formMulti
+	defense = baseDefense * formMulti
+	agility = baseAgility * formMulti
+	force = baseForce * formMulti
+	accuracy = baseAccuracy  * formMulti
+	powerLevel = (strength + defense + agility + force + accuracy) * formMulti
 	emit_signal("update_stats")
 	energyBar.value = (energy * 100 / maxEnergy)
 	healthBar.value = (health * 100 / maxHealth)
@@ -52,25 +62,29 @@ func set_stats(stat, amount):
 		"energy":
 			maxEnergy += amount * 10
 		"strength":
-			strength += amount
+			baseStrength += amount
 		"defense":
-			defense += amount
+			baseDefense += amount
 		"agility":
-			agility += amount
+			baseAgility += amount
 		"force":
-			force += amount
+			baseForce += amount
 		"accuracy":
-			accuracy += amount
+			baseAccuracy += amount
 		"all":
 			maxHealth += amount * 5
 			maxEnergy += amount * 10
-			strength += amount
-			defense += amount
-			agility += amount
-			force += amount
-			accuracy += amount
-			
-	powerLevel = strength + defense + agility + force + accuracy
+			baseStrength += amount
+			baseDefense += amount
+			baseAgility += amount
+			baseForce += amount
+			baseAccuracy += amount
+	strength = baseStrength * formMulti
+	defense = baseDefense * formMulti
+	agility = baseAgility * formMulti
+	force = baseForce * formMulti
+	accuracy = baseAccuracy  * formMulti
+	powerLevel = (strength + defense + agility + force + accuracy) * formMulti
 	healthBar.value = (health * 100 / maxHealth)
 	energyBar.value = (energy * 100 / maxEnergy)
 	emit_signal("update_stats")
@@ -106,14 +120,12 @@ func change_energy(value):
 func _on_Damage_Indicator_timeout():
 	get_parent().get_node("Sprite").modulate = Color.white
 
-
 func _on_Player_regen(value):
 	regen = value
 
-
 func _on_Player_timer_tick():
-	change_health(passiveHealthRegen)
-	change_energy(passiveEnergyRegen)
+	change_health(maxHealth * 0.005)
+	change_energy(maxEnergy * 0.005)
 	if(regen):
 		change_health(maxHealth * 0.05)
 		change_energy(maxEnergy * 0.05)

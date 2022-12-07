@@ -24,7 +24,7 @@ func _process(delta):
 	levelDisplay.text = string
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	powerLevel = stats.powerLevel
+	powerLevel = get_parent().powerLevel
 	level = 1
 	totalXp = 0
 	level_up_formula()

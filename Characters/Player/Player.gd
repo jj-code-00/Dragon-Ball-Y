@@ -176,7 +176,7 @@ func _on_Stats_update_stats():
 	else:
 		currentSpeed = baseSpeed * 2
 	damage = (get_node("Stats").strength)
-	knockback = damage * 1000
+	knockback = damage * 10
 	
 func take_off():
 	position.y -= 8

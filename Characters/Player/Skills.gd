@@ -37,6 +37,8 @@ func _on_Player_transform_one():
 		get_parent().get_parent().get_node("Aura").modulate = Color(4.05,3.49,0.37) 
 		get_parent().get_parent().get_node("Aura").modulate.a = 0.25
 		get_parent().get_parent().get_node("Aura").visible = true
+		get_parent().formMulti = 2.0
+		get_parent().set_stats("all",0)
 
 
 func _on_Player_base_form():
@@ -44,6 +46,8 @@ func _on_Player_base_form():
 	get_parent().get_parent().get_node("Aura").modulate = Color(0.53,1.74,3.47)
 	get_parent().get_parent().get_node("Aura").modulate.a = 0.25
 	get_parent().get_parent().get_node("Aura").visible = false
+	get_parent().formMulti = 1.0
+	get_parent().set_stats("all",0)
 
 
 func _on_Level_Up_Manager_transform_1_unlocked():
