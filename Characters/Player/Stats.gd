@@ -91,7 +91,7 @@ func change_health(value):
 		$"Damage Indicator".start(.1)
 		get_parent().get_node("Sprite").modulate = Color.red
 		get_parent().combat_logged = true
-		get_parent().get_node("Combat Log Timer").start(10)
+		get_parent().get_node("Combat Log Timer").start(1)
 	else:
 		health += value
 	
@@ -107,8 +107,8 @@ func _on_Damage_Indicator_timeout():
 	get_parent().get_node("Sprite").modulate = Color.white
 
 
-func _on_Player_regen():
-	regen = !regen
+func _on_Player_regen(value):
+	regen = value
 
 
 func _on_Player_timer_tick():

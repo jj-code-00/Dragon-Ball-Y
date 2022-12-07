@@ -7,5 +7,7 @@ func _physics_process(delta):
 	var move = move_and_collide(direction * 25)
 	if (move != null):
 		if(move.collider.is_in_group("Enemy")):
-			move.collider.take_damage(damage, direction, damage * 100)
+			get_tree().get_root().get_node("Dev Island").get_node("Player").combat_logged = true
+			get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Combat Log Timer").start(1)
+			move.collider.take_damage(damage, direction, damage * 1000)
 		queue_free()

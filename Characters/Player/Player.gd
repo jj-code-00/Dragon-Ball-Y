@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 signal enemyPowerLevel(powerLevel)
-signal regen()
+signal regen(value)
 signal ki_blast()
 signal transform_one()
 signal base_form()
@@ -20,6 +20,7 @@ var auraToggle = false
 var blockInput = false
 var is_transformed = false
 var combat_logged = false
+var is_meditating = false
 
 # On start 
 onready var animation_player = $AnimationPlayer
@@ -60,6 +61,19 @@ func _process(delta):
 		blockInput = false
 		if(!is_transformed):
 			$Aura.visible = false
+	if (is_meditating && combat_logged):
+		$"Stats/Level Up Manager".gameManager.print_to_console("You can't meditate in combat.")
+		if (!not_flying):
+			not_flying = !not_flying
+			land()
+		# consider restricting it to only non-flight
+		canMove = !canMove
+		animation_state.travel("player_meditation")
+		is_meditating = !is_meditating
+		if (is_meditating):
+			emit_signal("regen", true)
+		else:
+			emit_signal("regen", false)
 
 func _physics_process(delta):
 	if(canMove):
@@ -115,7 +129,12 @@ func _input(event):
 		# consider restricting it to only non-flight
 		canMove = !canMove
 		animation_state.travel("player_meditation")
-		emit_signal("regen")
+		is_meditating = !is_meditating
+		if (is_meditating):
+			emit_signal("regen", true)
+		else:
+			emit_signal("regen", false)
+
 	if(event.is_action_pressed("i_ki_blast")):
 		emit_signal("ki_blast")
 	if(event.is_action_pressed("i_zoom_in")):
@@ -142,7 +161,7 @@ func _input(event):
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		body.take_damage(get_node("Stats").strength, facing, knockback)
-		$"Combat Log Timer".start(10)
+		$"Combat Log Timer".start(1)
 		combat_logged = true
 
 func _on_Enemies_enemy_died(powerLevel):
@@ -155,7 +174,7 @@ func _on_Stats_update_stats():
 	else:
 		currentSpeed = baseSpeed * 2
 	damage = (get_node("Stats").strength)
-	knockback = damage * 100
+	knockback = damage * 1000
 	
 func take_off():
 	position.y -= 8
