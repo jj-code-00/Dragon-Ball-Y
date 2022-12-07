@@ -1,10 +1,12 @@
 extends Node2D
 
-var has_ki_blast = false
+var has_ki_blast
+var has_flight
 
 # master list of all skills 
 func _ready():
-	has_ki_blast = true
+	has_ki_blast = false
+	has_flight = false
 
 func _on_Player_ki_blast():
 	if(has_ki_blast && get_parent().energy > 5.0):
@@ -15,4 +17,11 @@ func _on_Player_ki_blast():
 		get_tree().get_root().get_node("Dev Island").add_child(ki_blast)
 	else:
 		get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can't use that right now")
-	
+
+func _on_Level_Up_Manager_ki_attack_unlocked():
+	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can now use Ki Blast! Hit F")
+	has_ki_blast = true
+
+
+func _on_Level_Up_Manager_flight_unlocked():
+	has_flight = true

@@ -70,7 +70,7 @@ func setBlendPos(facing):
 
 func _input(event):
 	#print(event)
-	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 1):
+	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 1 && $Stats/Skills.has_flight):
 		not_flying = !not_flying
 		if (not_flying):
 			land()

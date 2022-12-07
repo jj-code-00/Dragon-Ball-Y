@@ -24,7 +24,7 @@ func _process(delta):
 	release = energy * 100 / maxEnergy
 	change_health(passiveHealthRegen)
 	change_energy(passiveEnergyRegen)
-	if (health <= 0):
+	if (health <= 0.0001):
 		get_tree().reload_current_scene()
 	if(regen):
 		change_health(maxHealth * 0.0005)
@@ -36,7 +36,7 @@ func _ready():
 	health = maxHealth
 	maxEnergy = 20.0
 	energy = maxEnergy
-	strength = 1.0
+	strength = 10.0
 	defense = 1.0
 	agility = 1.0
 	force = 1.0
@@ -87,7 +87,7 @@ func change_health(value):
 		value = value * -1
 		var hitFor = 0.0
 		if (value >= defense):
-			hitFor = strength * 2 - defense
+			hitFor = value * 2 - defense
 		else :
 			hitFor = value * value / defense
 		health = health - hitFor

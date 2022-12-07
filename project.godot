@@ -10,9 +10,11 @@ config_version=4
 
 [application]
 
-config/name="Stable DU"
+config/name="DBY"
 run/main_scene="res://Scenes/Dev Island.tscn"
-config/icon="res://icon.png"
+boot_splash/show_image=false
+config/icon="res://Icon/icon.png"
+config/windows_native_icon="res://Icon/icon.ico"
 
 [gui]
 

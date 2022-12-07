@@ -735,6 +735,8 @@ nine_patch_stretch = true
 [connection signal="regen" from="." to="Stats" method="_on_Player_regen"]
 [connection signal="update_stats" from="Stats" to="." method="_on_Stats_update_stats"]
 [connection signal="timeout" from="Stats/Damage Indicator" to="Stats" method="_on_Damage_Indicator_timeout"]
+[connection signal="flight_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_flight_unlocked"]
+[connection signal="ki_attack_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_ki_attack_unlocked"]
 [connection signal="level_up" from="Stats/Level Up Manager" to="Stats" method="_on_Level_Up_Manager_level_up"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

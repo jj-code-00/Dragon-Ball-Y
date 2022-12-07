@@ -11,6 +11,7 @@ var damage = 1
 var baseSpeed = 200
 var currentSpeed
 var defense = 1
+var combatLogged = false
 
 onready var healthBar = $TextureProgress
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
@@ -27,13 +28,13 @@ func _process(delta):
 	if(canAttack && hitCooldown.is_stopped()):
 		hitCooldown.start(.6)
 		gameManager.get_player().get_node("Stats").change_health(-1 * damage)
-	if(currentHealth <= 0):
+	if(currentHealth <= 0.0001):
 		get_parent().get_parent().actor_died(powerLevel)
 		queue_free()
 
 func _physics_process(delta):
 	var player_distance = gameManager.get_player_position() - self.position
-	if (sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  >= 32):
+	if (sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  >= 32 && sqrt(player_distance.x * player_distance.x + player_distance.y * player_distance.y)  <= 512 || combatLogged):
 		var player_direction = player_distance.normalized()
 		move_and_slide(player_direction * currentSpeed)
 	if(knockedBack):
@@ -52,6 +53,8 @@ func take_damage(strength, direction, knockback):
 	directionHit = direction
 	knockbackRecieved = knockback
 	knockedBack = true
+	combatLogged = true
+	$"Combat Log Timer".start(10)
 
 func _on_Damage_Indicator_timeout():
 	$Sprite.modulate = Color.white
@@ -64,3 +67,7 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
 	if(body.is_in_group("Player")):
 		canAttack = false
+
+
+func _on_Combat_Log_Timer_timeout():
+	combatLogged = false
