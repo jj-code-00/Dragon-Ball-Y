@@ -32,7 +32,6 @@ func print_to_console(text):
 	console.add_text(string)
 	console.add_text("\n")
 
-
 func _on_Player_enemyPowerLevel(powerLevel):
 	killsNum = killsNum + 1
 	kills.text = "Kills: "
