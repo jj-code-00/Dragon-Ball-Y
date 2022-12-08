@@ -68,6 +68,8 @@ func _process(delta):
 		emit_signal("base_form")
 		is_transformed = false
 	if(Input.is_action_pressed("i_increase_release")):
+		if(is_meditating):
+			stop_meditation()
 		canMove = false
 		animation_state.travel("Idle")
 		$Aura.visible = true
@@ -127,19 +129,14 @@ func _input(event):
 		hitbox.disabled = false
 		animation_state.travel("Attack")
 		$"Area2D/Attack Cooldown".start(.2)
-	if(event.is_action_pressed("i_meditate")):
+	if(event.is_action_pressed("i_meditate") && !blockInput):
 		if (is_flying):
 			land()
 		if(is_meditating):
-			canMove = true 
-			emit_signal("is_meditating", false)
-			is_meditating = false
+			stop_meditation()
 		else:
-			is_meditating = true
-			animation_state.travel("player_meditation")
-			canMove = false
-			emit_signal("is_meditating", true)
-	if(event.is_action_pressed("i_ki_blast") && !blockInput):
+			meditate()
+	if(event.is_action_pressed("i_ki_blast") && !blockInput && canMove):
 		emit_signal("ki_blast")
 	if(event.is_action_pressed("i_zoom_in")):
 		zoomLevel.x -= .5
@@ -197,7 +194,15 @@ func land():
 	set_collision_mask_bit(1,false)
 	is_flying = false
 	#set_collision_mask_bit(0,true)
-
+func meditate():
+	is_meditating = true
+	animation_state.travel("player_meditation")
+	canMove = false
+	emit_signal("is_meditating", true)
+func stop_meditation():
+	canMove = true 
+	emit_signal("is_meditating", false)
+	is_meditating = false
 
 func _on_Per_Second_Timer_timeout():
 	emit_signal("timer_tick")
@@ -208,7 +213,6 @@ func _on_Per_Second_Timer_timeout():
 
 func _on_Combat_Log_Timer_timeout():
 	combat_logged = false
-
 
 func _on_Attack_Cooldown_timeout():
 	can_attack = true

@@ -29,9 +29,9 @@ var releasing = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	release = 1.0
-	maxHealth = 20.0
+	maxHealth = 10.0
 	health = maxHealth
-	maxEnergy = 200.0
+	maxEnergy = 10.0
 	energy = maxEnergy
 	baseStrength = 1.0
 	baseDefense = 1.0
@@ -121,8 +121,8 @@ func _on_Damage_Indicator_timeout():
 	get_parent().get_node("Sprite").modulate = Color.white
 
 func _on_Player_timer_tick():
-	change_health(maxHealth * 0.001)
-	change_energy(maxEnergy * 0.001)
+#	change_health(maxHealth * 0.001)
+#	change_energy(maxEnergy * 0.001)
 	if (releasing):
 		release = release + 0.05
 		release = clamp(release,0,1.0)
