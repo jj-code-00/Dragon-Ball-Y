@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/one_off_timer.gd" type="Script" id=1]
+
+[node name="one_off_timer" type="Timer"]
+one_shot = true
+script = ExtResource( 1 )
