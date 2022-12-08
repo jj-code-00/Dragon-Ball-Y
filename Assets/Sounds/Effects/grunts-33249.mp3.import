@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/grunts-33249.mp3-06bdf6dd0181796b87aa2f9f9313f42b.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/grunts-33249.mp3"
+dest_files=[ "res://.import/grunts-33249.mp3-06bdf6dd0181796b87aa2f9f9313f42b.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

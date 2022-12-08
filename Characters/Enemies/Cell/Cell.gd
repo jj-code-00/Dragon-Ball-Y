@@ -1,18 +1,23 @@
 extends KinematicBody2D
 
-var maxHealth = 20.0
+var maxHealth
 var currentHealth
+var maxEnergy
+var currentEnergy
+var strength
+var defense
+var agility
+var force
+var baseSpeed
+var currentSpeed
+var powerLevel
+
+var combatLogged = false
+var canMove = true
 var knockedBack = false
 var directionHit
 var knockbackRecieved
-var powerLevel = 5
 var canAttack = false
-var damage = 1
-var baseSpeed = 200
-var currentSpeed
-var defense = 1
-var combatLogged = false
-var canMove = true
 
 onready var healthBar = $TextureProgress
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
@@ -25,11 +30,21 @@ onready var player_direction
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
+	maxHealth = 20.0
+	maxEnergy = 20.0
+	currentEnergy = 20.0
+	strength = 1.0
+	agility = 1.0
+	defense = 1.0
+	force = 1.0
+	powerLevel = strength + agility + defense + force
+	baseSpeed = agility + 200
 	currentSpeed = baseSpeed
-	healthBar.value = 100
 	currentHealth = maxHealth
-	angle = rng.randf_range(0.0, 360.0)
 	
+	healthBar.value = currentHealth / maxHealth * 100
+	
+	angle = rng.randf_range(0.0, 360.0)
 	player_distance = gameManager.get_player_position() - self.position
 	player_direction = player_distance.normalized()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,8 +52,8 @@ func _process(delta):
 	player_distance = gameManager.get_player_position() - self.position
 	player_direction = player_distance.normalized()
 	if(canAttack && hitCooldown.is_stopped()):
-		hitCooldown.start(.5)
-		gameManager.get_player().get_node("Stats").take_damage(damage, player_direction,damage * 10)
+		hitCooldown.start(1)
+		gameManager.get_player().get_node("Stats").take_damage(strength, player_direction,strength * 10)
 	if(currentHealth <= 0.0001):
 		get_parent().get_parent().actor_died(powerLevel)
 		queue_free()

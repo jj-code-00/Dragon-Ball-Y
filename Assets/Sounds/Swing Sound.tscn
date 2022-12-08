@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Sounds/Effects/swing-whoosh-110410.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Sounds/Hit Effect.gd" type="Script" id=2]
+
+[node name="Swing Sound" type="AudioStreamPlayer2D"]
+stream = ExtResource( 1 )
+script = ExtResource( 2 )

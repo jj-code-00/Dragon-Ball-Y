@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://Assets/DU-assets/Player Icons/Hades.png" type="Texture" id=1]
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=2]
@@ -13,6 +13,10 @@
 [ext_resource path="res://Assets/DU-assets/Hair/Hair, Shaggy.png" type="Texture" id=11]
 [ext_resource path="res://Assets/DU-assets/Ki/Auras/Aura Normal.png" type="Texture" id=12]
 [ext_resource path="res://Assets/kisspng-computer-icons-hamburger-button-symbol-cursor-expand-5b2a87acd20e88.0686630115295139008604.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sounds/player_hurt_male.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assets/Sounds/Effects/458867__raclure__damage-sound-effect.mp3" type="AudioStream" id=15]
+[ext_resource path="res://Assets/Sounds/Effects/swing-whoosh-110410.mp3" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Sounds/Effects/PUNCH WEAK.mp3" type="AudioStream" id=17]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 10.0
@@ -1123,7 +1127,6 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 3
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]
@@ -1135,6 +1138,19 @@ texture = ExtResource( 13 )
 
 [node name="Knockback Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="player_hurt_male" parent="Sounds" instance=ExtResource( 14 )]
+stream = ExtResource( 15 )
+pitch_scale = 2.25
+
+[node name="player_punch" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 16 )
+
+[node name="player_hit_impact" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 17 )
+volume_db = -5.0
 
 [connection signal="base_form" from="." to="Stats/Skills" method="_on_Player_base_form"]
 [connection signal="end_release" from="." to="Stats" method="_on_Player_end_release"]

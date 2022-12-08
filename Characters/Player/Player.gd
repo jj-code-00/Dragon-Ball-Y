@@ -129,6 +129,8 @@ func _input(event):
 			take_off()
 			is_flying = true
 	if(event.is_action_pressed("i_attack") && canMove && can_attack):
+		if(!$Sounds/player_punch.is_playing()):
+			$Sounds/player_punch.play()
 		can_attack = false
 		hitbox.disabled = false
 		animation_state.travel("Attack")
@@ -141,6 +143,9 @@ func _input(event):
 		else:
 			meditate()
 	if(event.is_action_pressed("i_ki_blast") && !blockInput && canMove):
+		var cd_timer = Timer.new()
+		cd_timer.start(.5)
+		cd_timer.connect("timeout",self)
 		emit_signal("ki_blast")
 	if(event.is_action_pressed("i_zoom_in")):
 		zoomLevel.x -= .5
@@ -166,6 +171,8 @@ func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		body.take_damage(get_node("Stats").strength, aiming, knockback)
 		$"Combat Log Timer".start(1)
+		if(!$Sounds/player_hit_impact.is_playing()):
+			$Sounds/player_hit_impact.play()
 		combat_logged = true
 
 func _on_Enemies_enemy_died(powerLevel):

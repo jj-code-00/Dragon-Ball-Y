@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/458867__raclure__damage-sound-effect.mp3-6d7fb7927b64c2110560cf15eb02b11c.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/458867__raclure__damage-sound-effect.mp3"
+dest_files=[ "res://.import/458867__raclure__damage-sound-effect.mp3-6d7fb7927b64c2110560cf15eb02b11c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
