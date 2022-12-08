@@ -31,7 +31,7 @@ func _ready():
 	release = 1.0
 	maxHealth = 20.0
 	health = maxHealth
-	maxEnergy = 20.0
+	maxEnergy = 200.0
 	energy = maxEnergy
 	baseStrength = 1.0
 	baseDefense = 1.0

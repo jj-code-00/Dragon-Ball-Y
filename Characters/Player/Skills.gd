@@ -7,7 +7,7 @@ var is_meditating
 # Color(100.0,3.49,0.58)
 # master list of all skills 
 func _ready():
-	has_ki_blast = false
+	has_ki_blast = true
 	has_flight = false
 	has_transformation_1 = false
 	is_meditating = false

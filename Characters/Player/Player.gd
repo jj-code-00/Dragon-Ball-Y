@@ -51,8 +51,11 @@ func _process(delta):
 	aiming = (get_global_mouse_position() - self.position).normalized()
 	hitbox.position = aiming * 16
 	direction_cursor.position = aiming * 16
+	if ((get_global_mouse_position() - self.position).length() <= 16):
+		direction_cursor.look_at(-1* aiming)
+	else :
+		direction_cursor.look_at(get_global_mouse_position())
 	hitbox.look_at(get_global_mouse_position())
-	direction_cursor.look_at(get_global_mouse_position())
 	select_animation()
 	if(!is_flying):
 		currentSpeed = baseSpeed
