@@ -7,10 +7,6 @@ var player_position
 var killsNum = 0
 var enemyNum = 0
 var enemyLimitReached = false
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

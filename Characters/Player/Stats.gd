@@ -23,13 +23,12 @@ var powerLevel # total Strength
 onready var healthBar = get_parent().get_node("UI/HealthBar")
 onready var energyBar = get_parent().get_node("UI/EnergyBar")
 onready var releaseLevel = get_parent().get_node("UI/Release")
-var regen = false
 var formMulti
 var releasing = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	release = 0.5
+	release = 1.0
 	maxHealth = 20.0
 	health = maxHealth
 	maxEnergy = 20.0
@@ -55,8 +54,6 @@ func _process(delta):
 	
 	if (health <= 0.0001):
 		get_tree().reload_current_scene()
-	if get_parent().combat_logged:
-		regen = false
 
 func set_stats(stat, amount):
 	match stat:
@@ -123,15 +120,9 @@ func change_energy(value):
 func _on_Damage_Indicator_timeout():
 	get_parent().get_node("Sprite").modulate = Color.white
 
-func _on_Player_regen(value):
-	regen = value
-
 func _on_Player_timer_tick():
 	change_health(maxHealth * 0.001)
 	change_energy(maxEnergy * 0.001)
-	if(regen):
-		change_health(maxHealth * 0.05)
-		change_energy(maxEnergy * 0.05)
 	if (releasing):
 		release = release + 0.05
 		release = clamp(release,0,1.0)
