@@ -25,6 +25,8 @@ var combat_logged = false
 var is_meditating = false
 var can_attack = true
 var aiming
+var knocked_back = false
+var knock_back_vector
 
 # On start 
 onready var animation_player = $AnimationPlayer
@@ -87,6 +89,8 @@ func _process(delta):
 		emit_signal("is_meditating", false)
 
 func _physics_process(delta):
+	if(knocked_back):
+		move_and_slide(knock_back_vector)
 	if(canMove):
 		velocity.x = Input.get_axis("i_left","i_right")
 		velocity.y = Input.get_axis("i_up","i_down")
@@ -129,7 +133,7 @@ func _input(event):
 		hitbox.disabled = false
 		animation_state.travel("Attack")
 		$"Area2D/Attack Cooldown".start(.2)
-	if(event.is_action_pressed("i_meditate") && !blockInput):
+	if(event.is_action_pressed("i_meditate") && !blockInput && !combat_logged):
 		if (is_flying):
 			land()
 		if(is_meditating):
@@ -217,3 +221,11 @@ func _on_Combat_Log_Timer_timeout():
 func _on_Attack_Cooldown_timeout():
 	can_attack = true
 	hitbox.disabled = true
+
+func _on_Stats_knocked_back(knockback_vector):
+	knocked_back = true
+	knock_back_vector = knockback_vector
+	$"Knockback Timer".start(.2)
+
+func _on_Knockback_Timer_timeout():
+	knocked_back = false

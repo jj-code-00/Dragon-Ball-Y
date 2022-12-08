@@ -19,6 +19,8 @@ onready var gameManager = get_tree().get_root().get_node("Dev Island")
 onready var hitCooldown = $"Hit Cooldown"
 var rng = RandomNumberGenerator.new()
 var angle
+onready var player_distance
+onready var player_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,11 +30,15 @@ func _ready():
 	currentHealth = maxHealth
 	angle = rng.randf_range(0.0, 360.0)
 	
+	player_distance = gameManager.get_player_position() - self.position
+	player_direction = player_distance.normalized()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	player_distance = gameManager.get_player_position() - self.position
+	player_direction = player_distance.normalized()
 	if(canAttack && hitCooldown.is_stopped()):
 		hitCooldown.start(.5)
-		gameManager.get_player().get_node("Stats").change_health(-1 * damage)
+		gameManager.get_player().get_node("Stats").take_damage(damage, player_direction,damage * 10)
 	if(currentHealth <= 0.0001):
 		get_parent().get_parent().actor_died(powerLevel)
 		queue_free()
@@ -41,9 +47,9 @@ func _physics_process(delta):
 	if(knockedBack):
 		move_and_slide(directionHit * knockbackRecieved)
 	elif(canMove):
-		var player_distance = gameManager.get_player_position() - self.position
+		player_distance = gameManager.get_player_position() - self.position
 		if (player_distance.length() >= 32 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 32):
-			var player_direction = player_distance.normalized()
+			player_direction = player_distance.normalized()
 			move_and_slide(player_direction * currentSpeed)
 		elif(player_distance.length() >= 512):
 			move_and_slide((Vector2.RIGHT.rotated((angle * PI)/180)) * (currentSpeed /2)) 
@@ -71,7 +77,6 @@ func take_damage(strength, direction, knockback):
 
 func _on_Damage_Indicator_timeout():
 	$Sprite.modulate = Color.white
-	
 
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Player")):
