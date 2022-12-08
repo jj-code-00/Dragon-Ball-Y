@@ -3,16 +3,17 @@ extends Node2D
 var has_ki_blast
 var has_flight
 var has_transformation_1
-
+var is_meditating
 # Color(100.0,3.49,0.58)
 # master list of all skills 
 func _ready():
 	has_ki_blast = false
 	has_flight = false
 	has_transformation_1 = false
+	is_meditating = false
 
 func _on_Player_ki_blast():
-	if(has_ki_blast && get_parent().energy > 5.0):
+	if(has_ki_blast && get_parent().energy > 5.0 && get_parent().get_parent().canMove):
 		get_parent().change_energy(-2.5)
 		var scene = load("res://Ki Attacks/Ki Blast.tscn")
 		var ki_blast = scene.instance()
@@ -53,3 +54,12 @@ func _on_Player_base_form():
 func _on_Level_Up_Manager_transform_1_unlocked():
 	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You unlocked Super Saiyan! Hit G")
 	has_transformation_1 = true
+
+
+func _on_Player_is_meditating(value):
+	is_meditating = value
+
+func _on_Player_timer_tick():
+	if (is_meditating):
+		get_parent().change_energy(.01 * get_parent().maxEnergy)
+		get_parent().change_health(.01 * get_parent().maxHealth)

@@ -16,10 +16,6 @@ onready var spawn10 = $Spawn10.position
 signal spawned
 
 var num
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,7 +27,7 @@ func _process(delta):
 	num = num % 10
 	if(spawnAgain && !get_tree().get_root().get_node("Dev Island").enemyLimitReached):
 		spawn()
-		$Timer.start(5)
+		$Timer.start(3)
 		spawnAgain = false
 
 func spawn():
