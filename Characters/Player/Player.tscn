@@ -1121,7 +1121,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 8
+frame = 5
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]
@@ -1130,6 +1130,9 @@ one_shot = true
 [node name="Direction Cursor" type="Sprite" parent="."]
 scale = Vector2( 0.025, 0.025 )
 texture = ExtResource( 13 )
+
+[node name="Knockback Timer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="base_form" from="." to="Stats/Skills" method="_on_Player_base_form"]
 [connection signal="end_release" from="." to="Stats" method="_on_Player_end_release"]
@@ -1140,6 +1143,7 @@ texture = ExtResource( 13 )
 [connection signal="timer_tick" from="." to="Stats" method="_on_Player_timer_tick"]
 [connection signal="timer_tick" from="." to="Stats/Skills" method="_on_Player_timer_tick"]
 [connection signal="transform_one" from="." to="Stats/Skills" method="_on_Player_transform_one"]
+[connection signal="knocked_back" from="Stats" to="." method="_on_Stats_knocked_back"]
 [connection signal="update_stats" from="Stats" to="." method="_on_Stats_update_stats"]
 [connection signal="timeout" from="Stats/Damage Indicator" to="Stats" method="_on_Damage_Indicator_timeout"]
 [connection signal="flight_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_flight_unlocked"]
@@ -1149,3 +1153,4 @@ texture = ExtResource( 13 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="Area2D/Attack Cooldown" to="." method="_on_Attack_Cooldown_timeout"]
 [connection signal="timeout" from="Combat Log Timer" to="." method="_on_Combat_Log_Timer_timeout"]
+[connection signal="timeout" from="Knockback Timer" to="." method="_on_Knockback_Timer_timeout"]

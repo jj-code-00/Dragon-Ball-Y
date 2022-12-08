@@ -1,6 +1,7 @@
 extends Node2D
 
 signal update_stats()
+signal knocked_back(knockback_vector)
 
 var health # Lifeforce, when it runs out you die
 var maxHealth
@@ -23,6 +24,7 @@ onready var energyBar = get_parent().get_node("UI/EnergyBar")
 onready var releaseLevel = get_parent().get_node("UI/Release")
 var formMulti
 var releasing = false
+var knock_back_vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -83,8 +85,25 @@ func set_stats(stat, amount):
 func _on_Level_Up_Manager_level_up():
 	set_stats("all", 1)
 	
-func change_health(value):
+func take_damage(damage, direction, knockback):
+	var hitFor = 0.0
+	if (damage >= defense):
+		hitFor = damage * 2 - defense
+		knock_back_vector = knockback * 2 - defense
+	else :
+		hitFor = damage * damage / defense
+		knock_back_vector = knockback * knockback / defense
+	health = health - hitFor
+	$"Damage Indicator".start(.1)
+	get_parent().get_node("Sprite").modulate = Color.red
+	get_parent().combat_logged = true
+	get_parent().get_node("Combat Log Timer").start(1)
+	health = clamp(health, 0, maxHealth)
+	healthBar.value = (health * 100 / maxHealth)
+	knock_back_vector = direction.normalized() * knock_back_vector
+	emit_signal("knocked_back",knock_back_vector)
 	
+func change_health(value):
 	if (value < 0):
 		value = value * -1
 		var hitFor = 0.0
