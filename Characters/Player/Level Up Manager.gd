@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var stats = get_parent()
-var powerLevel
+onready var powerLevel = get_parent().powerLevel
 var level
 var xpToLevelUp
 var totalXp
@@ -50,5 +50,5 @@ func level_up_formula():
 	
 func update_level_display():
 	var string = "PL: "
-	string += str(powerLevel)
+	string += str(round(powerLevel))
 	levelDisplay.text = string

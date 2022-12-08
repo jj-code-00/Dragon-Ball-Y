@@ -21,7 +21,7 @@ var defense # Primary defensive stat for Physical Damage and Ki Damage (used for
 var agility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection. (used for math)
 var force # Primary damage stat for Ki Damage. (used for math)
 
-var powerLevel # total Strength
+var powerLevel = 0 # total Strength
 
 onready var healthBar = get_parent().get_node("UI/HealthBar")
 onready var energyBar = get_parent().get_node("UI/EnergyBar")
@@ -50,7 +50,7 @@ func _ready():
 	emit_signal("update_stats")
 	energyBar.value = (energy * 100 / maxEnergy)
 	healthBar.value = (health * 100 / maxHealth)
-	releaseLevel.text = str(release * 100)
+	releaseLevel.text = str(round(release * 100))
 
 func _process(delta):
 	if (health <= 0.0001):
@@ -162,7 +162,7 @@ func release_change(value):
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	powerLevel = (strength + defense + agility + force)
-	releaseLevel.text = str(release * 100)
+	releaseLevel.text = str(round(release * 100))
 
 func max_release_set(value):
 	maxRelease = value
@@ -172,4 +172,4 @@ func max_release_set(value):
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	powerLevel = (strength + defense + agility + force)
-	releaseLevel.text = str(release * 100)
+	releaseLevel.text = str(round(release * 100))
