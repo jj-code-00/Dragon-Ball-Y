@@ -12,13 +12,11 @@ var baseStrength # Primary damage stat for Physical Damage.
 var baseDefense # Primary defensive stat for Physical Damage and Ki Damage
 var baseAgility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection.
 var baseForce # Primary damage stat for Ki Damage.
-var baseAccuracy # Increases your chance to hit. Reduced chance of deflection.
 
 var strength # Primary damage stat for Physical Damage. (used for math)
 var defense # Primary defensive stat for Physical Damage and Ki Damage (used for math)
 var agility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection. (used for math)
 var force # Primary damage stat for Ki Damage. (used for math)
-var accuracy # Increases your chance to hit. Reduced chance of deflection. (used for math)
 var powerLevel # total Strength
 onready var healthBar = get_parent().get_node("UI/HealthBar")
 onready var energyBar = get_parent().get_node("UI/EnergyBar")
@@ -37,21 +35,18 @@ func _ready():
 	baseDefense = 1.0
 	baseAgility = 1.0
 	baseForce = 1.0
-	baseAccuracy = 1.0
 	formMulti = 1.0
 	strength = baseStrength * formMulti * release
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
-	accuracy = baseAccuracy  * formMulti * release
-	powerLevel = (strength + defense + agility + force + accuracy)
+	powerLevel = (strength + defense + agility + force)
 	emit_signal("update_stats")
 	energyBar.value = (energy * 100 / maxEnergy)
 	healthBar.value = (health * 100 / maxHealth)
 	releaseLevel.text = str(release * 100)
 
 func _process(delta):
-	
 	if (health <= 0.0001):
 		get_tree().reload_current_scene()
 
@@ -69,8 +64,6 @@ func set_stats(stat, amount):
 			baseAgility += amount
 		"force":
 			baseForce += amount
-		"accuracy":
-			baseAccuracy += amount
 		"all":
 			maxHealth += amount * 10
 			maxEnergy += amount * 10
@@ -78,13 +71,11 @@ func set_stats(stat, amount):
 			baseDefense += amount
 			baseAgility += amount
 			baseForce += amount
-			baseAccuracy += amount
 	strength = baseStrength * formMulti
 	defense = baseDefense * formMulti
 	agility = baseAgility * formMulti
 	force = baseForce * formMulti
-	accuracy = baseAccuracy  * formMulti
-	powerLevel = strength + defense + agility + force + accuracy
+	powerLevel = strength + defense + agility + force
 	healthBar.value = (health * 100 / maxHealth)
 	energyBar.value = (energy * 100 / maxEnergy)
 	emit_signal("update_stats")
@@ -130,15 +121,11 @@ func _on_Player_timer_tick():
 		defense = baseDefense * formMulti * release
 		agility = baseAgility * formMulti * release
 		force = baseForce * formMulti * release
-		accuracy = baseAccuracy  * formMulti * release
-		powerLevel = (strength + defense + agility + force + accuracy)
+		powerLevel = (strength + defense + agility + force)
 		releaseLevel.text = str(release * 100)
-
-
 
 func _on_Player_start_release():
 	releasing = true
-
 
 func _on_Player_end_release():
 	releasing = false

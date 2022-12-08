@@ -83,14 +83,11 @@ func _on_Area2D_body_exited(body):
 	if(body.is_in_group("Player")):
 		canAttack = false
 
-
 func _on_Combat_Log_Timer_timeout():
 	combatLogged = false
 
-
 func _on_Change_Direction_timeout():
 	angle = rng.randf_range(0.0, 360.0)
-
 
 func _on_Knockback_Timer_timeout():
 	knockedBack = false
