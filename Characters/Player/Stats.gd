@@ -8,6 +8,7 @@ var maxHealth
 var energy # Decreases drain from majority of actions.
 var maxEnergy
 var release 
+var maxRelease
 
 var baseStrength # Primary damage stat for Physical Damage.
 var baseDefense # Primary defensive stat for Physical Damage and Ki Damage
@@ -21,14 +22,15 @@ var force # Primary damage stat for Ki Damage. (used for math)
 var powerLevel # total Strength
 onready var healthBar = get_parent().get_node("UI/HealthBar")
 onready var energyBar = get_parent().get_node("UI/EnergyBar")
-onready var releaseLevel = get_parent().get_node("UI/Release")
+onready var releaseLevel = get_parent().get_node("UI/EnergyBar/Release")
 var formMulti
 var releasing = false
 var knock_back_vector
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	release = 1.0
+	maxRelease = 1.0
+	release = maxRelease
 	maxHealth = 20.0
 	health = maxHealth
 	maxEnergy = 20.0
@@ -51,6 +53,10 @@ func _ready():
 func _process(delta):
 	if (health <= 0.0001):
 		get_tree().reload_current_scene()
+	if (energy / maxEnergy <= .5):
+		max_release_set(energy / maxEnergy + .5) 
+	else:
+		max_release_set(1.0)
 
 func set_stats(stat, amount):
 	match stat:
@@ -134,17 +140,31 @@ func _on_Player_timer_tick():
 #	change_health(maxHealth * 0.001)
 #	change_energy(maxEnergy * 0.001)
 	if (releasing):
-		release = release + 0.05
-		release = clamp(release,0,1.0)
-		strength = baseStrength * formMulti * release
-		defense = baseDefense * formMulti * release
-		agility = baseAgility * formMulti * release
-		force = baseForce * formMulti * release
-		powerLevel = (strength + defense + agility + force)
-		releaseLevel.text = str(release * 100)
+		release_change(0.05)
 
 func _on_Player_start_release():
 	releasing = true
 
 func _on_Player_end_release():
 	releasing = false
+	
+func release_change(value):
+
+	release = release + value
+	release = clamp(release,0,maxRelease)
+	strength = baseStrength * formMulti * release
+	defense = baseDefense * formMulti * release
+	agility = baseAgility * formMulti * release
+	force = baseForce * formMulti * release
+	powerLevel = (strength + defense + agility + force)
+	releaseLevel.text = str(release * 100)
+
+func max_release_set(value):
+	maxRelease = value
+	release = clamp(release,0,maxRelease)
+	strength = baseStrength * formMulti * release
+	defense = baseDefense * formMulti * release
+	agility = baseAgility * formMulti * release
+	force = baseForce * formMulti * release
+	powerLevel = (strength + defense + agility + force)
+	releaseLevel.text = str(release * 100)
