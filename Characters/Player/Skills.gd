@@ -8,7 +8,7 @@ var is_meditating
 # master list of all skills 
 func _ready():
 	has_ki_blast = false
-	has_flight = false
+	has_flight = true
 	has_transformation_1 = false
 	is_meditating = false
 
