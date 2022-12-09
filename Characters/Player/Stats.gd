@@ -9,6 +9,7 @@ var energy # Decreases drain from majority of actions.
 var maxEnergy
 var release 
 var maxRelease
+var formMulti
 
 var baseStrength # Primary damage stat for Physical Damage.
 var baseDefense # Primary defensive stat for Physical Damage and Ki Damage
@@ -19,11 +20,12 @@ var strength # Primary damage stat for Physical Damage. (used for math)
 var defense # Primary defensive stat for Physical Damage and Ki Damage (used for math)
 var agility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection. (used for math)
 var force # Primary damage stat for Ki Damage. (used for math)
-var powerLevel # total Strength
-onready var healthBar = get_parent().get_node("UI/HealthBar")
-onready var energyBar = get_parent().get_node("UI/EnergyBar")
-onready var releaseLevel = get_parent().get_node("UI/EnergyBar/Release")
-var formMulti
+
+var powerLevel = 0 # total Strength
+
+onready var healthBar = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HealthBar")
+onready var energyBar = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar")
+onready var releaseLevel = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/CenterContainer/Release")
 var releasing = false
 var knock_back_vector
 
@@ -31,9 +33,9 @@ var knock_back_vector
 func _ready():
 	maxRelease = 1.0
 	release = maxRelease
-	maxHealth = 20.0
+	maxHealth = 100.0
 	health = maxHealth
-	maxEnergy = 20.0
+	maxEnergy = 100.0
 	energy = maxEnergy
 	baseStrength = 1.0
 	baseDefense = 1.0
@@ -48,7 +50,7 @@ func _ready():
 	emit_signal("update_stats")
 	energyBar.value = (energy * 100 / maxEnergy)
 	healthBar.value = (health * 100 / maxHealth)
-	releaseLevel.text = str(release * 100)
+	releaseLevel.text = str(round(release * 100))
 
 func _process(delta):
 	if (health <= 0.0001):
@@ -100,6 +102,10 @@ func take_damage(damage, direction, knockback):
 		hitFor = damage * damage / defense
 		knock_back_vector = knockback * knockback / defense
 	health = health - hitFor
+	
+	# change this sound it sucks
+	if(!get_parent().get_node("Sounds/player_hurt_male").is_playing()):
+		get_parent().get_node("Sounds/player_hurt_male").play()
 	$"Damage Indicator".start(.1)
 	get_parent().get_node("Sprite").modulate = Color.red
 	get_parent().combat_logged = true
@@ -149,7 +155,6 @@ func _on_Player_end_release():
 	releasing = false
 	
 func release_change(value):
-
 	release = release + value
 	release = clamp(release,0,maxRelease)
 	strength = baseStrength * formMulti * release
@@ -157,7 +162,7 @@ func release_change(value):
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	powerLevel = (strength + defense + agility + force)
-	releaseLevel.text = str(release * 100)
+	releaseLevel.text = str(round(release * 100))
 
 func max_release_set(value):
 	maxRelease = value
@@ -167,4 +172,4 @@ func max_release_set(value):
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	powerLevel = (strength + defense + agility + force)
-	releaseLevel.text = str(release * 100)
+	releaseLevel.text = str(round(release * 100))

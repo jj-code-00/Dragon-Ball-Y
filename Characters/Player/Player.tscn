@@ -4,15 +4,15 @@
 [ext_resource path="res://Characters/Player/Player.gd" type="Script" id=2]
 [ext_resource path="res://Characters/Stats.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Characters/Player/Level Up Manager.gd" type="Script" id=4]
-[ext_resource path="res://images.jpg" type="Texture" id=5]
+[ext_resource path="res://Scenes/Player HUD.tscn" type="PackedScene" id=5]
 [ext_resource path="res://NotoSans-Regular.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg" type="Texture" id=7]
-[ext_resource path="res://blue0517-4dfc85cb0200460ab717b101ac07888f.jpg" type="Texture" id=8]
-[ext_resource path="res://Black.png" type="Texture" id=9]
 [ext_resource path="res://Characters/Player/Skills.gd" type="Script" id=10]
 [ext_resource path="res://Assets/DU-assets/Hair/Hair, Shaggy.png" type="Texture" id=11]
 [ext_resource path="res://Assets/DU-assets/Ki/Auras/Aura Normal.png" type="Texture" id=12]
 [ext_resource path="res://Assets/kisspng-computer-icons-hamburger-button-symbol-cursor-expand-5b2a87acd20e88.0686630115295139008604.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sounds/player_hurt_male.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Assets/Sounds/Effects/swing-whoosh-110410.mp3" type="AudioStream" id=16]
+[ext_resource path="res://Assets/Sounds/Effects/PUNCH WEAK.mp3" type="AudioStream" id=17]
 
 [sub_resource type="CapsuleShape2D" id=1]
 height = 10.0
@@ -934,19 +934,15 @@ states/Idle/position = Vector2( -994, 90 )
 states/Walk/node = SubResource( 33 )
 states/Walk/position = Vector2( -994, 194 )
 states/player_meditation/node = SubResource( 84 )
-states/player_meditation/position = Vector2( -1273, -193 )
+states/player_meditation/position = Vector2( -1240, 90 )
 transitions = [ "Idle", "Fly", SubResource( 23 ), "Fly", "Idle", SubResource( 24 ), "Idle", "Walk", SubResource( 34 ), "Walk", "Idle", SubResource( 35 ), "Fly", "Walk", SubResource( 36 ), "Walk", "Fly", SubResource( 37 ), "Idle", "player_meditation", SubResource( 85 ), "player_meditation", "Idle", SubResource( 86 ), "Walk", "Attack", SubResource( 103 ), "Attack", "Walk", SubResource( 104 ), "Attack", "Fly", SubResource( 105 ), "Fly", "Attack", SubResource( 106 ), "Attack", "Idle", SubResource( 107 ), "Idle", "Attack", SubResource( 108 ) ]
 start_node = "Idle"
-graph_offset = Vector2( -1402, 17 )
+graph_offset = Vector2( -1431, 8 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=13]
 
 [sub_resource type="RectangleShape2D" id=53]
 extents = Vector2( 12.5, 16.5 )
-
-[sub_resource type="DynamicFont" id=54]
-size = 14
-font_data = ExtResource( 6 )
 
 [sub_resource type="AtlasTexture" id=87]
 flags = 4
@@ -1005,6 +1001,10 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="DynamicFont" id=54]
+size = 14
+font_data = ExtResource( 6 )
 
 [node name="Player" type="KinematicBody2D" groups=["Player"]]
 script = ExtResource( 2 )
@@ -1069,51 +1069,6 @@ shape = SubResource( 53 )
 [node name="Attack Cooldown" type="Timer" parent="Area2D"]
 one_shot = true
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="Level" type="RichTextLabel" parent="UI"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 34.0
-margin_top = -82.0
-margin_right = 246.0
-margin_bottom = -58.0
-custom_fonts/normal_font = SubResource( 54 )
-fit_content_height = true
-
-[node name="HealthBar" type="TextureProgress" parent="UI"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 32.0
-margin_top = -59.0
-margin_right = 247.0
-margin_bottom = -34.0
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 5 )
-nine_patch_stretch = true
-
-[node name="EnergyBar" type="TextureProgress" parent="UI"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 32.0
-margin_top = -27.0
-margin_right = 247.0
-margin_bottom = -6.0
-texture_under = ExtResource( 9 )
-texture_progress = ExtResource( 8 )
-nine_patch_stretch = true
-
-[node name="Release" type="RichTextLabel" parent="UI/EnergyBar"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -107.5
-margin_top = -10.5
-margin_right = 107.5
-margin_bottom = 10.5
-fit_content_height = true
-
 [node name="Hair" type="Sprite" parent="."]
 position = Vector2( 0, 1 )
 texture = ExtResource( 11 )
@@ -1135,6 +1090,33 @@ texture = ExtResource( 13 )
 
 [node name="Knockback Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="player_hurt_male" parent="Sounds" instance=ExtResource( 14 )]
+pitch_scale = 2.25
+
+[node name="player_punch" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 16 )
+
+[node name="player_hit_impact" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource( 17 )
+volume_db = -5.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Level" type="RichTextLabel" parent="UI"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 34.0
+margin_top = -82.0
+margin_right = 246.0
+margin_bottom = -58.0
+custom_fonts/normal_font = SubResource( 54 )
+fit_content_height = true
+
+[node name="Player HUD" parent="UI" instance=ExtResource( 5 )]
 
 [connection signal="base_form" from="." to="Stats/Skills" method="_on_Player_base_form"]
 [connection signal="end_release" from="." to="Stats" method="_on_Player_end_release"]

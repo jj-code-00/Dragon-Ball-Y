@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var player = $Player
-onready var console = $UI/RichTextLabel
+onready var console = $"UI/On Screen UI/HBoxContainer/VBoxContainer/Panel/MarginContainer/CenterContainer/Console"
 onready var kills = $UI/Kills
 var player_position
 var killsNum = 0

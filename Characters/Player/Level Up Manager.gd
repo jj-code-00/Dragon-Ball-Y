@@ -1,11 +1,11 @@
 extends Node2D
 
 onready var stats = get_parent()
-var powerLevel
+onready var powerLevel = get_parent().powerLevel
 var level
 var xpToLevelUp
 var totalXp
-onready var levelDisplay = get_parent().get_parent().get_node("UI/Level")
+onready var levelDisplay = get_parent().get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/Power Level")
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
 var kills = 0
 signal ki_attack_unlocked
@@ -50,5 +50,5 @@ func level_up_formula():
 	
 func update_level_display():
 	var string = "PL: "
-	string += str(powerLevel)
+	string += str(round(powerLevel))
 	levelDisplay.text = string

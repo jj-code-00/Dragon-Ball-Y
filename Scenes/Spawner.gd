@@ -1,6 +1,7 @@
 extends Node2D
 
 var spawnAgain = true
+var level = 1
 
 # change this abomination
 onready var spawn1 = $Spawn1.position
@@ -33,7 +34,6 @@ func _process(delta):
 func spawn():
 	var scene = load("res://Characters/Enemies/Cell/Cell.tscn")
 	var cell = scene.instance()
-	
 	match num:
 		0:
 			cell.position = spawn1
@@ -57,8 +57,11 @@ func spawn():
 			cell.position = spawn10
 	
 	add_child(cell)
+	yield(cell,"ready")
+	cell.set_level(level)
 	emit_signal("spawned")
 	num = num + 1
 	
 func _on_Timer_timeout():
 	spawnAgain = true
+	level = level + 0.1

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/punch-hit-1-47483.mp3-a656307d9846ee06994b6c4e13b698c3.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/punch-hit-1-47483.mp3"
+dest_files=[ "res://.import/punch-hit-1-47483.mp3-a656307d9846ee06994b6c4e13b698c3.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

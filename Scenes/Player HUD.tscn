@@ -1,0 +1,123 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg" type="Texture" id=1]
+[ext_resource path="res://blue0517-4dfc85cb0200460ab717b101ac07888f.jpg" type="Texture" id=2]
+[ext_resource path="res://images.jpg" type="Texture" id=3]
+[ext_resource path="res://Black.png" type="Texture" id=4]
+[ext_resource path="res://NotoSans-Regular.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=2]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+use_filter = true
+font_data = ExtResource( 6 )
+
+[node name="Player HUD" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="Player GUI" type="HBoxContainer" parent="."]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1004.0
+margin_bottom = 580.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player GUI"]
+margin_right = 316.0
+margin_bottom = 560.0
+rect_min_size = Vector2( 300, 100 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Player GUI/VBoxContainer"]
+margin_right = 316.0
+margin_bottom = 78.0
+
+[node name="Panel" type="Panel" parent="Player GUI/VBoxContainer/MarginContainer"]
+modulate = Color( 1, 1, 1, 0.501961 )
+margin_right = 316.0
+margin_bottom = 78.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player GUI/VBoxContainer/MarginContainer"]
+margin_right = 316.0
+margin_bottom = 78.0
+
+[node name="VSeparator2" type="VSeparator" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 4.0
+margin_bottom = 78.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer"]
+margin_left = 8.0
+margin_right = 308.0
+margin_bottom = 78.0
+rect_min_size = Vector2( 300, 0 )
+alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 300.0
+margin_bottom = 4.0
+
+[node name="HealthBar" type="TextureProgress" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 8.0
+margin_right = 300.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 25 )
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 3 )
+nine_patch_stretch = true
+
+[node name="HSeparator" type="HSeparator" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 37.0
+margin_right = 300.0
+margin_bottom = 41.0
+
+[node name="EnergyBar" type="TextureProgress" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_top = 45.0
+margin_right = 300.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 25 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 2 )
+nine_patch_stretch = true
+
+[node name="CenterContainer" type="CenterContainer" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Release" type="Label" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/CenterContainer"]
+margin_left = 150.0
+margin_top = 1.0
+margin_right = 150.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 2 )
+align = 2
+
+[node name="HSeparator3" type="HSeparator" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 74.0
+margin_right = 300.0
+margin_bottom = 78.0
+
+[node name="VSeparator" type="VSeparator" parent="Player GUI/VBoxContainer/MarginContainer/HBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 312.0
+margin_right = 316.0
+margin_bottom = 78.0
+
+[node name="Power Level" type="Label" parent="Player GUI/VBoxContainer"]
+margin_top = 82.0
+margin_right = 316.0
+margin_bottom = 116.0
+custom_fonts/font = SubResource( 1 )

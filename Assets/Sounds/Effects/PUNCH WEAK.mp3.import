@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/PUNCH WEAK.mp3-1d8a0088bc5e301584797161442e9516.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/PUNCH WEAK.mp3"
+dest_files=[ "res://.import/PUNCH WEAK.mp3-1d8a0088bc5e301584797161442e9516.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

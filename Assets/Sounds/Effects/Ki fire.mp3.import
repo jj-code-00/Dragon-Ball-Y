@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Ki fire.mp3-1cc8eb31bad1d22986fa702c58ccbd97.mp3str"
+
+[deps]
+
+source_file="res://Assets/Sounds/Effects/Ki fire.mp3"
+dest_files=[ "res://.import/Ki fire.mp3-1cc8eb31bad1d22986fa702c58ccbd97.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

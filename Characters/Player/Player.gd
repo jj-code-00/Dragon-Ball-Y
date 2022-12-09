@@ -51,6 +51,7 @@ func _ready():
 func _process(delta):
 	# make check so cursor doesnt invert
 	aiming = (get_global_mouse_position() - self.position).normalized()
+	set_attack_animation_direction()
 	hitbox.position = aiming * 16
 	direction_cursor.position = aiming * 16
 	if ((get_global_mouse_position() - self.position).length() <= 16):
@@ -100,10 +101,9 @@ func _physics_process(delta):
 			facing = Vector2.ZERO
 			if(velocity.x != 0):
 				facing.x = velocity.x
-				setBlendPos(facing)
 			elif(velocity.y != 0):
 				facing.y = velocity.y
-				setBlendPos(facing)
+			setBlendPos()
 func select_animation():
 	if(canMove):
 		if(velocity == Vector2.ZERO):
@@ -113,10 +113,13 @@ func select_animation():
 		elif(is_flying && $Stats.energy > 0):
 			animation_state.travel("Fly")
 
-func setBlendPos(facing):
+func setBlendPos():
 	animation_tree.set("parameters/Idle/blend_position", facing)
 	animation_tree.set("parameters/Walk/blend_position", facing)
 	animation_tree.set("parameters/Fly/blend_position", facing)
+	
+
+func set_attack_animation_direction():
 	animation_tree.set("parameters/Attack/blend_position", aiming)
 
 func _input(event):
@@ -129,10 +132,13 @@ func _input(event):
 			take_off()
 			is_flying = true
 	if(event.is_action_pressed("i_attack") && canMove && can_attack):
-		can_attack = false
-		hitbox.disabled = false
-		animation_state.travel("Attack")
-		$"Area2D/Attack Cooldown".start(.2)
+		if(!$Sounds/player_punch.is_playing()):
+			$Sounds/player_punch.play()
+			can_attack = false
+			hitbox.disabled = false
+			animation_state.travel("Attack")
+			$"Area2D/Attack Cooldown".start(.2)
+		
 	if(event.is_action_pressed("i_meditate") && !blockInput && !combat_logged):
 		if (is_flying):
 			land()
@@ -140,8 +146,11 @@ func _input(event):
 			stop_meditation()
 		else:
 			meditate()
-	if(event.is_action_pressed("i_ki_blast") && !blockInput && canMove):
+	if(event.is_action_pressed("i_ki_blast") && !blockInput && canMove && $Stats/Skills.has_ki_blast):
+		blockInput = true
+		animation_state.travel("Attack")
 		emit_signal("ki_blast")
+		blockInput = false
 	if(event.is_action_pressed("i_zoom_in")):
 		zoomLevel.x -= .5
 		zoomLevel.y -= .5
@@ -166,6 +175,8 @@ func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		body.take_damage(get_node("Stats").strength, aiming, knockback)
 		$"Combat Log Timer".start(1)
+		if(!$Sounds/player_hit_impact.is_playing()):
+			$Sounds/player_hit_impact.play()
 		combat_logged = true
 
 func _on_Enemies_enemy_died(powerLevel):
