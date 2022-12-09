@@ -134,10 +134,11 @@ func _input(event):
 	if(event.is_action_pressed("i_attack") && canMove && can_attack):
 		if(!$Sounds/player_punch.is_playing()):
 			$Sounds/player_punch.play()
-		can_attack = false
-		hitbox.disabled = false
-		animation_state.travel("Attack")
-		$"Area2D/Attack Cooldown".start(.2)
+			can_attack = false
+			hitbox.disabled = false
+			animation_state.travel("Attack")
+			$"Area2D/Attack Cooldown".start(.2)
+		
 	if(event.is_action_pressed("i_meditate") && !blockInput && !combat_logged):
 		if (is_flying):
 			land()

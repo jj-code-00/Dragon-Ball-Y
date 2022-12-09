@@ -23,9 +23,9 @@ var force # Primary damage stat for Ki Damage. (used for math)
 
 var powerLevel = 0 # total Strength
 
-onready var healthBar = get_parent().get_node("UI/HealthBar")
-onready var energyBar = get_parent().get_node("UI/EnergyBar")
-onready var releaseLevel = get_parent().get_node("UI/EnergyBar/Release")
+onready var healthBar = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HealthBar")
+onready var energyBar = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar")
+onready var releaseLevel = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/CenterContainer/Release")
 var releasing = false
 var knock_back_vector
 

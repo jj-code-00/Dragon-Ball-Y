@@ -11,5 +11,5 @@ dest_files=[ "res://.import/KIPLOSION.mp3-386f50c82255eb5bb8f5b204ae6fa71e.mp3st
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://TH_3917011_3707003_3708011_3912011_3914011_800_800.jpg" type="Texture" id=1]
+[ext_resource path="res://blue0517-4dfc85cb0200460ab717b101ac07888f.jpg" type="Texture" id=2]
+[ext_resource path="res://images.jpg" type="Texture" id=3]
+[ext_resource path="res://Black.png" type="Texture" id=4]
+
+[node name="Player GUI" type="HBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 300.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 300, 100 )
+
+[node name="Panel" type="Panel" parent="VBoxContainer"]
+modulate = Color( 1, 1, 1, 0.501961 )
+margin_right = 300.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 300, 100 )
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 300, 100 )
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Panel/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 280.0
+margin_bottom = 88.0
+
+[node name="HealthBar" type="TextureProgress" parent="VBoxContainer/Panel/MarginContainer/VBoxContainer"]
+margin_right = 260.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 3 )
+nine_patch_stretch = true
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/Panel/MarginContainer/VBoxContainer"]
+margin_top = 29.0
+margin_right = 260.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 0, 10 )
+
+[node name="EnergyBar" type="TextureProgress" parent="VBoxContainer/Panel/MarginContainer/VBoxContainer"]
+margin_top = 43.0
+margin_right = 260.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 0, 25 )
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 2 )
+nine_patch_stretch = true

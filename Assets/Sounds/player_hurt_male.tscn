@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Assets/Sounds/Effects/grunts-33249.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Sounds/Effects/458867__raclure__damage-sound-effect.mp3" type="AudioStream" id=1]
 
 [node name="player_hurt_male" type="AudioStreamPlayer2D"]
-stream = ExtResource( 2 )
+stream = ExtResource( 1 )

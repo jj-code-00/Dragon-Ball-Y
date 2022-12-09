@@ -5,7 +5,7 @@ onready var powerLevel = get_parent().powerLevel
 var level
 var xpToLevelUp
 var totalXp
-onready var levelDisplay = get_parent().get_parent().get_node("UI/Level")
+onready var levelDisplay = get_parent().get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/Power Level")
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
 var kills = 0
 signal ki_attack_unlocked

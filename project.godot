@@ -11,10 +11,14 @@ config_version=4
 [application]
 
 config/name="DBY"
-run/main_scene="res://Scenes/Dev Island.tscn"
+run/main_scene="res://Scenes/Main Menu.tscn"
 boot_splash/show_image=false
 config/icon="res://Icon/icon.png"
 config/windows_native_icon="res://Icon/icon.ico"
+
+[global]
+
+main=false
 
 [gui]
 
