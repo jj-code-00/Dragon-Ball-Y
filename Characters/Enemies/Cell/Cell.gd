@@ -44,9 +44,6 @@ func _process(delta):
 	if(canAttack && hitCooldown.is_stopped()):
 		hitCooldown.start(1)
 		gameManager.get_player().get_node("Stats").take_damage(strength, player_direction,strength * 10)
-#	if(currentHealth <= 0.0001):
-#		get_parent().get_parent().actor_died(powerLevel)
-#		queue_free()
 
 func _physics_process(delta):
 	if(knockedBack):
@@ -77,8 +74,9 @@ func take_damage(strength, direction, knockback):
 			add_child(death_timer)
 			death_timer.connect("timeout",self,"kill_entity")
 			death_timer.start(10)
-			knockbackRecieved = knockback
+			knockbackRecieved = knockback * 2
 			is_dead = true
+			get_parent().get_parent().actor_died(powerLevel)
 			$Sprite.rotate(PI/2)
 			$TextureProgress.visible = false
 			$CollisionShape2D.queue_free()
@@ -95,7 +93,6 @@ func take_damage(strength, direction, knockback):
 	
 	
 func set_level(value):
-	print(str(value))
 	level = value
 	maxHealth = 10.0 + level * 10
 	maxEnergy = 10.0 + level * 10
@@ -139,5 +136,4 @@ func _on_Knock_Out_Timer_timeout():
 	canMove = true
 
 func kill_entity():
-	get_parent().get_parent().actor_died(powerLevel)
 	queue_free()

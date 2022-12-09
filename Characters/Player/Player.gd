@@ -10,12 +10,12 @@ signal start_release()
 signal end_release()
 # Variables
 var facing = Vector2.ZERO
-var baseSpeed = 1
+onready var baseSpeed = $Stats.movement_speed
 var currentSpeed
 var velocity = Vector2.ZERO
 var is_flying = false
-var damage = 1
-var knockback
+onready var damage = $Stats.strength
+onready var knockback = $Stats.knock_back_strength
 var canMove = true
 var zoomLevel
 var auraToggle = false
@@ -35,14 +35,16 @@ onready var animation_state = animation_tree.get("parameters/playback")
 onready var hitbox = $Area2D/Hitbox
 onready var cam = $Camera2D
 onready var direction_cursor = $"Direction Cursor"
+onready var character_menu = $"UI/Character Menu"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	character_menu.set_process(false)
+	character_menu.visible = false
 	hitbox.disabled = true
 	hitbox.position = Vector2(0,4)
 	animation_state.travel("Idle")
 	currentSpeed = baseSpeed
-	knockback = damage * 10
 	zoomLevel = cam.get_zoom()
 	$Aura.modulate = Color(0.53,1.74,3.47)
 	$Aura.modulate.a = 0.25
@@ -117,7 +119,6 @@ func setBlendPos():
 	animation_tree.set("parameters/Idle/blend_position", facing)
 	animation_tree.set("parameters/Walk/blend_position", facing)
 	animation_tree.set("parameters/Fly/blend_position", facing)
-	
 
 func set_attack_animation_direction():
 	animation_tree.set("parameters/Attack/blend_position", aiming)
@@ -169,6 +170,13 @@ func _input(event):
 	elif(event.is_action_pressed("i_return_to_base")):
 		emit_signal("base_form")
 		is_transformed = false
+	if(event.is_action_pressed("i_character_sheet")):
+		if(!character_menu.is_visible()):
+			character_menu.set_process(true)
+			character_menu.visible = true
+		else:
+			character_menu.set_process(false)
+			character_menu.visible = false
 
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
@@ -183,13 +191,13 @@ func _on_Enemies_enemy_died(powerLevel):
 	emit_signal("enemyPowerLevel",powerLevel)
 
 func _on_Stats_update_stats():
-	baseSpeed = (get_node("Stats").agility + 250)
+	baseSpeed = $Stats.movement_speed
 	if(!is_flying):
 		currentSpeed = baseSpeed
 	else:
 		currentSpeed = baseSpeed * 2
 	damage = (get_node("Stats").strength)
-	knockback = damage * 10
+	knockback = $Stats.knock_back_strength
 	
 func take_off():
 	position.y -= 8

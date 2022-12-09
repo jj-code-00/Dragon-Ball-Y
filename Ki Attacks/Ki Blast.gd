@@ -9,5 +9,5 @@ func _physics_process(delta):
 		if(move.collider.is_in_group("Enemy")):
 			get_tree().get_root().get_node("Dev Island").get_node("Player").combat_logged = true
 			get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Combat Log Timer").start(1)
-			move.collider.take_damage(damage, direction, damage * 10)
+			move.collider.take_damage(damage, -direction, damage * 10)
 		queue_free()
