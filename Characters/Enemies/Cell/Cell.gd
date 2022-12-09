@@ -4,10 +4,12 @@ var maxHealth = 0
 var currentHealth = 0
 var maxEnergy
 var currentEnergy
+var vitality
 var strength
 var defense
 var agility
 var force
+var spirit
 var baseSpeed
 var currentSpeed
 var powerLevel
@@ -22,6 +24,7 @@ var knockedBack = false
 var directionHit
 var knockbackRecieved
 var canAttack = false
+var dodged = false
 
 onready var healthBar = $TextureProgress
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
@@ -47,7 +50,7 @@ func _process(delta):
 	player_direction = player_distance.normalized()
 	if(canAttack && hitCooldown.is_stopped()):
 		hitCooldown.start(1)
-		gameManager.get_player().get_node("Stats").take_damage(strength, player_direction,strength * 10)
+		gameManager.get_player().get_node("Stats").take_damage(strength, player_direction,strength * 10, agility)
 	if (gameManager.get_player().is_flying && !is_flying):
 		z_index = 1
 		position.y -= 8
@@ -80,51 +83,58 @@ func _physics_process(delta):
 			$"Change Direction".start(3)
 	
 
-func take_damage(strength, direction, knockback):
-	if(!is_dead):
-		var hitFor = 0.0
-		if (strength >= defense):
-			hitFor = strength * 2 - defense
-			knockbackRecieved = knockback * 2 - (defense * 10)
-		else :
-			hitFor = strength * strength / defense
-			knockbackRecieved = knockback * knockback / (defense * 10)
-		currentHealth -= hitFor
-		if (currentHealth <= 0):
-			var death_timer = load("res://Scenes/one_off_timer.tscn").instance()
-			add_child(death_timer)
-			death_timer.connect("timeout",self,"kill_entity")
-			death_timer.start(10)
-			knockbackRecieved = knockback * 2
-			is_dead = true
-			get_parent().get_parent().actor_died(powerLevel)
-			$Sprite.rotate(PI/2)
-			$TextureProgress.visible = false
-			$CollisionShape2D.queue_free()
-			$Area2D.queue_free()
-		$"Damage Indicator".start(.1)
-		$Sprite.modulate = Color.red
-		healthBar.value = (currentHealth * 100 / maxHealth)
-		directionHit = direction.normalized()
-		knockedBack = true
-		$"Knockback Timer".start(.2)
-		combatLogged = true
-		$"Combat Log Timer".start(5)
-	
-	
-	
+func take_damage(strength, direction, knockback, agility_attacker):
+	var dodge_chance = calc_dodge_chance(agility_attacker)
+	var percent = randf()
+	if(percent > dodge_chance):
+		if(!is_dead):
+			var hitFor = 0.0
+			if (strength >= defense):
+				hitFor = strength * 2 - defense
+				knockbackRecieved = knockback * 2 - (defense * 10)
+			else :
+				hitFor = strength * strength / defense
+				knockbackRecieved = knockback * knockback / (defense * 10)
+				dodged = false
+			currentHealth -= hitFor
+			if (currentHealth <= 0):
+				var death_timer = load("res://Scenes/one_off_timer.tscn").instance()
+				add_child(death_timer)
+				death_timer.connect("timeout",self,"kill_entity")
+				death_timer.start(10)
+				knockbackRecieved = knockback * 2
+				is_dead = true
+				get_parent().get_parent().actor_died(powerLevel)
+				$Sprite.rotate(PI/2)
+				$TextureProgress.visible = false
+				$CollisionShape2D.queue_free()
+				$Area2D.queue_free()
+			$"Damage Indicator".start(.1)
+			$Sprite.modulate = Color.red
+			healthBar.value = (currentHealth * 100 / maxHealth)
+			directionHit = direction.normalized()
+			knockedBack = true
+			$"Knockback Timer".start(.2)
+			combatLogged = true
+			$"Combat Log Timer".start(5)
+			get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Stats").get_node("Level Up Manager").gain_xp_on_hit(hitFor,maxHealth,powerLevel)
+	else:
+		dodged = true
+		print("They dodged")
 func set_level(value):
 	level = value
-	maxHealth = level * 10
-	maxEnergy = level * 10
-	currentEnergy = maxEnergy
+	vitality = level
 	strength = level
 	agility = level
 	defense = level
 	force = level
-	powerLevel = strength + agility + defense + force
+	spirit = level
+	powerLevel = (strength + agility + defense + vitality) * (spirit+force)
 	baseSpeed = agility + 250
 	currentSpeed = baseSpeed
+	maxHealth = vitality * 10
+	maxEnergy = vitality * 10
+	currentEnergy = maxEnergy
 	currentHealth = maxHealth
 	healthBar.value = currentHealth / maxHealth * 100
 
@@ -162,3 +172,6 @@ func _on_Knock_Out_Timer_timeout():
 
 func kill_entity():
 	queue_free()
+	
+func calc_dodge_chance(attacker_agility):
+	return agility / (attacker_agility + agility)

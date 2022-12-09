@@ -185,9 +185,9 @@ func _input(event):
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
-		body.take_damage(get_node("Stats").strength, aiming, knockback)
+		body.take_damage(get_node("Stats").strength, aiming, knockback,get_node("Stats").agility)
 		$"Combat Log Timer".start(1)
-		if(!$Sounds/player_hit_impact.is_playing()):
+		if(!$Sounds/player_hit_impact.is_playing() && !body.dodged):
 			$Sounds/player_hit_impact.play()
 		combat_logged = true
 

@@ -3,6 +3,8 @@ extends Node2D
 signal update_stats()
 signal knocked_back(knockback_vector)
 
+# dodge chance eq agility_defender / agilty_attacker + agilty_defender
+
 var health # Lifeforce, when it runs out you die
 var maxHealth
 var energy # Decreases drain from majority of actions.
@@ -42,18 +44,18 @@ func _ready():
 	release = maxRelease
 	
 	# Stats
-	vitality = 10.0
-	spirit = 10.0
-	baseStrength = 10.0
-	baseDefense = 10.0
-	baseAgility = 10.0
-	baseForce = 10.0
+	vitality = 1.0
+	spirit = 1.0
+	baseStrength = 1.0
+	baseDefense = 1.0
+	baseAgility = 1.0
+	baseForce = 1.0
 	strength = baseStrength * formMulti * release
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	# PL equation needs work
-	powerLevel = (strength + defense + agility + force) * (spirit + force)
+	update_power_level()
 	movement_speed = agility + 250
 	knock_back_strength = strength * 10
 	emit_signal("update_stats")
@@ -108,26 +110,31 @@ func set_stats(stat, amount):
 	knock_back_strength = strength * 10
 	emit_signal("update_stats")
 	
-func take_damage(damage, direction, knockback):
-	var hitFor = 0.0
-	if (damage >= defense):
-		hitFor = damage * 2 - defense
-		knock_back_vector = knockback * 2 - defense
-	else :
-		hitFor = damage * damage / defense
-		knock_back_vector = knockback * knockback / defense
-	health = health - hitFor
-	
-	if(!get_parent().get_node("Sounds/player_hurt_male").is_playing()):
-		get_parent().get_node("Sounds/player_hurt_male").play()
-	$"Damage Indicator".start(.1)
-	get_parent().get_node("Sprite").modulate = Color.red
-	get_parent().combat_logged = true
-	get_parent().get_node("Combat Log Timer").start(1)
-	health = clamp(health, 0, maxHealth)
-	healthBar.value = (health * 100 / maxHealth)
-	knock_back_vector = direction.normalized() * knock_back_vector
-	emit_signal("knocked_back",knock_back_vector)
+func take_damage(damage, direction, knockback, agility_attacker):
+	var dodge_chance = calc_dodge_chance(agility_attacker)
+	var percent = randf()
+	if (percent > dodge_chance):
+		var hitFor = 0.0
+		if (damage >= defense):
+			hitFor = damage * 2 - defense
+			knock_back_vector = knockback * 2 - defense
+		else :
+			hitFor = damage * damage / defense
+			knock_back_vector = knockback * knockback / defense
+		health = health - hitFor
+		
+		if(!get_parent().get_node("Sounds/player_hurt_male").is_playing()):
+			get_parent().get_node("Sounds/player_hurt_male").play()
+		$"Damage Indicator".start(.1)
+		get_parent().get_node("Sprite").modulate = Color.red
+		get_parent().combat_logged = true
+		get_parent().get_node("Combat Log Timer").start(1)
+		health = clamp(health, 0, maxHealth)
+		healthBar.value = (health * 100 / maxHealth)
+		knock_back_vector = direction.normalized() * knock_back_vector
+		emit_signal("knocked_back",knock_back_vector)
+	else:
+		print("dodged")
 	
 func change_health(value):
 	if (value < 0):
@@ -191,4 +198,7 @@ func max_release_set(value):
 	releaseLevel.text = str(round(release * 100))
 	
 func update_power_level():
-	powerLevel = (strength + defense + agility + force) * (spirit + force)
+	powerLevel = (strength + defense + agility + force + vitality) * (spirit + force)
+	
+func calc_dodge_chance(attacker_agility):
+	return agility / (attacker_agility + agility)

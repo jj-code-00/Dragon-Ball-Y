@@ -34,10 +34,24 @@ func _ready():
 
 func _on_Player_enemyPowerLevel(powerLevel):
 	kills = kills + 1
-	totalXp += powerLevel
+
+func level_up_formula():
+	# needs work
+	xpToLevelUp = pow(level/1, 2)
+	remaining_xp = xpToLevelUp - totalXp
+	
+func update_level_display():
+	var string = "PL: "
+	string += str(round(powerLevel))
+	levelDisplay.text = string
+	
+func gain_xp_on_hit(damage,total_health,power_level):
+	var xp_gained = (damage / total_health) * power_level
+	totalXp += xp_gained
 	while (totalXp >= xpToLevelUp):
 		totalXp = totalXp - xpToLevelUp
 		AP = AP + 1
+		# move away from levels
 		level = level + 1
 		if(level == 3):
 			emit_signal("flight_unlocked")
@@ -50,13 +64,4 @@ func _on_Player_enemyPowerLevel(powerLevel):
 		gameManager.print_to_console("AP gained!")
 		update_level_display()
 	remaining_xp = xpToLevelUp - totalXp
-
-func level_up_formula():
-	# needs work
-	xpToLevelUp = pow(level/1, 2)
-	remaining_xp = xpToLevelUp - totalXp
 	
-func update_level_display():
-	var string = "PL: "
-	string += str(round(powerLevel))
-	levelDisplay.text = string
