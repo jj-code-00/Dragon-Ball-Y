@@ -207,6 +207,7 @@ func take_off():
 	set_collision_layer_bit(1, true)
 	set_collision_mask_bit(1,true)
 	is_flying = true
+	$Stats.change_energy(-1)
 	#set_collision_mask_bit(0,false)
 func land():
 	position.y += 8

@@ -107,9 +107,6 @@ func set_stats(stat, amount):
 	movement_speed = agility + 250
 	knock_back_strength = strength * 10
 	emit_signal("update_stats")
-
-func _on_Level_Up_Manager_level_up():
-	set_stats("all", 1)
 	
 func take_damage(damage, direction, knockback):
 	var hitFor = 0.0

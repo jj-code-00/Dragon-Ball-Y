@@ -1079,7 +1079,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 4
+frame = 7
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]
