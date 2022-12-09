@@ -29,7 +29,7 @@ func refresh_stats_display():
 	agility_display.text = str(stats.baseAgility)
 	calc_agility_display.text = str(stats.agility)
 	durability_display.text = str(stats.baseDefense)
-	calc_durability_display = str(stats.defense)
+	calc_durability_display.text = str(stats.defense)
 	force_display.text = str(stats.baseForce)
 	calc_force_display.text = str(stats.force)
 	spirit_display.text = str(stats.spirit)

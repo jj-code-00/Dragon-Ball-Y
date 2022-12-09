@@ -56,7 +56,7 @@ func _process(delta):
 		set_collision_mask_bit(0, false)
 		set_collision_mask_bit(1,true)
 		is_flying = true
-		currentSpeed = baseSpeed * 2
+		currentSpeed = baseSpeed * 1.5
 	elif(is_flying && !gameManager.get_player().is_flying && !over_collision):
 		position.y += 8
 		z_index = 0
@@ -115,13 +115,13 @@ func take_damage(strength, direction, knockback):
 	
 func set_level(value):
 	level = value
-	maxHealth = 10.0 + level * 10
-	maxEnergy = 10.0 + level * 10
+	maxHealth = level * 10
+	maxEnergy = level * 10
 	currentEnergy = maxEnergy
-	strength = 0.0 + level
-	agility = 0.0 + level
-	defense = 0.0 + level
-	force = 0.0 + level
+	strength = level
+	agility = level
+	defense = level
+	force = level
 	powerLevel = strength + agility + defense + force
 	baseSpeed = agility + 250
 	currentSpeed = baseSpeed

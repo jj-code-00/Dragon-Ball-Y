@@ -21,7 +21,7 @@ var num
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	num = 0
-	level = 3
+	level = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -63,4 +63,4 @@ func spawn():
 	
 func _on_Timer_timeout():
 	spawnAgain = true
-	level = level + 0.1
+	level = level + 0.05

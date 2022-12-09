@@ -7,8 +7,8 @@ var is_meditating
 # Color(100.0,3.49,0.58)
 # master list of all skills 
 func _ready():
-	has_ki_blast = true
-	has_flight = true
+	has_ki_blast = false
+	has_flight = false
 	has_transformation_1 = false
 	is_meditating = false
 
@@ -25,9 +25,11 @@ func _on_Player_ki_blast():
 func _on_Level_Up_Manager_ki_attack_unlocked():
 	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can now use Ki Blast! Hit F")
 	has_ki_blast = true
+	get_parent().get_parent().get_node("UI/Character Menu/CenterContainer/Panel/MarginContainer/HBoxContainer2/Skill List").add_item("Ki Blast",null,true)
 
 func _on_Level_Up_Manager_flight_unlocked():
 	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can now Fly! Hit R")
+	get_parent().get_parent().get_node("UI/Character Menu/CenterContainer/Panel/MarginContainer/HBoxContainer2/Skill List").add_item("Flight",null,true)
 	has_flight = true
 
 func _on_Player_transform_one():

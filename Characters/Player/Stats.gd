@@ -42,18 +42,18 @@ func _ready():
 	release = maxRelease
 	
 	# Stats
-	vitality = 5.0
-	spirit = 5.0
-	baseStrength = 5.0
-	baseDefense = 5.0
-	baseAgility = 5.0
-	baseForce = 5.0
+	vitality = 1.0
+	spirit = 1.0
+	baseStrength = 1.0
+	baseDefense = 1.0
+	baseAgility = 1.0
+	baseForce = 1.0
 	strength = baseStrength * formMulti * release
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	# PL equation needs work
-	powerLevel = (strength + defense + agility + force) * (spirit + force) / 100
+	powerLevel = (strength + defense + agility + force) * (spirit + force)
 	movement_speed = agility + 250
 	knock_back_strength = strength * 10
 	emit_signal("update_stats")
@@ -101,7 +101,7 @@ func set_stats(stat, amount):
 	force = baseForce * formMulti
 	maxHealth = vitality * 10
 	maxEnergy = spirit * 10
-	powerLevel = (strength + defense + agility + force) * (spirit + force) / 100
+	powerLevel = (strength + defense + agility + force) * (spirit + force)
 	healthBar.value = (health * 100 / maxHealth)
 	energyBar.value = (energy * 100 / maxEnergy)
 	movement_speed = agility + 250
@@ -173,7 +173,7 @@ func release_change(value):
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
-	powerLevel = (strength + defense + agility + force) * (spirit + force) / 100
+	powerLevel = (strength + defense + agility + force) * (spirit + force)
 	movement_speed = agility + 250
 	knock_back_strength = strength * 10
 	releaseLevel.text = str(round(release * 100))
@@ -185,7 +185,7 @@ func max_release_set(value):
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
-	powerLevel = (strength + defense + agility + force) * (spirit + force) / 100
+	powerLevel = (strength + defense + agility + force) * (spirit + force)
 	movement_speed = agility + 250
 	knock_back_strength = strength * 10
 	releaseLevel.text = str(round(release * 100))

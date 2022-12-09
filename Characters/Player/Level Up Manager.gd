@@ -37,13 +37,13 @@ func _on_Player_enemyPowerLevel(powerLevel):
 	totalXp += powerLevel
 	while (totalXp >= xpToLevelUp):
 		totalXp = totalXp - xpToLevelUp
-		AP = AP + 5
+		AP = AP + 1
 		level = level + 1
-		if(level == 2):
+		if(level == 3):
 			emit_signal("flight_unlocked")
-		elif (level == 3):
+		elif (level == 5):
 			emit_signal("ki_attack_unlocked")
-		elif level == 4:
+		elif level == 10:
 			emit_signal("transform_1_unlocked")
 		powerLevel = get_parent().powerLevel
 		level_up_formula()
@@ -53,7 +53,7 @@ func _on_Player_enemyPowerLevel(powerLevel):
 
 func level_up_formula():
 	# needs work
-	xpToLevelUp = pow(level/.25, 2)
+	xpToLevelUp = pow(level/1, 2)
 	remaining_xp = xpToLevelUp - totalXp
 	
 func update_level_display():

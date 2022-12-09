@@ -407,6 +407,20 @@ margin_top = 172.0
 margin_right = 50.0
 margin_bottom = 176.0
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 480.0
+margin_bottom = 480.0
+mouse_filter = 2
+alignment = 2
+
+[node name="Skill List" type="ItemList" parent="CenterContainer/Panel/MarginContainer/HBoxContainer2"]
+margin_left = 260.0
+margin_right = 460.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 200, 0 )
+
 [connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/vitality_button" to="." method="_on_vitality_button_pressed"]
 [connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/strength_button" to="." method="_on_strength_button_pressed"]
 [connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/agility_button" to="." method="_on_agility_button_pressed"]
