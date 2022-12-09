@@ -14,6 +14,7 @@ var powerLevel
 var level
 var is_dead = false
 var is_flying
+var over_collision
 
 var combatLogged = false
 var canMove = true
@@ -32,6 +33,7 @@ onready var player_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	over_collision = false
 	is_flying = false
 	level = 1
 	rng.randomize()
@@ -55,7 +57,7 @@ func _process(delta):
 		set_collision_mask_bit(1,true)
 		is_flying = true
 		currentSpeed = baseSpeed * 2
-	elif(is_flying && !gameManager.get_player().is_flying):
+	elif(is_flying && !gameManager.get_player().is_flying && !over_collision):
 		position.y += 8
 		z_index = 0
 		set_collision_layer_bit(0, true)
@@ -134,10 +136,14 @@ func _on_Area2D_body_entered(body):
 		combatLogged = true
 		$"Combat Log Timer".start(5)
 		canAttack = true
+	if(body.is_in_group("Collisions")):
+		over_collision = true
 
 func _on_Area2D_body_exited(body):
 	if(body.is_in_group("Player")):
 		canAttack = false
+	if(body.is_in_group("Collisions")):
+		over_collision = false
 
 func _on_Combat_Log_Timer_timeout():
 	combatLogged = false
