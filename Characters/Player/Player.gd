@@ -27,6 +27,7 @@ var can_attack = true
 var aiming
 var knocked_back = false
 var knock_back_vector
+var is_mouse_available
 
 # On start 
 onready var animation_player = $AnimationPlayer
@@ -39,6 +40,7 @@ onready var character_menu = $"UI/Character Menu"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	is_mouse_available = true
 	character_menu.set_process(false)
 	character_menu.visible = false
 	hitbox.disabled = true
@@ -48,7 +50,9 @@ func _ready():
 	zoomLevel = cam.get_zoom()
 	$Aura.modulate = Color(0.53,1.74,3.47)
 	$Aura.modulate.a = 0.25
-
+	$"UI/Player HUD/HBoxContainer/VBoxContainer2/Panel/MarginContainer/CenterContainer/Console".connect("mouse_entered",self,"is_mouse_available")
+	$"UI/Player HUD/HBoxContainer/VBoxContainer2/Panel/MarginContainer/CenterContainer/Console".connect("mouse_exited",self,"is_mouse_not_available")
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# make check so cursor doesnt invert
@@ -152,13 +156,13 @@ func _input(event):
 		animation_state.travel("Attack")
 		emit_signal("ki_blast")
 		blockInput = false
-	if(event.is_action_pressed("i_zoom_in")):
+	if(event.is_action_pressed("i_zoom_in") && is_mouse_available):
 		zoomLevel.x -= .5
 		zoomLevel.y -= .5
 		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
 		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
-	elif(event.is_action_pressed("i_zoom_out")):
+	elif(event.is_action_pressed("i_zoom_out") && is_mouse_available):
 		zoomLevel.x += .5
 		zoomLevel.y += .5
 		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
@@ -249,3 +253,9 @@ func _on_Stats_knocked_back(knockback_vector):
 
 func _on_Knockback_Timer_timeout():
 	knocked_back = false
+	
+func is_mouse_available():
+	is_mouse_available = false
+	
+func is_mouse_not_available():
+	is_mouse_available = true

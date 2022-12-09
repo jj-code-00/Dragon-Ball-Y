@@ -2,19 +2,19 @@ extends MarginContainer
 
 onready var stats = get_parent().get_parent().get_node("Stats")
 onready var level_manager = get_parent().get_parent().get_node("Stats").get_node("Level Up Manager")
-onready var vitality_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/vitality_button
-onready var strength_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/strength_button
-onready var agility_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/agility_button
-onready var durability_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/durability_button
-onready var force_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/force_button
-onready var spirit_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/spirit_button
-onready var power_level_display = $"CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer/Power Level"
-onready var ap_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer2/AP
-onready var xp_remaining_display = $"CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer4/Remaining XP"
-onready var calc_strength_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer/calc_strength
-onready var calc_agility_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer2/calc_agility
-onready var calc_durability_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer3/calc_durability
-onready var calc_force_display = $CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer4/calc_force
+onready var vitality_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/vitality_button
+onready var strength_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/strength_button
+onready var agility_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/agility_button
+onready var durability_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/durability_button
+onready var force_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/force_button
+onready var spirit_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/spirit_button
+onready var power_level_display = $"CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer/Power Level"
+onready var ap_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer2/AP
+onready var xp_remaining_display = $"CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer4/Remaining XP"
+onready var calc_strength_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer/calc_strength
+onready var calc_agility_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer2/calc_agility
+onready var calc_durability_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer3/calc_durability
+onready var calc_force_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer4/calc_force
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	refresh_stats_display()
@@ -34,7 +34,10 @@ func refresh_stats_display():
 	calc_force_display.text = str(stats.force)
 	spirit_display.text = str(stats.spirit)
 	power_level_display.text = str(round(stats.powerLevel))
-	xp_remaining_display.text = str(round(level_manager.remaining_xp))
+	if(round(level_manager.remaining_xp)>=1):
+		xp_remaining_display.text = str(round(level_manager.remaining_xp))
+	else:
+		xp_remaining_display.text = "1"
 	ap_display.text = str(level_manager.AP)
 
 

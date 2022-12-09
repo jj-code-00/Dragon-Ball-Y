@@ -42,12 +42,12 @@ func _ready():
 	release = maxRelease
 	
 	# Stats
-	vitality = 1.0
-	spirit = 1.0
-	baseStrength = 1.0
-	baseDefense = 1.0
-	baseAgility = 1.0
-	baseForce = 1.0
+	vitality = 10.0
+	spirit = 10.0
+	baseStrength = 10.0
+	baseDefense = 10.0
+	baseAgility = 10.0
+	baseForce = 10.0
 	strength = baseStrength * formMulti * release
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
@@ -101,7 +101,7 @@ func set_stats(stat, amount):
 	force = baseForce * formMulti
 	maxHealth = vitality * 10
 	maxEnergy = spirit * 10
-	powerLevel = (strength + defense + agility + force) * (spirit + force)
+	update_power_level()
 	healthBar.value = (health * 100 / maxHealth)
 	energyBar.value = (energy * 100 / maxEnergy)
 	movement_speed = agility + 250
@@ -173,7 +173,7 @@ func release_change(value):
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
-	powerLevel = (strength + defense + agility + force) * (spirit + force)
+	update_power_level()
 	movement_speed = agility + 250
 	knock_back_strength = strength * 10
 	releaseLevel.text = str(round(release * 100))
@@ -185,7 +185,10 @@ func max_release_set(value):
 	defense = baseDefense * formMulti * release
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
-	powerLevel = (strength + defense + agility + force) * (spirit + force)
+	update_power_level()
 	movement_speed = agility + 250
 	knock_back_strength = strength * 10
 	releaseLevel.text = str(round(release * 100))
+	
+func update_power_level():
+	powerLevel = (strength + defense + agility + force) * (spirit + force)

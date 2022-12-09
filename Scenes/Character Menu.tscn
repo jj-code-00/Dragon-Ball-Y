@@ -75,14 +75,22 @@ script = ExtResource( 2 )
 margin_right = 1024.0
 margin_bottom = 600.0
 
-[node name="Panel" type="Panel" parent="CenterContainer"]
-margin_left = 262.0
-margin_top = 50.0
-margin_right = 762.0
-margin_bottom = 550.0
+[node name="TabContainer" type="TabContainer" parent="CenterContainer"]
+margin_left = 258.0
+margin_top = 32.0
+margin_right = 766.0
+margin_bottom = 568.0
+
+[node name="Attributes" type="Panel" parent="CenterContainer/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 rect_min_size = Vector2( 500, 500 )
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/TabContainer/Attributes"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/margin_right = 20
@@ -90,30 +98,30 @@ custom_constants/margin_top = 20
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 480.0
 margin_bottom = 480.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer"]
 margin_right = 117.0
 margin_bottom = 460.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="Vitality" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Vitality" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_right = 117.0
 margin_bottom = 24.0
 custom_fonts/font = SubResource( 1 )
 text = "Vitality"
 align = 1
 
-[node name="HSeparator7" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator7" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 28.0
 margin_right = 117.0
 margin_bottom = 32.0
 
-[node name="Strength" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Strength" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 36.0
 margin_right = 117.0
 margin_bottom = 60.0
@@ -121,12 +129,12 @@ custom_fonts/font = SubResource( 2 )
 text = "Strength"
 align = 1
 
-[node name="HSeparator6" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator6" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 64.0
 margin_right = 117.0
 margin_bottom = 68.0
 
-[node name="Agility" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Agility" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 72.0
 margin_right = 117.0
 margin_bottom = 96.0
@@ -134,12 +142,12 @@ custom_fonts/font = SubResource( 3 )
 text = "Agility"
 align = 1
 
-[node name="HSeparator5" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator5" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 100.0
 margin_right = 117.0
 margin_bottom = 104.0
 
-[node name="Durability" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Durability" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 108.0
 margin_right = 117.0
 margin_bottom = 132.0
@@ -147,12 +155,12 @@ custom_fonts/font = SubResource( 4 )
 text = "Durability"
 align = 1
 
-[node name="HSeparator4" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator4" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 136.0
 margin_right = 117.0
 margin_bottom = 140.0
 
-[node name="Force" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Force" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 144.0
 margin_right = 117.0
 margin_bottom = 168.0
@@ -160,12 +168,12 @@ custom_fonts/font = SubResource( 5 )
 text = "Force"
 align = 1
 
-[node name="HSeparator3" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 172.0
 margin_right = 117.0
 margin_bottom = 176.0
 
-[node name="Spirit" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Spirit" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 180.0
 margin_right = 117.0
 margin_bottom = 204.0
@@ -173,12 +181,12 @@ custom_fonts/font = SubResource( 6 )
 text = "Spirit"
 align = 1
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 208.0
 margin_right = 117.0
 margin_bottom = 212.0
 
-[node name="PL" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="PL" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 216.0
 margin_right = 117.0
 margin_bottom = 240.0
@@ -186,7 +194,7 @@ custom_fonts/font = SubResource( 7 )
 text = "Power Level"
 align = 1
 
-[node name="AP" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="AP" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 244.0
 margin_right = 117.0
 margin_bottom = 268.0
@@ -194,7 +202,7 @@ custom_fonts/font = SubResource( 9 )
 text = "AP"
 align = 1
 
-[node name="xp_to_next_level" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="xp_to_next_level" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 272.0
 margin_right = 117.0
 margin_bottom = 296.0
@@ -202,228 +210,287 @@ custom_fonts/font = SubResource( 11 )
 text = "Remaining XP"
 align = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer"]
 margin_left = 121.0
 margin_right = 171.0
 margin_bottom = 460.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="vitality_button" type="Button" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="vitality_button" type="Button" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_right = 50.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="HSeparator6" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSeparator6" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 28.0
 margin_right = 50.0
 margin_bottom = 32.0
 
-[node name="strength_button" type="Button" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="strength_button" type="Button" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 36.0
 margin_right = 50.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="HSeparator5" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSeparator5" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 64.0
 margin_right = 50.0
 margin_bottom = 68.0
 
-[node name="agility_button" type="Button" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="agility_button" type="Button" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 72.0
 margin_right = 50.0
 margin_bottom = 96.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="HSeparator4" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSeparator4" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 100.0
 margin_right = 50.0
 margin_bottom = 104.0
 
-[node name="durability_button" type="Button" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="durability_button" type="Button" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 108.0
 margin_right = 50.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="HSeparator3" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 136.0
 margin_right = 50.0
 margin_bottom = 140.0
 
-[node name="force_button" type="Button" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="force_button" type="Button" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 144.0
 margin_right = 50.0
 margin_bottom = 168.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="HSeparator2" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSeparator2" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 172.0
 margin_right = 50.0
 margin_bottom = 176.0
 
-[node name="spirit_button" type="Button" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="spirit_button" type="Button" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 180.0
 margin_right = 50.0
 margin_bottom = 204.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 208.0
 margin_right = 50.0
 margin_bottom = 212.0
 
-[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 216.0
 margin_right = 50.0
 margin_bottom = 240.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="Power Level" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer"]
+[node name="Power Level" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer"]
 margin_left = 25.0
 margin_top = 5.0
 margin_right = 25.0
 margin_bottom = 19.0
 align = 1
 
-[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 244.0
 margin_right = 50.0
 margin_bottom = 268.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="AP" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer2"]
+[node name="AP" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer2"]
 margin_left = 25.0
 margin_top = 5.0
 margin_right = 25.0
 margin_bottom = 19.0
 align = 1
 
-[node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2"]
 margin_top = 272.0
 margin_right = 50.0
 margin_bottom = 296.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="Remaining XP" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer4"]
+[node name="Remaining XP" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/CenterContainer4"]
 margin_left = 25.0
 margin_top = 5.0
 margin_right = 25.0
 margin_bottom = 19.0
 align = 1
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer"]
 margin_left = 175.0
 margin_right = 225.0
 margin_bottom = 460.0
 rect_min_size = Vector2( 50, 0 )
 
-[node name="CenterContainer5" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="CenterContainer5" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_right = 50.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="na" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer5"]
+[node name="na" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer5"]
 margin_left = 25.0
 margin_right = 25.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 align = 1
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 28.0
 margin_right = 50.0
 margin_bottom = 32.0
 
-[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 36.0
 margin_right = 50.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="calc_strength" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer"]
+[node name="calc_strength" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer"]
 margin_left = 25.0
 margin_top = 5.0
 margin_right = 25.0
 margin_bottom = 19.0
 align = 1
 
-[node name="HSeparator6" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="HSeparator6" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 64.0
 margin_right = 50.0
 margin_bottom = 68.0
 
-[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="CenterContainer2" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 72.0
 margin_right = 50.0
 margin_bottom = 96.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="calc_agility" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer2"]
+[node name="calc_agility" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer2"]
 margin_left = 25.0
 margin_top = 5.0
 margin_right = 25.0
 margin_bottom = 19.0
 align = 1
 
-[node name="HSeparator5" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="HSeparator5" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 100.0
 margin_right = 50.0
 margin_bottom = 104.0
 
-[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="CenterContainer3" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 108.0
 margin_right = 50.0
 margin_bottom = 132.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="calc_durability" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer3"]
+[node name="calc_durability" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer3"]
 margin_left = 25.0
 margin_top = 5.0
 margin_right = 25.0
 margin_bottom = 19.0
 align = 1
 
-[node name="HSeparator4" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="HSeparator4" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 136.0
 margin_right = 50.0
 margin_bottom = 140.0
 
-[node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="CenterContainer4" type="CenterContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 144.0
 margin_right = 50.0
 margin_bottom = 168.0
 rect_min_size = Vector2( 0, 24 )
 
-[node name="calc_force" type="Label" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer4"]
+[node name="calc_force" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer4"]
 margin_left = 25.0
 margin_top = 5.0
 margin_right = 25.0
 margin_bottom = 19.0
 align = 1
 
-[node name="HSeparator3" type="HSeparator" parent="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer3"]
+[node name="HSeparator3" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3"]
 margin_top = 172.0
 margin_right = 50.0
 margin_bottom = 176.0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/Panel/MarginContainer"]
+[node name="Skills" type="Panel" parent="CenterContainer/TabContainer"]
+visible = false
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 504.0
+margin_bottom = 532.0
+rect_min_size = Vector2( 500, 500 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/TabContainer/Skills"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/TabContainer/Skills/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 480.0
 margin_bottom = 480.0
-mouse_filter = 2
-alignment = 2
+scroll_horizontal_enabled = false
 
-[node name="Skill List" type="ItemList" parent="CenterContainer/Panel/MarginContainer/HBoxContainer2"]
-margin_left = 260.0
-margin_right = 460.0
-margin_bottom = 460.0
-rect_min_size = Vector2( 200, 0 )
+[node name="skill_list" type="VBoxContainer" parent="CenterContainer/TabContainer/Skills/MarginContainer/ScrollContainer"]
 
-[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/vitality_button" to="." method="_on_vitality_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/strength_button" to="." method="_on_strength_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/agility_button" to="." method="_on_agility_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/durability_button" to="." method="_on_durability_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/force_button" to="." method="_on_force_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/MarginContainer/HBoxContainer/VBoxContainer2/spirit_button" to="." method="_on_spirit_button_pressed"]
+[node name="Transformations" type="Panel" parent="CenterContainer/TabContainer"]
+visible = false
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 504.0
+margin_bottom = 532.0
+rect_min_size = Vector2( 500, 500 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/TabContainer/Transformations"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/TabContainer/Transformations/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 480.0
+margin_bottom = 480.0
+scroll_horizontal_enabled = false
+
+[node name="transformations_list" type="VBoxContainer" parent="CenterContainer/TabContainer/Transformations/MarginContainer/ScrollContainer"]
+
+[node name="Ki Attacks" type="Panel" parent="CenterContainer/TabContainer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 500, 500 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/TabContainer/Ki Attacks"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/TabContainer/Ki Attacks/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 480.0
+margin_bottom = 480.0
+scroll_horizontal_enabled = false
+
+[node name="ki_attack_list" type="VBoxContainer" parent="CenterContainer/TabContainer/Ki Attacks/MarginContainer/ScrollContainer"]
+
+[connection signal="pressed" from="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/vitality_button" to="." method="_on_vitality_button_pressed"]
+[connection signal="pressed" from="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/strength_button" to="." method="_on_strength_button_pressed"]
+[connection signal="pressed" from="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/agility_button" to="." method="_on_agility_button_pressed"]
+[connection signal="pressed" from="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/durability_button" to="." method="_on_durability_button_pressed"]
+[connection signal="pressed" from="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/force_button" to="." method="_on_force_button_pressed"]
+[connection signal="pressed" from="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer2/spirit_button" to="." method="_on_spirit_button_pressed"]
