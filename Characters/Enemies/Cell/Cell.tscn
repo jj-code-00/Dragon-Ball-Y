@@ -58,6 +58,15 @@ one_shot = true
 [node name="Knock Out Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Enemy Level" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -37.0
+margin_right = 20.0
+margin_bottom = -23.0
+
 [connection signal="timeout" from="Damage Indicator" to="." method="_on_Damage_Indicator_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

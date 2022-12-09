@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal got_hit
+
 var maxHealth = 0
 var currentHealth = 0
 var maxEnergy
@@ -18,13 +20,12 @@ var is_dead = false
 var is_flying
 var over_collision
 
-var combatLogged = false
+var combatLogged
 var canMove = true
 var knockedBack = false
 var directionHit
 var knockbackRecieved
 var canAttack = false
-var dodged = false
 
 onready var healthBar = $TextureProgress
 onready var gameManager = get_tree().get_root().get_node("Dev Island")
@@ -36,6 +37,7 @@ onready var player_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	combatLogged = false
 	over_collision = false
 	is_flying = false
 	level = 1
@@ -46,6 +48,8 @@ func _ready():
 	player_direction = player_distance.normalized()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var level_display = "Lvl: " + str(level)
+	$"Enemy Level".text = level_display
 	player_distance = gameManager.get_player_position() - self.position
 	player_direction = player_distance.normalized()
 	if(canAttack && hitCooldown.is_stopped()):
@@ -59,7 +63,7 @@ func _process(delta):
 		set_collision_mask_bit(0, false)
 		set_collision_mask_bit(1,true)
 		is_flying = true
-		currentSpeed = baseSpeed * 1.5
+		currentSpeed = baseSpeed * 2
 	elif(is_flying && !gameManager.get_player().is_flying && !over_collision):
 		position.y += 8
 		z_index = 0
@@ -95,8 +99,8 @@ func take_damage(strength, direction, knockback, agility_attacker):
 			else :
 				hitFor = strength * strength / defense
 				knockbackRecieved = knockback * knockback / (defense * 10)
-				dodged = false
 			currentHealth -= hitFor
+			emit_signal("got_hit")
 			if (currentHealth <= 0):
 				var death_timer = load("res://Scenes/one_off_timer.tscn").instance()
 				add_child(death_timer)
@@ -119,16 +123,28 @@ func take_damage(strength, direction, knockback, agility_attacker):
 			$"Combat Log Timer".start(5)
 			get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Stats").get_node("Level Up Manager").gain_xp_on_hit(hitFor,maxHealth,powerLevel)
 	else:
-		dodged = true
 		print("They dodged")
 func set_level(value):
 	level = value
-	vitality = level
-	strength = level
-	agility = level
-	defense = level
-	force = level
-	spirit = level
+	var AP = level - 1
+	var level_rng = RandomNumberGenerator.new()
+	level_rng.randomize()
+	var assigned_ap = level_rng.randi_range(0,AP)
+	vitality = 1.0 + assigned_ap
+	AP -= assigned_ap
+	assigned_ap = level_rng.randi_range(0,AP)
+	strength = 1.0 + assigned_ap
+	AP -= assigned_ap
+	assigned_ap = level_rng.randi_range(0,AP)
+	agility = 1.0 + assigned_ap
+	AP -= assigned_ap
+	assigned_ap = level_rng.randi_range(0,AP)
+	defense = 1.0 + assigned_ap
+	AP -= assigned_ap
+	assigned_ap = level_rng.randi_range(0,AP)
+	force = 1.0 + assigned_ap
+	spirit = 1.0 + level_rng.randi_range(0,AP)
+	AP -= assigned_ap
 	powerLevel = (strength + agility + defense + vitality) * (spirit+force)
 	baseSpeed = agility + 250
 	currentSpeed = baseSpeed

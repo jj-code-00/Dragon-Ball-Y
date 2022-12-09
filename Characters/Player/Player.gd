@@ -187,9 +187,12 @@ func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		body.take_damage(get_node("Stats").strength, aiming, knockback,get_node("Stats").agility)
 		$"Combat Log Timer".start(1)
-		if(!$Sounds/player_hit_impact.is_playing() && !body.dodged):
-			$Sounds/player_hit_impact.play()
+		if(!body.is_connected("got_hit", self, "punch_success")):
+			body.connect("got_hit", self, "punch_success")
 		combat_logged = true
+func punch_success():
+	if(!$Sounds/player_hit_impact.is_playing()):
+			$Sounds/player_hit_impact.play()
 
 func _on_Enemies_enemy_died(powerLevel):
 	emit_signal("enemyPowerLevel",powerLevel)

@@ -63,4 +63,6 @@ func spawn():
 	
 func _on_Timer_timeout():
 	spawnAgain = true
-	level = level + 0.05
+
+func _on_Timer2_timeout():
+	level += 1

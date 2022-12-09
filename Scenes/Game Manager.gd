@@ -11,7 +11,7 @@ var enemyLimitReached = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	console.add_text("You've woken up on a strange island! It seems you're surrounded by weird bug men, and they seem to be getting stronger!\n")
-	console.add_text("Controls:\nMove - WASD\nPunch - SPACE or left click\nMeditate - J\nRaise Release - C\nCharacter Sheet - I\nRemember to aim your punches with your mouse, and spend your AP by opening the character sheet with I!\n")
+	console.add_text("Controls:\nMove - WASD\nPunch - SPACE or left click\nMeditate - J\nRaise Release - C\nCharacter Sheet - V\nRemember to aim your punches with your mouse, and spend your AP by opening the character sheet with V!\n")
 	#kills.text = "Kills: 0"
 	pass # Replace with function body.
 

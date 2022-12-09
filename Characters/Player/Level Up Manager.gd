@@ -37,7 +37,7 @@ func _on_Player_enemyPowerLevel(powerLevel):
 
 func level_up_formula():
 	# needs work
-	xpToLevelUp = pow(level/1, 2)
+	xpToLevelUp = pow(level/1, 1.1)
 	remaining_xp = xpToLevelUp - totalXp
 	
 func update_level_display():
