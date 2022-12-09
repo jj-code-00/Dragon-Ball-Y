@@ -63,7 +63,7 @@ func _process(delta):
 		set_collision_mask_bit(0, false)
 		set_collision_mask_bit(1,true)
 		is_flying = true
-		currentSpeed = baseSpeed * 2
+		currentSpeed = baseSpeed * 1.5
 	elif(is_flying && !gameManager.get_player().is_flying && !over_collision):
 		position.y += 8
 		z_index = 0
@@ -190,4 +190,4 @@ func kill_entity():
 	queue_free()
 	
 func calc_dodge_chance(attacker_agility):
-	return agility / (attacker_agility + agility)
+	return clamp((agility / (attacker_agility + agility)) - .5,0,.5)

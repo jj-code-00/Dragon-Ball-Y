@@ -201,4 +201,4 @@ func update_power_level():
 	powerLevel = (strength + defense + agility + force + vitality) * (spirit + force)
 	
 func calc_dodge_chance(attacker_agility):
-	return agility / (attacker_agility + agility)
+	return clamp((agility / (attacker_agility + agility)) - .5,0,.5)
