@@ -95,6 +95,7 @@ func take_damage(strength, direction, knockback):
 	
 	
 func set_level(value):
+	print(str(value))
 	level = value
 	maxHealth = 10.0 + level * 10
 	maxEnergy = 10.0 + level * 10

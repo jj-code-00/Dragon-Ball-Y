@@ -1,7 +1,7 @@
 extends Node2D
 
 var spawnAgain = true
-var level = 1
+var level
 
 # change this abomination
 onready var spawn1 = $Spawn1.position
@@ -21,7 +21,7 @@ var num
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	num = 0
-	pass
+	level = 5
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -57,7 +57,6 @@ func spawn():
 			cell.position = spawn10
 	
 	add_child(cell)
-	yield(cell,"ready")
 	cell.set_level(level)
 	emit_signal("spawned")
 	num = num + 1

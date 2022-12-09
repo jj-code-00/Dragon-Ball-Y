@@ -37,10 +37,10 @@ func _ready():
 	health = maxHealth
 	maxEnergy = 100.0
 	energy = maxEnergy
-	baseStrength = 1.0
-	baseDefense = 1.0
-	baseAgility = 1.0
-	baseForce = 1.0
+	baseStrength = 10.0
+	baseDefense = 10.0
+	baseAgility = 10.0
+	baseForce = 10.0
 	formMulti = 1.0
 	strength = baseStrength * formMulti * release
 	defense = baseDefense * formMulti * release
