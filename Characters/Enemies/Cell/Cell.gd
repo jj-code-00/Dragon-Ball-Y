@@ -13,6 +13,7 @@ var currentSpeed
 var powerLevel
 var level
 var is_dead = false
+var is_flying
 
 var combatLogged = false
 var canMove = true
@@ -31,6 +32,7 @@ onready var player_direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	is_flying = false
 	level = 1
 	rng.randomize()
 	set_level(level)
@@ -44,7 +46,24 @@ func _process(delta):
 	if(canAttack && hitCooldown.is_stopped()):
 		hitCooldown.start(1)
 		gameManager.get_player().get_node("Stats").take_damage(strength, player_direction,strength * 10)
-
+	if (gameManager.get_player().is_flying && !is_flying):
+		z_index = 1
+		position.y -= 8
+		set_collision_layer_bit(0, false)
+		set_collision_layer_bit(1, true)
+		set_collision_mask_bit(0, false)
+		set_collision_mask_bit(1,true)
+		is_flying = true
+		currentSpeed = baseSpeed * 2
+	elif(is_flying && !gameManager.get_player().is_flying):
+		position.y += 8
+		z_index = 0
+		set_collision_layer_bit(0, true)
+		set_collision_layer_bit(1, false)
+		set_collision_mask_bit(0, true)
+		set_collision_mask_bit(1,false)
+		is_flying = false
+		currentSpeed = baseSpeed
 func _physics_process(delta):
 	if(knockedBack):
 		move_and_slide(directionHit * knockbackRecieved)

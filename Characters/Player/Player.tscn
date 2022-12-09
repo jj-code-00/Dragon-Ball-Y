@@ -1062,6 +1062,7 @@ parameters/Idle/blend_position = Vector2( 0, 0 )
 parameters/Walk/blend_position = Vector2( 0, 0 )
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 9
 
 [node name="Hitbox" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( -21, 4 )
@@ -1079,7 +1080,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 7
+frame = 2
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]

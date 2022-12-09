@@ -34,7 +34,7 @@ func refresh_stats_display():
 	calc_force_display.text = str(stats.force)
 	spirit_display.text = str(stats.spirit)
 	power_level_display.text = str(round(stats.powerLevel))
-	xp_remaining_display.text = str(level_manager.remaining_xp)
+	xp_remaining_display.text = str(round(level_manager.remaining_xp))
 	ap_display.text = str(level_manager.AP)
 
 

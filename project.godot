@@ -126,6 +126,8 @@ i_character_sheet={
 
 2d_physics/layer_1="Ground"
 2d_physics/layer_2="Flying"
+2d_physics/layer_3="Ki Blasts"
+2d_physics/layer_4="Enemies"
 
 [physics]
 
