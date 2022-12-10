@@ -7,7 +7,7 @@ var is_meditating
 # Color(100.0,3.49,0.58)
 # master list of all skills 
 func _ready():
-	has_ki_blast = true
+	has_ki_blast = false
 	has_flight = false
 	has_transformation_1 = false
 	is_meditating = false
@@ -25,9 +25,15 @@ func _on_Player_ki_blast():
 func _on_Level_Up_Manager_ki_attack_unlocked():
 	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can now use Ki Blast! Hit F")
 	has_ki_blast = true
+	var ki_blast = Label.new()
+	ki_blast.text = "Ki Blast"
+	get_parent().get_parent().get_node("UI/Character Menu/CenterContainer/TabContainer/Ki Attacks/MarginContainer/ScrollContainer/ki_attack_list").add_child(ki_blast)
 
 func _on_Level_Up_Manager_flight_unlocked():
 	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can now Fly! Hit R")
+	var flight = Label.new()
+	flight.text = "Flight"
+	get_parent().get_parent().get_node("UI/Character Menu/CenterContainer/TabContainer/Skills/MarginContainer/ScrollContainer/skill_list").add_child(flight)
 	has_flight = true
 
 func _on_Player_transform_one():
@@ -50,6 +56,9 @@ func _on_Player_base_form():
 func _on_Level_Up_Manager_transform_1_unlocked():
 	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You unlocked Super Saiyan! Hit G")
 	has_transformation_1 = true
+	var transformation_1 = Label.new()
+	transformation_1.text = "Super Saiyan"
+	get_parent().get_parent().get_node("UI/Character Menu/CenterContainer/TabContainer/Transformations/MarginContainer/ScrollContainer/transformations_list").add_child(transformation_1)
 
 func _on_Player_is_meditating(value):
 	is_meditating = value
@@ -58,3 +67,4 @@ func _on_Player_timer_tick():
 	if (is_meditating):
 		get_parent().change_energy(.05 * get_parent().maxEnergy)
 		get_parent().change_health(.05 * get_parent().maxHealth)
+		
