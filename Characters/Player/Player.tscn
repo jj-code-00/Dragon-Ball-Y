@@ -1076,7 +1076,7 @@ shape = SubResource( 53 )
 one_shot = true
 
 [node name="Hitbox CD" type="Timer" parent="Area2D"]
-wait_time = 0.2
+wait_time = 0.05
 one_shot = true
 
 [node name="Hair" type="Sprite" parent="."]
@@ -1088,6 +1088,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
+frame = 8
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]
@@ -1119,6 +1120,7 @@ volume_db = -5.0
 [node name="Character Menu" parent="UI" instance=ExtResource( 7 )]
 
 [node name="PauseMenu" type="MarginContainer" parent="UI"]
+pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 8 )

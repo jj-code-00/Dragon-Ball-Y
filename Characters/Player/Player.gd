@@ -183,16 +183,6 @@ func _input(event):
 		else:
 			character_menu.set_process(false)
 			character_menu.visible = false
-	if(event.is_action_pressed("i_pause")):
-		if(character_menu.is_visible()):
-			character_menu.set_process(false)
-			character_menu.visible = false
-		elif(!$"UI/PauseMenu".is_visible()):
-			$"UI/PauseMenu".set_process(true)
-			$"UI/PauseMenu".visible = true
-		else:
-			$"UI/PauseMenu".set_process(false)
-			$"UI/PauseMenu".visible = false
 	if(event.is_action_pressed("i_quick_save")):
 		get_parent().get_node("Save & Load")._save_game()
 		$"Stats/Level Up Manager".gameManager.print_to_console("Game Saved!")
