@@ -29,8 +29,24 @@ func _ready():
 		skill.ap_cost = Globals.skill_master_list[i].AP_cost
 		skill.mouse_filter = 1
 		$CenterContainer/TabContainer/Skills/MarginContainer/ScrollContainer/skill_list.add_child(skill)
-
-
+	for k in Globals.ki_attack_master_list.size():
+		var ki_attack = load("res://Scenes/Ki_Attack_Button_Template.tscn").instance()
+		ki_attack.text = Globals.ki_attack_master_list[k].name
+		var string = Globals.ki_attack_master_list[k].description + " AP cost: " + str(Globals.ki_attack_master_list[k].AP_cost)
+		ki_attack.set_tooltip(string)
+		ki_attack.ap_cost = Globals.ki_attack_master_list[k].AP_cost
+		ki_attack.mouse_filter = 1
+		$"CenterContainer/TabContainer/Ki Attacks/MarginContainer/ScrollContainer/ki_attack_list".add_child(ki_attack)
+	# add race check
+	for j in Globals.saiyan_transformation_master_list.size():
+		var form = load("res://Scenes/Transformation_Button_Template.tscn").instance()
+		form.text = Globals.saiyan_transformation_master_list[j].name
+		var string = Globals.saiyan_transformation_master_list[j].description + " AP cost: " + str(Globals.saiyan_transformation_master_list[j].AP_cost)
+		form.set_tooltip(string)
+		form.ap_cost = Globals.saiyan_transformation_master_list[j].AP_cost
+		form.mouse_filter = 1
+		$"CenterContainer/TabContainer/Transformations/MarginContainer/ScrollContainer/transformations_list".add_child(form)
+	set_process(false)
 func _process(delta):
 	refresh_stats_display()
 
@@ -46,39 +62,52 @@ func refresh_stats_display():
 	calc_force_display.text = str(stats.force)
 	spirit_display.text = str(player_stats.spirit)
 	power_level_display.text = str(round(player_stats.powerLevel))
-	if(round(player_stats.remaining_xp)>=1):
-		xp_remaining_display.text = str(round(player_stats.remaining_xp))
+	if(round(player_stats.ap_required)>=1):
+		xp_remaining_display.text = str(round(player_stats.ap_required))
 	else:
 		xp_remaining_display.text = "1"
 	ap_display.text = str(player_stats.AP)
 
 
 func _on_vitality_button_pressed():
-	if (player_stats.AP >= 1):
+	if (player_stats.AP >= player_stats.ap_required):
 		stats.set_stats("vitality",1)
-		player_stats.AP = player_stats.AP - 1
+		print(str(player_stats.AP))
+		player_stats.AP = player_stats.AP - player_stats.ap_required
+		player_stats.level += 1
+		get_parent().get_parent().get_node("Stats/Level Up Manager").level_up_formula()
 	
 func _on_strength_button_pressed():
-	if (player_stats.AP >= 1):
+	if (player_stats.AP >= player_stats.ap_required):
 		stats.set_stats("strength",1)
-		player_stats.AP = player_stats.AP - 1
+		player_stats.AP = player_stats.AP - player_stats.ap_required
+		player_stats.level += 1
+		get_parent().get_parent().get_node("Stats/Level Up Manager").level_up_formula()
 
 func _on_agility_button_pressed():
-	if (player_stats.AP >= 1):
+	if (player_stats.AP >= player_stats.ap_required):
 		stats.set_stats("agility",1)
-		player_stats.AP = player_stats.AP - 1
+		player_stats.AP = player_stats.AP - player_stats.ap_required
+		player_stats.level += 1
+		get_parent().get_parent().get_node("Stats/Level Up Manager").level_up_formula()
 
 func _on_durability_button_pressed():
-	if (player_stats.AP >= 1):
+	if (player_stats.AP >= player_stats.ap_required):
 		stats.set_stats("durability",1)
-		player_stats.AP = player_stats.AP - 1
+		player_stats.AP = player_stats.AP - player_stats.ap_required
+		player_stats.level += 1
+		get_parent().get_parent().get_node("Stats/Level Up Manager").level_up_formula()
 
 func _on_spirit_button_pressed():
-	if (player_stats.AP >= 1):
+	if (player_stats.AP >= player_stats.ap_required):
 		stats.set_stats("spirit",1)
-		player_stats.AP = player_stats.AP - 1
+		player_stats.AP = player_stats.AP - player_stats.ap_required
+		player_stats.level += 1
+		get_parent().get_parent().get_node("Stats/Level Up Manager").level_up_formula()
 
 func _on_force_button_pressed():
-	if (player_stats.AP >= 1):
+	if (player_stats.AP >= player_stats.ap_required):
 		stats.set_stats("force",1)
-		player_stats.AP = player_stats.AP - 1
+		player_stats.AP = player_stats.AP - player_stats.ap_required
+		player_stats.level += 1
+		get_parent().get_parent().get_node("Stats/Level Up Manager").level_up_formula()

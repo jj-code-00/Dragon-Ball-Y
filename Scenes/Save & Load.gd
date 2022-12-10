@@ -11,13 +11,14 @@ func _ready():
 func _create_or_load_save() -> void:
 	if (_save.save_exists() && SaveOrLoad.load_game):
 		_save.load_savegame()
-	else:
+		SaveOrLoad.load_game = false
+	elif(SaveOrLoad.new_game):
 		_save = SaveGameAsJSON.new()
 
 		_save.global_position = _player.global_position
 
 		_save.write_savegame()
-
+		SaveOrLoad.new_game = false
 	# After creating or loading a save resource, we need to dispatch its data
 	# to the various nodes that need it.
 	_player.global_position = _save.global_position

@@ -19,6 +19,7 @@ var level
 var is_dead = false
 var is_flying
 var over_collision
+var facing
 
 var combatLogged
 var canMove = true
@@ -34,12 +35,16 @@ var rng = RandomNumberGenerator.new()
 var angle
 onready var player_distance
 onready var player_direction
+onready var animation_tree = $Sprite/AnimationTree
+onready var animation_state = animation_tree.get("parameters/playback")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	animation_state.travel("Walk")
 	combatLogged = false
 	over_collision = false
 	is_flying = false
+	facing = Vector2.ZERO
 	level = 1
 	rng.randomize()
 	set_level(level)
@@ -48,6 +53,7 @@ func _ready():
 	player_direction = player_distance.normalized()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	animation_tree.set("parameters/Walk/blend_position",facing)
 	var level_display = "PL: " + str(powerLevel)
 	$"Enemy Level".text = level_display
 	player_distance = gameManager.get_player_position() - self.position
@@ -81,27 +87,32 @@ func _physics_process(delta):
 		player_distance = gameManager.get_player_position() - self.position
 		if (player_distance.length() >= 8 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 8):
 			player_direction = player_distance.normalized()
+			facing = player_direction
 			move_and_slide(player_direction * currentSpeed)
 		elif(player_distance.length() >= 512):
 			move_and_slide((Vector2.RIGHT.rotated((angle * PI)/180)) * (currentSpeed /2)) 
+			facing = (Vector2.RIGHT.rotated((angle * PI)/180))
 		if($"Change Direction".is_stopped()):
 			$"Change Direction".start(3)
 	
 
-func take_damage(strength, direction, knockback, agility_attacker):
+func take_damage(strength_attacker, direction, knockback, agility_attacker):
 	var dodge_chance = calc_dodge_chance(agility_attacker)
 	var percent = randf()
 	if(percent > dodge_chance):
 		if(!is_dead):
 			emit_signal("got_hit")
 			var hitFor = 0.0
-			if (strength >= defense):
-				hitFor = strength * 2 - defense
+			if (strength_attacker >= defense):
+				hitFor = strength_attacker * 2 - defense
 				#knockbackRecieved = knockback * 2 - (defense * 10)
 			else :
-				hitFor = strength * strength / defense
+				hitFor = strength_attacker * strength_attacker / defense
 				#knockbackRecieved = knockback * knockback / (defense * 10)
+			hitFor = clamp(hitFor,0.0,currentHealth)
 			currentHealth -= hitFor
+			currentHealth = clamp(currentHealth,0.0,maxHealth)
+			get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Stats").get_node("Level Up Manager").gain_xp_on_hit(hitFor,maxHealth,powerLevel)
 			knockbackRecieved = (hitFor / maxHealth) * Globals.MAX_KNOCKBACK
 			if (currentHealth <= 0):
 				var death_timer = load("res://Scenes/one_off_timer.tscn").instance()
@@ -112,6 +123,7 @@ func take_damage(strength, direction, knockback, agility_attacker):
 				is_dead = true
 				get_parent().get_parent().actor_died(powerLevel)
 				$Sprite.rotate(PI/2)
+				animation_state.travel("celljr_idle_down")
 				$TextureProgress.visible = false
 				$CollisionShape2D.queue_free()
 				$Area2D.queue_free()
@@ -123,11 +135,13 @@ func take_damage(strength, direction, knockback, agility_attacker):
 			$"Knockback Timer".start(.2)
 			combatLogged = true
 			$"Combat Log Timer".start(5)
-			get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Stats").get_node("Level Up Manager").gain_xp_on_hit(hitFor,maxHealth,powerLevel)
+			
 	else:
-		print("They dodged")
+		pass
 func set_level(value):
 	level = value
+	
+	# randomly get stats with a cap
 	var AP = level - 1
 	var level_rng = RandomNumberGenerator.new()
 	level_rng.randomize()
@@ -147,7 +161,8 @@ func set_level(value):
 	force = 1.0 + assigned_ap
 	spirit = 1.0 + level_rng.randi_range(0,AP)
 	AP -= assigned_ap
-	powerLevel = (strength + agility + defense + vitality) * (spirit+force)
+	
+	powerLevel = (strength + agility + defense + vitality) + (spirit+force)
 	baseSpeed = agility + 250
 	currentSpeed = baseSpeed
 	maxHealth = vitality * 10

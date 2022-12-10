@@ -79,12 +79,10 @@ func take_damage(damage, direction, knockback, agility_attacker):
 		var hitFor = 0.0
 		if (damage >= defense):
 			hitFor = damage * 2 - defense
-			knock_back_vector = knockback * 2 - defense
 		else :
 			hitFor = damage * damage / defense
-			knock_back_vector = knockback * knockback / defense
 		player_stats.health = player_stats.health - hitFor
-		
+		knock_back_vector = (hitFor / player_stats.maxHealth) * Globals.MAX_KNOCKBACK
 		if(!get_parent().get_node("Sounds/player_hurt_male").is_playing()):
 			get_parent().get_node("Sounds/player_hurt_male").play()
 		$"Damage Indicator".start(.1)
@@ -160,7 +158,7 @@ func max_release_set(value):
 	releaseLevel.text = str(round(release * 100))
 	
 func update_power_level():
-	player_stats.powerLevel = (strength + defense + agility + player_stats.vitality) * (player_stats.spirit + force)
+	player_stats.powerLevel = (strength + defense + agility + player_stats.vitality) + (player_stats.spirit + force)
 	
 func calc_dodge_chance(attacker_agility):
 	return clamp((agility / (attacker_agility + agility)) - .5,0,.5)

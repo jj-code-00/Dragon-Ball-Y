@@ -4,14 +4,11 @@ var ap_cost
 
 onready var player_stats = get_tree().get_root().get_node("Dev Island").get_node("Player").stats
 
-func _on_Skill_Button_Template_pressed():
+func _on_Ki_Attack_Button_Template_pressed():
 	match self.text:
-		"flight": 
-			if(player_stats.AP >= ap_cost && !player_stats.has_flight):
+		"Ki Blast": 
+			if(player_stats.AP >= ap_cost && !player_stats.has_ki_blast):
 				player_stats.AP -= ap_cost
-				player_stats.has_flight = true
+				player_stats.has_ki_blast = true
 				get_tree().get_root().get_node("Dev Island").print_to_console(self.text + " Unlocked!")
 				self.text = self.text + " [Owned]"
-		"ki sense":
-			if(player_stats.AP >= ap_cost):
-				pass

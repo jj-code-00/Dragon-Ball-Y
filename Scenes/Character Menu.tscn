@@ -105,12 +105,12 @@ margin_right = 480.0
 margin_bottom = 480.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer"]
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 460.0
 rect_min_size = Vector2( 50, 0 )
 
 [node name="Vitality" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 24.0
 custom_fonts/font = SubResource( 1 )
 text = "Vitality"
@@ -118,12 +118,12 @@ align = 1
 
 [node name="HSeparator7" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 28.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 32.0
 
 [node name="Strength" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 36.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 60.0
 custom_fonts/font = SubResource( 2 )
 text = "Strength"
@@ -131,12 +131,12 @@ align = 1
 
 [node name="HSeparator6" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 64.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 68.0
 
 [node name="Agility" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 72.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 96.0
 custom_fonts/font = SubResource( 3 )
 text = "Agility"
@@ -144,12 +144,12 @@ align = 1
 
 [node name="HSeparator5" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 100.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 104.0
 
 [node name="Durability" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 108.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 132.0
 custom_fonts/font = SubResource( 4 )
 text = "Durability"
@@ -157,12 +157,12 @@ align = 1
 
 [node name="HSeparator4" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 136.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 140.0
 
 [node name="Force" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 144.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 168.0
 custom_fonts/font = SubResource( 5 )
 text = "Force"
@@ -170,12 +170,12 @@ align = 1
 
 [node name="HSeparator3" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 172.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 176.0
 
 [node name="Spirit" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 180.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 204.0
 custom_fonts/font = SubResource( 6 )
 text = "Spirit"
@@ -183,12 +183,12 @@ align = 1
 
 [node name="HSeparator" type="HSeparator" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 208.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 212.0
 
 [node name="PL" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 216.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 240.0
 custom_fonts/font = SubResource( 7 )
 text = "Power Level"
@@ -196,7 +196,7 @@ align = 1
 
 [node name="AP" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 244.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 268.0
 custom_fonts/font = SubResource( 9 )
 text = "AP"
@@ -204,15 +204,15 @@ align = 1
 
 [node name="xp_to_next_level" type="Label" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 272.0
-margin_right = 117.0
+margin_right = 98.0
 margin_bottom = 296.0
 custom_fonts/font = SubResource( 11 )
-text = "Remaining XP"
+text = "AP required"
 align = 1
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer"]
-margin_left = 121.0
-margin_right = 171.0
+margin_left = 102.0
+margin_right = 152.0
 margin_bottom = 460.0
 rect_min_size = Vector2( 50, 0 )
 
@@ -321,8 +321,8 @@ margin_bottom = 19.0
 align = 1
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer"]
-margin_left = 175.0
-margin_right = 225.0
+margin_left = 156.0
+margin_right = 206.0
 margin_bottom = 460.0
 rect_min_size = Vector2( 50, 0 )
 

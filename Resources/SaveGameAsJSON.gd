@@ -40,7 +40,7 @@ func write_savegame() -> void:
 			"movement_speed": character.movement_speed,
 			"knock_back": character.knock_back,
 			"level": character.level,
-			"remaining_xp": character.remaining_xp,
+			"ap_required": character.ap_required,
 			"AP": character.AP,
 			"has_ki_blast": character.has_ki_blast,
 			"has_flight": character.has_flight,
@@ -78,7 +78,7 @@ func load_savegame() -> void:
 	character.movement_speed = data.player.movement_speed
 	character.knock_back = data.player.knock_back
 	character.level = data.player.level
-	character.remaining_xp = data.player.remaining_xp
+	character.ap_required = data.player.ap_required
 	character.AP = data.player.AP
 	character.has_ki_blast = data.player.has_ki_blast
 	character.has_flight = data.player.has_flight

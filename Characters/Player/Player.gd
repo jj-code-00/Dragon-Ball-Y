@@ -144,7 +144,7 @@ func _input(event):
 			hitbox.disabled = false
 			$"Area2D/Hitbox CD".start()
 			animation_state.travel("Attack")
-			$"Area2D/Attack Cooldown".start(clamp(0.5 - (stats.agility * .001),0.2,0.5))
+			$"Area2D/Attack Cooldown".start(clamp(0.5 - ($Stats.agility * .001),0.2,0.5))
 		
 	if(event.is_action_pressed("i_meditate") && !blockInput && !combat_logged):
 		if (is_flying):
@@ -183,6 +183,13 @@ func _input(event):
 		else:
 			character_menu.set_process(false)
 			character_menu.visible = false
+	if(event.is_action_pressed("i_pause")):
+		if(!$"UI/PauseMenu".is_visible()):
+			$"UI/PauseMenu".set_process(true)
+			$"UI/PauseMenu".visible = true
+		else:
+			$"UI/PauseMenu".set_process(false)
+			$"UI/PauseMenu".visible = false
 	if(event.is_action_pressed("i_quick_save")):
 		get_parent().get_node("Save & Load")._save_game()
 		$"Stats/Level Up Manager".gameManager.print_to_console("Game Saved!")
@@ -195,7 +202,7 @@ func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		if(!body.is_connected("got_hit", self, "punch_success")):
 			body.connect("got_hit", self, "punch_success")
-		body.take_damage(stats.strength, aiming,stats.knock_back,stats.agility)
+		body.take_damage($Stats.strength, aiming,stats.knock_back,$Stats.agility)
 		$"Combat Log Timer".start(1)
 		combat_logged = true
 func punch_success():
