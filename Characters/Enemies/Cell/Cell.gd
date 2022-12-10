@@ -137,7 +137,7 @@ func take_damage(strength_attacker, direction, knockback, agility_attacker):
 			$"Combat Log Timer".start(5)
 			
 	else:
-		pass
+		get_tree().get_root().get_node("Dev Island").print_to_console("They dodged!")
 func set_level(value):
 	level = value
 	

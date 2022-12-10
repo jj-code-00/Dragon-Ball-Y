@@ -184,7 +184,10 @@ func _input(event):
 			character_menu.set_process(false)
 			character_menu.visible = false
 	if(event.is_action_pressed("i_pause")):
-		if(!$"UI/PauseMenu".is_visible()):
+		if(character_menu.is_visible()):
+			character_menu.set_process(false)
+			character_menu.visible = false
+		elif(!$"UI/PauseMenu".is_visible()):
 			$"UI/PauseMenu".set_process(true)
 			$"UI/PauseMenu".visible = true
 		else:

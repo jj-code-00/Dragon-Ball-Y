@@ -24,7 +24,7 @@ func _on_Player_enemyPowerLevel(powerLevel):
 
 func level_up_formula():
 	# needs work
-	player_stats.ap_required = pow(player_stats.level/1, 1.1)
+	player_stats.ap_required = pow(player_stats.level/.5, 1.1)
 	
 func update_level_display():
 	var string = "PL: "

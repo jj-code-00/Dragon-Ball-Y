@@ -94,7 +94,7 @@ func take_damage(damage, direction, knockback, agility_attacker):
 		knock_back_vector = direction.normalized() * knock_back_vector
 		emit_signal("knocked_back",knock_back_vector)
 	else:
-		print("dodged")
+		get_tree().get_root().get_node("Dev Island").print_to_console("You dodged!")
 	
 func change_health(value):
 	if (value < 0):
