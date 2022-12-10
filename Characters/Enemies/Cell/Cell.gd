@@ -79,7 +79,7 @@ func _physics_process(delta):
 		move_and_slide(directionHit * knockbackRecieved)
 	elif(canMove && !is_dead):
 		player_distance = gameManager.get_player_position() - self.position
-		if (player_distance.length() >= 32 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 32):
+		if (player_distance.length() >= 8 && player_distance.length() <= 512 || combatLogged && player_distance.length() >= 8):
 			player_direction = player_distance.normalized()
 			move_and_slide(player_direction * currentSpeed)
 		elif(player_distance.length() >= 512):
@@ -97,17 +97,18 @@ func take_damage(strength, direction, knockback, agility_attacker):
 			var hitFor = 0.0
 			if (strength >= defense):
 				hitFor = strength * 2 - defense
-				knockbackRecieved = knockback * 2 - (defense * 10)
+				#knockbackRecieved = knockback * 2 - (defense * 10)
 			else :
 				hitFor = strength * strength / defense
-				knockbackRecieved = knockback * knockback / (defense * 10)
+				#knockbackRecieved = knockback * knockback / (defense * 10)
 			currentHealth -= hitFor
+			knockbackRecieved = (hitFor / maxHealth) * Globals.MAX_KNOCKBACK
 			if (currentHealth <= 0):
 				var death_timer = load("res://Scenes/one_off_timer.tscn").instance()
 				add_child(death_timer)
 				death_timer.connect("timeout",self,"kill_entity")
 				death_timer.start(10)
-				knockbackRecieved = knockback * 2
+				#knockbackRecieved = knockback * 2
 				is_dead = true
 				get_parent().get_parent().actor_died(powerLevel)
 				$Sprite.rotate(PI/2)

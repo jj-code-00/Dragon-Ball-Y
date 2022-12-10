@@ -8,14 +8,13 @@ signal base_form()
 signal timer_tick()
 signal start_release()
 signal end_release()
+
+
 # Variables
 var facing = Vector2.ZERO
-onready var baseSpeed = $Stats.movement_speed
 var currentSpeed
 var velocity = Vector2.ZERO
 var is_flying = false
-onready var damage = $Stats.strength
-onready var knockback = $Stats.knock_back_strength
 var canMove = true
 var zoomLevel
 var auraToggle = false
@@ -38,16 +37,17 @@ onready var cam = $Camera2D
 onready var direction_cursor = $"Direction Cursor"
 onready var character_menu = $"UI/Character Menu"
 
+var stats: Character setget set_stats
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(str(get_parent()))
 	is_mouse_available = true
 	character_menu.set_process(false)
 	character_menu.visible = false
 	hitbox.disabled = true
 	hitbox.position = Vector2(0,4)
 	animation_state.travel("Idle")
-	currentSpeed = baseSpeed
+	currentSpeed = stats.movement_speed
 	zoomLevel = cam.get_zoom()
 	$Aura.modulate = Color(0.53,1.74,3.47)
 	$Aura.modulate.a = 0.25
@@ -69,12 +69,12 @@ func _process(delta):
 	hitbox.look_at(get_global_mouse_position())
 	select_animation()
 	if(!is_flying):
-		currentSpeed = baseSpeed
+		currentSpeed = stats.movement_speed
 	else:
-		currentSpeed = baseSpeed * 2
-	if ($Stats.energy <= 0.1 && is_flying):
+		currentSpeed = stats.movement_speed * 2
+	if (stats.energy <= 0.1 && is_flying):
 		land()
-	if ($Stats.energy <= 0.1 && is_transformed):
+	if (stats.energy  <= 0.1 && is_transformed):
 		emit_signal("base_form")
 		is_transformed = false
 	if(Input.is_action_pressed("i_increase_release")):
@@ -117,7 +117,7 @@ func select_animation():
 			animation_state.travel("Idle")
 		elif(!is_flying):
 			animation_state.travel("Walk")
-		elif(is_flying && $Stats.energy > 0):
+		elif(is_flying && stats.energy > 0):
 			animation_state.travel("Fly")
 
 func setBlendPos():
@@ -130,7 +130,7 @@ func set_attack_animation_direction():
 
 func _input(event):
 	#print(event)
-	if(event.is_action_pressed("i_fly") && canMove && $Stats.energy > 1 && $Stats/Skills.has_flight):
+	if(event.is_action_pressed("i_fly") && canMove && stats.energy > 1 && stats.has_flight):
 		if (is_flying):
 			land()
 			is_flying = false
@@ -144,7 +144,7 @@ func _input(event):
 			hitbox.disabled = false
 			$"Area2D/Hitbox CD".start()
 			animation_state.travel("Attack")
-			$"Area2D/Attack Cooldown".start(clamp(1.0 - ($Stats.agility * .001),0.2,1))
+			$"Area2D/Attack Cooldown".start(clamp(1.0 - (stats.agility * .001),0.2,1))
 		
 	if(event.is_action_pressed("i_meditate") && !blockInput && !combat_logged):
 		if (is_flying):
@@ -153,7 +153,7 @@ func _input(event):
 			stop_meditation()
 		else:
 			meditate()
-	if(event.is_action_pressed("i_ki_blast") && !blockInput && canMove && $Stats/Skills.has_ki_blast):
+	if(event.is_action_pressed("i_ki_blast") && !blockInput && canMove && stats.has_ki_blast):
 		blockInput = true
 		animation_state.travel("Attack")
 		emit_signal("ki_blast")
@@ -170,7 +170,7 @@ func _input(event):
 		zoomLevel.x = clamp(zoomLevel.x,0.5,1)
 		zoomLevel.y = clamp(zoomLevel.y,0.5,1)
 		cam.set_zoom(zoomLevel)
-	if(event.is_action_pressed("i_transform_1") && $Stats.energy > 1 && $Stats/Skills.has_transformation_1):
+	if(event.is_action_pressed("i_transform_1") && stats.energy > 1 && stats.has_transformation_1):
 		emit_signal("transform_one")
 		is_transformed = true
 	elif(event.is_action_pressed("i_return_to_base")):
@@ -183,13 +183,19 @@ func _input(event):
 		else:
 			character_menu.set_process(false)
 			character_menu.visible = false
+	if(event.is_action_pressed("i_quick_save")):
+		get_parent().get_node("Save & Load")._save_game()
+		$"Stats/Level Up Manager".gameManager.print_to_console("Game Saved!")
+	elif(event.is_action_pressed("i_quick_load")):
+		get_parent().get_node("Save & Load")._create_or_load_save()
+		$"Stats/Level Up Manager".gameManager.print_to_console("Game Loaded!")
 
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
 		if(!body.is_connected("got_hit", self, "punch_success")):
 			body.connect("got_hit", self, "punch_success")
-		body.take_damage(get_node("Stats").strength, aiming, knockback,get_node("Stats").agility)
+		body.take_damage(stats.strength, aiming,stats.knock_back,stats.agility)
 		$"Combat Log Timer".start(1)
 		combat_logged = true
 func punch_success():
@@ -199,15 +205,6 @@ func punch_success():
 func _on_Enemies_enemy_died(powerLevel):
 	emit_signal("enemyPowerLevel",powerLevel)
 
-func _on_Stats_update_stats():
-	baseSpeed = $Stats.movement_speed
-	if(!is_flying):
-		currentSpeed = baseSpeed
-	else:
-		currentSpeed = baseSpeed * 2
-	damage = (get_node("Stats").strength)
-	knockback = $Stats.knock_back_strength
-	
 func take_off():
 	position.y -= 8
 	#currentSpeed = (get_node("Stats").agility * 10 + 240) * 2
@@ -266,3 +263,7 @@ func is_mouse_not_available():
 
 func _on_Hitbox_CD_timeout():
 	hitbox.disabled = true
+	
+func set_stats(new_stats: Character) -> void:
+	stats = new_stats
+	#set_physics_process(stats != null)

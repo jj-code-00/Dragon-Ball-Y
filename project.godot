@@ -8,6 +8,22 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Resource",
+"class": "Character",
+"language": "GDScript",
+"path": "res://Resources/character.gd"
+}, {
+"base": "Reference",
+"class": "SaveGameAsJSON",
+"language": "GDScript",
+"path": "res://Resources/SaveGameAsJSON.gd"
+} ]
+_global_script_class_icons={
+"Character": "",
+"SaveGameAsJSON": ""
+}
+
 [application]
 
 config/name="DBY"
@@ -15,6 +31,11 @@ run/main_scene="res://Scenes/Main Menu.tscn"
 boot_splash/show_image=false
 config/icon="res://Icon/icon.png"
 config/windows_native_icon="res://Icon/icon.ico"
+
+[autoload]
+
+SaveOrLoad="*res://Resources/SaveOrLoad.gd"
+Globals="*res://Resources/Globals.gd"
 
 [global]
 

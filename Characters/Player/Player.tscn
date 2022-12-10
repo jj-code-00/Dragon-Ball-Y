@@ -1084,7 +1084,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 3
+frame = 8
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]
@@ -1136,7 +1136,6 @@ fit_content_height = true
 [connection signal="timer_tick" from="." to="Stats/Skills" method="_on_Player_timer_tick"]
 [connection signal="transform_one" from="." to="Stats/Skills" method="_on_Player_transform_one"]
 [connection signal="knocked_back" from="Stats" to="." method="_on_Stats_knocked_back"]
-[connection signal="update_stats" from="Stats" to="." method="_on_Stats_update_stats"]
 [connection signal="timeout" from="Stats/Damage Indicator" to="Stats" method="_on_Damage_Indicator_timeout"]
 [connection signal="flight_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_flight_unlocked"]
 [connection signal="ki_attack_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_ki_attack_unlocked"]

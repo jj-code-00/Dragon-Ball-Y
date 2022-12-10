@@ -1,36 +1,20 @@
 extends Node2D
 
+const movement_speed_cap = 2000
+
 signal update_stats()
 signal knocked_back(knockback_vector)
 
-# dodge chance eq agility_defender / agilty_attacker + agilty_defender
-
-var health # Lifeforce, when it runs out you die
-var maxHealth
-var energy # Decreases drain from majority of actions.
-var maxEnergy
 var release 
 var maxRelease
 var formMulti
-
-var vitality
-var baseStrength # Primary damage stat for Physical Damage.
-var baseDefense # Primary defensive stat for Physical Damage and Ki Damage
-var baseAgility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection.
-var baseForce # Primary damage stat for Ki Damage.
-var spirit
 
 var strength # Primary damage stat for Physical Damage. (used for math)
 var defense # Primary defensive stat for Physical Damage and Ki Damage (used for math)
 var agility # Decreases delay between actions &  Decreases your chance to be hit. Increased chance of deflection. (used for math)
 var force # Primary damage stat for Ki Damage. (used for math)
 
-var powerLevel = 0 # total Strength
-
-var movement_speed
-var movement_speed_cap = 2000
-var knock_back_strength
-
+onready var player_stats = get_parent().stats
 onready var healthBar = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HealthBar")
 onready var energyBar = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar")
 onready var releaseLevel = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/EnergyBar/CenterContainer/Release")
@@ -43,72 +27,49 @@ func _ready():
 	maxRelease = 1.0
 	formMulti = 1.0
 	release = maxRelease
-	
-	# Stats
-	vitality = 1.0
-	spirit = 1.0
-	baseStrength = 1.0
-	baseDefense = 1.0
-	baseAgility = 1.0
-	baseForce = 1.0
-	strength = baseStrength * formMulti * release
-	defense = baseDefense * formMulti * release
-	agility = baseAgility * formMulti * release
-	force = baseForce * formMulti * release
-	# PL equation needs work
-	update_power_level()
-	movement_speed = clamp(agility + 250,250,movement_speed_cap)
-	knock_back_strength = strength * 10
-	emit_signal("update_stats")
-	maxEnergy = spirit * 10
-	energy = maxEnergy
-	maxHealth = vitality * 10
-	health = maxHealth
-	energyBar.value = (energy * 100 / maxEnergy)
-	healthBar.value = (health * 100 / maxHealth)
-	releaseLevel.text = str(round(release * 100))
+	calc_current_stats()
 
 func _process(delta):
 	# change health low condition
-	if (health <= 0.0001):
+	if (player_stats.health <= 0.0001):
 		get_tree().reload_current_scene()
-	if (energy / maxEnergy <= .5):
-		max_release_set(energy / maxEnergy + .5) 
+	if (player_stats.energy / player_stats.maxEnergy <= .5):
+		max_release_set(player_stats.energy / player_stats.maxEnergy + .5) 
 	else:
 		max_release_set(1.0)
 
 func set_stats(stat, amount):
 	match stat:
 		"vitality": 
-			vitality += amount
+			player_stats.vitality += amount
 		"spirit":
-			spirit += amount
+			player_stats.spirit += amount
 		"strength":
-			baseStrength += amount
-		"defense":
-			baseDefense += amount
+			player_stats.strength += amount
+		"durability":
+			player_stats.durability += amount
 		"agility":
-			baseAgility += amount
+			player_stats.agility += amount
 		"force":
-			baseForce += amount
+			player_stats.force += amount
 		"all":
-			vitality += amount
-			spirit += amount
-			baseStrength += amount
-			baseDefense += amount
-			baseAgility += amount
-			baseForce += amount
-	strength = baseStrength * formMulti
-	defense = baseDefense * formMulti
-	agility = baseAgility * formMulti
-	force = baseForce * formMulti
-	maxHealth = vitality * 10
-	maxEnergy = spirit * 10
+			player_stats.vitality += amount
+			player_stats.spirit += amount
+			player_stats.strength += amount
+			player_stats.durability += amount
+			player_stats.agility += amount
+			player_stats.force += amount
+	strength = player_stats.strength * formMulti
+	defense = player_stats.durability * formMulti
+	agility = player_stats.agility * formMulti
+	force = player_stats.force * formMulti
+	player_stats.maxHealth = player_stats.vitality * 10
+	player_stats.maxEnergy = player_stats.spirit * 10
 	update_power_level()
-	healthBar.value = (health * 100 / maxHealth)
-	energyBar.value = (energy * 100 / maxEnergy)
-	movement_speed = clamp(agility + 250,250,movement_speed_cap)
-	knock_back_strength = strength * 10
+	healthBar.value = (player_stats.health * 100 / player_stats.maxHealth)
+	energyBar.value = (player_stats.energy * 100 / player_stats.maxEnergy)
+	player_stats.movement_speed = clamp(agility + 250,250,movement_speed_cap)
+	player_stats.knock_back = strength * 10
 	emit_signal("update_stats")
 	
 func take_damage(damage, direction, knockback, agility_attacker):
@@ -122,7 +83,7 @@ func take_damage(damage, direction, knockback, agility_attacker):
 		else :
 			hitFor = damage * damage / defense
 			knock_back_vector = knockback * knockback / defense
-		health = health - hitFor
+		player_stats.health = player_stats.health - hitFor
 		
 		if(!get_parent().get_node("Sounds/player_hurt_male").is_playing()):
 			get_parent().get_node("Sounds/player_hurt_male").play()
@@ -130,8 +91,8 @@ func take_damage(damage, direction, knockback, agility_attacker):
 		get_parent().get_node("Sprite").modulate = Color.red
 		get_parent().combat_logged = true
 		get_parent().get_node("Combat Log Timer").start(1)
-		health = clamp(health, 0, maxHealth)
-		healthBar.value = (health * 100 / maxHealth)
+		player_stats.health = clamp(player_stats.health, 0, player_stats.maxHealth)
+		healthBar.value = (player_stats.health * 100 / player_stats.maxHealth)
 		knock_back_vector = direction.normalized() * knock_back_vector
 		emit_signal("knocked_back",knock_back_vector)
 	else:
@@ -145,21 +106,21 @@ func change_health(value):
 			hitFor = value * 2 - defense
 		else :
 			hitFor = value * value / defense
-		health = health - hitFor
+		player_stats.health = player_stats.health - hitFor
 		$"Damage Indicator".start(.1)
 		get_parent().get_node("Sprite").modulate = Color.red
 		get_parent().combat_logged = true
 		get_parent().get_node("Combat Log Timer").start(1)
 	else:
-		health += value
+		player_stats.health += value
 	
-	health = clamp(health, 0, maxHealth)
-	healthBar.value = (health * 100 / maxHealth)
+	player_stats.health = clamp(player_stats.health, 0, player_stats.maxHealth)
+	healthBar.value = (player_stats.health * 100 / player_stats.maxHealth)
 
 func change_energy(value):
-	energy += value
-	energy = clamp(energy, 0, maxEnergy)
-	energyBar.value = (energy * 100 / maxEnergy)
+	player_stats.energy += value
+	player_stats.energy = clamp(player_stats.energy, 0, player_stats.maxEnergy)
+	energyBar.value = (player_stats.energy * 100 / player_stats.maxEnergy)
 
 func _on_Damage_Indicator_timeout():
 	get_parent().get_node("Sprite").modulate = Color.white
@@ -177,29 +138,48 @@ func _on_Player_end_release():
 func release_change(value):
 	release = release + value
 	release = clamp(release,0,maxRelease)
-	strength = baseStrength * formMulti * release
-	defense = baseDefense * formMulti * release
-	agility = baseAgility * formMulti * release
-	force = baseForce * formMulti * release
+	strength = player_stats.strength * formMulti * release
+	defense = player_stats.durability * formMulti * release
+	agility = player_stats.agility * formMulti * release
+	force = player_stats.force * formMulti * release
 	update_power_level()
-	movement_speed = clamp(agility + 250,250,movement_speed_cap)
-	knock_back_strength = strength * 10
+	player_stats.movement_speed = clamp(agility + 250,250,movement_speed_cap)
+	player_stats.knock_back = strength * 10
 	releaseLevel.text = str(round(release * 100))
 
 func max_release_set(value):
 	maxRelease = value
 	release = clamp(release,0,maxRelease)
-	strength = baseStrength * formMulti * release
-	defense = baseDefense * formMulti * release
-	agility = baseAgility * formMulti * release
-	force = baseForce * formMulti * release
+	strength = player_stats.strength * formMulti * release
+	defense = player_stats.durability * formMulti * release
+	agility = player_stats.agility * formMulti * release
+	force = player_stats.force * formMulti * release
 	update_power_level()
-	movement_speed = clamp(agility + 250,250,movement_speed_cap)
-	knock_back_strength = strength * 10
+	player_stats.movement_speed = clamp(agility + 250,250,movement_speed_cap)
+	player_stats.knock_back = strength * 10
 	releaseLevel.text = str(round(release * 100))
 	
 func update_power_level():
-	powerLevel = (strength + defense + agility + force + vitality) * (spirit + force)
+	player_stats.powerLevel = (strength + defense + agility + player_stats.vitality) * (player_stats.spirit + force)
 	
 func calc_dodge_chance(attacker_agility):
 	return clamp((agility / (attacker_agility + agility)) - .5,0,.5)
+	
+func calc_current_stats():
+	strength = player_stats.strength * formMulti * release
+	defense = player_stats.durability * formMulti * release
+	agility = player_stats.agility * formMulti * release
+	force = player_stats.force * formMulti * release
+	update_power_level()
+	player_stats.movement_speed = clamp(agility + 250,250,movement_speed_cap)
+	
+	player_stats.maxEnergy = player_stats.spirit * 10
+	player_stats.energy = player_stats.maxEnergy
+	player_stats.maxHealth = player_stats.vitality * 10
+	player_stats.health = player_stats.maxHealth
+	
+	player_stats.knock_back = strength * 10
+	
+	energyBar.value = (player_stats.energy * 100 / player_stats.maxEnergy)
+	healthBar.value = (player_stats.health * 100 / player_stats.maxHealth)
+	releaseLevel.text = str(round(release * 100))

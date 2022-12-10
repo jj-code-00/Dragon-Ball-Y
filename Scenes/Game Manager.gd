@@ -7,6 +7,7 @@ var player_position = Vector2.ZERO
 var killsNum = 0
 var enemyNum = 0
 var enemyLimitReached = false
+const SPAWN_LIMIT = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -19,7 +20,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	player_position = player.position
-	if(enemyNum >= 50):
+	if(enemyNum >= SPAWN_LIMIT):
 		enemyLimitReached = true
 	else:
 		enemyLimitReached = false
