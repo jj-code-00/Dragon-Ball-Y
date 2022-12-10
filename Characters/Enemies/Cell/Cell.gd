@@ -92,6 +92,7 @@ func take_damage(strength, direction, knockback, agility_attacker):
 	var percent = randf()
 	if(percent > dodge_chance):
 		if(!is_dead):
+			emit_signal("got_hit")
 			var hitFor = 0.0
 			if (strength >= defense):
 				hitFor = strength * 2 - defense
@@ -100,7 +101,6 @@ func take_damage(strength, direction, knockback, agility_attacker):
 				hitFor = strength * strength / defense
 				knockbackRecieved = knockback * knockback / (defense * 10)
 			currentHealth -= hitFor
-			emit_signal("got_hit")
 			if (currentHealth <= 0):
 				var death_timer = load("res://Scenes/one_off_timer.tscn").instance()
 				add_child(death_timer)

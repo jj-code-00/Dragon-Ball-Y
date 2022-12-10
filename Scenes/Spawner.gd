@@ -2,6 +2,7 @@ extends Node2D
 
 var spawnAgain = true
 var level
+var time_between_spawns
 
 # change this abomination
 onready var spawn1 = $Spawn1.position
@@ -22,13 +23,14 @@ var num
 func _ready():
 	num = 0
 	level = 1
+	time_between_spawns = 3
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	num = num % 10
 	if(spawnAgain && !get_tree().get_root().get_node("Dev Island").enemyLimitReached):
 		spawn()
-		$Timer.start(3)
+		$Timer.start(time_between_spawns)
 		spawnAgain = false
 
 func spawn():
@@ -63,6 +65,7 @@ func spawn():
 	
 func _on_Timer_timeout():
 	spawnAgain = true
+	time_between_spawns = clamp(time_between_spawns - .01,0.1,3)
 
 func _on_Timer2_timeout():
 	level += 1

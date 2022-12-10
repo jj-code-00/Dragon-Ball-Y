@@ -142,7 +142,7 @@ func _input(event):
 			can_attack = false
 			hitbox.disabled = false
 			animation_state.travel("Attack")
-			$"Area2D/Attack Cooldown".start(.2)
+			$"Area2D/Attack Cooldown".start(clamp(1.0 - ($Stats.agility * .001),0.2,1))
 		
 	if(event.is_action_pressed("i_meditate") && !blockInput && !combat_logged):
 		if (is_flying):
@@ -185,10 +185,10 @@ func _input(event):
 # Punch hitbox entering enemy
 func _on_Area2D_body_entered(body):
 	if(body.is_in_group("Enemy")):
-		body.take_damage(get_node("Stats").strength, aiming, knockback,get_node("Stats").agility)
-		$"Combat Log Timer".start(1)
 		if(!body.is_connected("got_hit", self, "punch_success")):
 			body.connect("got_hit", self, "punch_success")
+		body.take_damage(get_node("Stats").strength, aiming, knockback,get_node("Stats").agility)
+		$"Combat Log Timer".start(1)
 		combat_logged = true
 func punch_success():
 	if(!$Sounds/player_hit_impact.is_playing()):
