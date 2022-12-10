@@ -6,13 +6,8 @@ var skill_master_list = {
 	0: {
 		"name": "flight",
 		"description": "Using your ki you can fly, this allows you to fly over certain obstacles",
-		"AP_cost": 10
+		"AP_cost": 50
 		},
-	1: {
-		"name": "ki_sense",
-		"description": "This skill allows you to sense other's energy",
-		"AP_cost": 5
-	}
 }
 
 var ki_attack_master_list = {
@@ -20,7 +15,7 @@ var ki_attack_master_list = {
 		"name": "Ki Blast",
 		"description": "A basic ki attack",
 		"ki_cost": "Costs 2.5 ki",
-		"AP_cost": 5
+		"AP_cost": 25
 	}
 }
 
@@ -29,6 +24,6 @@ var saiyan_transformation_master_list = {
 		"name": "Super Saiyan",
 		"description": "A transformation thought to simply be legend",
 		"ki_drain": "2 ki/s",
-		"AP_cost": 25
+		"AP_cost": 250
 	}
 }

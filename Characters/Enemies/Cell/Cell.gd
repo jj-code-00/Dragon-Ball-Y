@@ -163,7 +163,7 @@ func set_level(value):
 	AP -= assigned_ap
 	
 	powerLevel = (strength + agility + defense + vitality) + (spirit+force)
-	baseSpeed = agility + 250
+	baseSpeed = agility + 125
 	currentSpeed = baseSpeed
 	maxHealth = vitality * 10
 	maxEnergy = vitality * 10
