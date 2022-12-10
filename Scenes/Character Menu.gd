@@ -29,7 +29,7 @@ func _ready():
 		skill.ap_cost = Globals.skill_master_list[i].AP_cost
 		skill.mouse_filter = 1
 		$CenterContainer/TabContainer/Skills/MarginContainer/ScrollContainer/skill_list.add_child(skill)
-		skill.connect("skill_name",get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Stats").get_node("Skills"), "detect_button_press")
+
 
 func _process(delta):
 	refresh_stats_display()

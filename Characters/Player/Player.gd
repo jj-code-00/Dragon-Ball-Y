@@ -144,7 +144,7 @@ func _input(event):
 			hitbox.disabled = false
 			$"Area2D/Hitbox CD".start()
 			animation_state.travel("Attack")
-			$"Area2D/Attack Cooldown".start(clamp(1.0 - (stats.agility * .001),0.2,1))
+			$"Area2D/Attack Cooldown".start(clamp(0.5 - (stats.agility * .001),0.2,0.5))
 		
 	if(event.is_action_pressed("i_meditate") && !blockInput && !combat_logged):
 		if (is_flying):

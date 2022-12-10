@@ -57,14 +57,4 @@ func _on_Player_timer_tick():
 		get_parent().change_energy(.05 * player_stats.maxEnergy)
 		get_parent().change_health(.05 * player_stats.maxHealth)
 
-func detect_button_press(name,ap_cost):
-	
-	match name:
-		"flight": 
-			if(player_stats.AP >= ap_cost && !player_stats.has_flight):
-				player_stats.AP - ap_cost
-				player_stats.has_flight = true
-				get_parent().get_node("Level Up Manager").gameManager.print_to_console("Flight Unlocked!")
-		"ki sense":
-			if(player_stats.AP >= ap_cost):
-				pass
+
