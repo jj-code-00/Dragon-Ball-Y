@@ -1007,7 +1007,7 @@ animations = [ {
 size = 14
 font_data = ExtResource( 6 )
 
-[node name="Player" type="KinematicBody2D" groups=["Player"]]
+[node name="Player" type="KinematicBody2D" groups=["Persist", "Player"]]
 script = ExtResource( 2 )
 
 [node name="Stats" parent="." instance=ExtResource( 3 )]
@@ -1071,6 +1071,10 @@ shape = SubResource( 53 )
 [node name="Attack Cooldown" type="Timer" parent="Area2D"]
 one_shot = true
 
+[node name="Hitbox CD" type="Timer" parent="Area2D"]
+wait_time = 0.2
+one_shot = true
+
 [node name="Hair" type="Sprite" parent="."]
 position = Vector2( 0, 1 )
 texture = ExtResource( 11 )
@@ -1080,7 +1084,7 @@ hframes = 38
 visible = false
 modulate = Color( 1, 1, 1, 0.262745 )
 frames = SubResource( 97 )
-frame = 6
+frame = 3
 playing = true
 
 [node name="Combat Log Timer" type="Timer" parent="."]
@@ -1140,5 +1144,6 @@ fit_content_height = true
 [connection signal="transform_1_unlocked" from="Stats/Level Up Manager" to="Stats/Skills" method="_on_Level_Up_Manager_transform_1_unlocked"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="Area2D/Attack Cooldown" to="." method="_on_Attack_Cooldown_timeout"]
+[connection signal="timeout" from="Area2D/Hitbox CD" to="." method="_on_Hitbox_CD_timeout"]
 [connection signal="timeout" from="Combat Log Timer" to="." method="_on_Combat_Log_Timer_timeout"]
 [connection signal="timeout" from="Knockback Timer" to="." method="_on_Knockback_Timer_timeout"]

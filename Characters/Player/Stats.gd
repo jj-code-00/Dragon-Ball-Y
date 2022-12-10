@@ -28,6 +28,7 @@ var force # Primary damage stat for Ki Damage. (used for math)
 var powerLevel = 0 # total Strength
 
 var movement_speed
+var movement_speed_cap = 2000
 var knock_back_strength
 
 onready var healthBar = get_parent().get_node("UI/Player HUD/Player GUI/VBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/HealthBar")
@@ -56,7 +57,7 @@ func _ready():
 	force = baseForce * formMulti * release
 	# PL equation needs work
 	update_power_level()
-	movement_speed = agility + 250
+	movement_speed = clamp(agility + 250,250,movement_speed_cap)
 	knock_back_strength = strength * 10
 	emit_signal("update_stats")
 	maxEnergy = spirit * 10
@@ -106,7 +107,7 @@ func set_stats(stat, amount):
 	update_power_level()
 	healthBar.value = (health * 100 / maxHealth)
 	energyBar.value = (energy * 100 / maxEnergy)
-	movement_speed = agility + 250
+	movement_speed = clamp(agility + 250,250,movement_speed_cap)
 	knock_back_strength = strength * 10
 	emit_signal("update_stats")
 	
@@ -181,7 +182,7 @@ func release_change(value):
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	update_power_level()
-	movement_speed = agility + 250
+	movement_speed = clamp(agility + 250,250,movement_speed_cap)
 	knock_back_strength = strength * 10
 	releaseLevel.text = str(round(release * 100))
 
@@ -193,7 +194,7 @@ func max_release_set(value):
 	agility = baseAgility * formMulti * release
 	force = baseForce * formMulti * release
 	update_power_level()
-	movement_speed = agility + 250
+	movement_speed = clamp(agility + 250,250,movement_speed_cap)
 	knock_back_strength = strength * 10
 	releaseLevel.text = str(round(release * 100))
 	

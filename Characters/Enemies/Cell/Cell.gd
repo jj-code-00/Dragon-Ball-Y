@@ -54,8 +54,9 @@ func _process(delta):
 	player_direction = player_distance.normalized()
 	if(canAttack && hitCooldown.is_stopped()):
 		hitCooldown.start(1)
+		#find_node("Player").get_node("Stats").take_damage(strength, player_direction,strength * 10, agility)
 		gameManager.get_player().get_node("Stats").take_damage(strength, player_direction,strength * 10, agility)
-	if (gameManager.get_player().is_flying && !is_flying):
+	if (gameManager.get_player() != null && gameManager.get_player().is_flying && !is_flying):
 		z_index = 1
 		position.y -= 8
 		set_collision_layer_bit(0, false)

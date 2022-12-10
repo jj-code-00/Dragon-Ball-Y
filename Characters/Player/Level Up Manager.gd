@@ -46,7 +46,7 @@ func update_level_display():
 	levelDisplay.text = string
 	
 func gain_xp_on_hit(damage,total_health,power_level):
-	var xp_gained = (damage / total_health) * power_level
+	var xp_gained = clamp((damage / total_health) * power_level,0,power_level)
 	totalXp += xp_gained
 	while (totalXp >= xpToLevelUp):
 		totalXp = totalXp - xpToLevelUp

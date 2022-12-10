@@ -40,6 +40,7 @@ onready var character_menu = $"UI/Character Menu"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(str(get_parent()))
 	is_mouse_available = true
 	character_menu.set_process(false)
 	character_menu.visible = false
@@ -141,6 +142,7 @@ func _input(event):
 			$Sounds/player_punch.play()
 			can_attack = false
 			hitbox.disabled = false
+			$"Area2D/Hitbox CD".start()
 			animation_state.travel("Attack")
 			$"Area2D/Attack Cooldown".start(clamp(1.0 - ($Stats.agility * .001),0.2,1))
 		
@@ -247,7 +249,6 @@ func _on_Combat_Log_Timer_timeout():
 
 func _on_Attack_Cooldown_timeout():
 	can_attack = true
-	hitbox.disabled = true
 
 func _on_Stats_knocked_back(knockback_vector):
 	knocked_back = true
@@ -262,3 +263,6 @@ func is_mouse_available():
 	
 func is_mouse_not_available():
 	is_mouse_available = true
+
+func _on_Hitbox_CD_timeout():
+	hitbox.disabled = true

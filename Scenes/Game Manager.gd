@@ -3,7 +3,7 @@ extends Node2D
 onready var player = $Player
 onready var console = get_node("Player/UI/Player HUD/HBoxContainer/VBoxContainer2/Panel/MarginContainer/CenterContainer/Console")
 #onready var kills = $UI/Kills
-var player_position
+var player_position = Vector2.ZERO
 var killsNum = 0
 var enemyNum = 0
 var enemyLimitReached = false
@@ -19,7 +19,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	player_position = player.position
-	
 	if(enemyNum >= 50):
 		enemyLimitReached = true
 	else:
