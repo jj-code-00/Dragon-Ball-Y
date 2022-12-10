@@ -16,14 +16,23 @@ onready var calc_strength_display = $CenterContainer/TabContainer/Attributes/Mar
 onready var calc_agility_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer2/calc_agility
 onready var calc_durability_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer3/calc_durability
 onready var calc_force_display = $CenterContainer/TabContainer/Attributes/MarginContainer/HBoxContainer/VBoxContainer3/CenterContainer4/calc_force
+
 # Called when the node enters the scene tree for the first time.
 
 func _ready():
 	refresh_stats_display()
+	for i in Globals.skill_master_list.size():
+		var skill = load("res://Scenes/Skill_Button_Template.tscn").instance()
+		skill.text = Globals.skill_master_list[i].name
+		var string = Globals.skill_master_list[i].description + " AP cost: " + str(Globals.skill_master_list[i].AP_cost)
+		skill.set_tooltip(string)
+		skill.ap_cost = Globals.skill_master_list[i].AP_cost
+		skill.mouse_filter = 1
+		$CenterContainer/TabContainer/Skills/MarginContainer/ScrollContainer/skill_list.add_child(skill)
+		skill.connect("skill_name",get_tree().get_root().get_node("Dev Island").get_node("Player").get_node("Stats").get_node("Skills"), "detect_button_press")
 
 func _process(delta):
 	refresh_stats_display()
-	
 
 func refresh_stats_display():
 	vitality_display.text = str(player_stats.vitality)

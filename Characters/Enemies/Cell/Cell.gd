@@ -48,7 +48,7 @@ func _ready():
 	player_direction = player_distance.normalized()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var level_display = "Lvl: " + str(level)
+	var level_display = "PL: " + str(powerLevel)
 	$"Enemy Level".text = level_display
 	player_distance = gameManager.get_player_position() - self.position
 	player_direction = player_distance.normalized()

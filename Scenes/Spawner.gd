@@ -23,7 +23,7 @@ var num
 func _ready():
 	num = 0
 	level = 1
-	time_between_spawns = 3
+	time_between_spawns = 5
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -68,4 +68,4 @@ func _on_Timer_timeout():
 	time_between_spawns = clamp(time_between_spawns - .01,0.1,3)
 
 func _on_Timer2_timeout():
-	level += 1
+	level += 0

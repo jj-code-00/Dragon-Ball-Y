@@ -40,12 +40,12 @@ func gain_xp_on_hit(damage,total_health,power_level):
 		player_stats.AP = player_stats.AP + 1
 		# move away from levels
 		player_stats.level = player_stats.level + 1
-		if(player_stats.level == 3):
-			emit_signal("flight_unlocked")
-		elif (player_stats.level == 5):
-			emit_signal("ki_attack_unlocked")
-		elif player_stats.level == 10:
-			emit_signal("transform_1_unlocked")
+#		if(player_stats.level == 3):
+#			emit_signal("flight_unlocked")
+#		elif (player_stats.level == 5):
+#			emit_signal("ki_attack_unlocked")
+#		elif player_stats.level == 10:
+#			emit_signal("transform_1_unlocked")
 		level_up_formula()
 		gameManager.print_to_console("AP gained!")
 		update_level_display()

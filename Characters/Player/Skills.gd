@@ -25,13 +25,6 @@ func _on_Level_Up_Manager_ki_attack_unlocked():
 	ki_blast.text = "Ki Blast"
 	get_parent().get_parent().get_node("UI/Character Menu/CenterContainer/TabContainer/Ki Attacks/MarginContainer/ScrollContainer/ki_attack_list").add_child(ki_blast)
 
-func _on_Level_Up_Manager_flight_unlocked():
-	get_parent().get_node("Level Up Manager").gameManager.print_to_console("You can now Fly! Hit R")
-	var flight = Label.new()
-	flight.text = "Flight"
-	get_parent().get_parent().get_node("UI/Character Menu/CenterContainer/TabContainer/Skills/MarginContainer/ScrollContainer/skill_list").add_child(flight)
-	player_stats.has_flight = true
-
 func _on_Player_transform_one():
 	if player_stats.has_transformation_1:
 		get_parent().get_parent().get_node("Hair").modulate = Color(3.46,2.33,0)
@@ -63,4 +56,15 @@ func _on_Player_timer_tick():
 	if (is_meditating):
 		get_parent().change_energy(.05 * player_stats.maxEnergy)
 		get_parent().change_health(.05 * player_stats.maxHealth)
-		
+
+func detect_button_press(name,ap_cost):
+	
+	match name:
+		"flight": 
+			if(player_stats.AP >= ap_cost && !player_stats.has_flight):
+				player_stats.AP - ap_cost
+				player_stats.has_flight = true
+				get_parent().get_node("Level Up Manager").gameManager.print_to_console("Flight Unlocked!")
+		"ki sense":
+			if(player_stats.AP >= ap_cost):
+				pass
