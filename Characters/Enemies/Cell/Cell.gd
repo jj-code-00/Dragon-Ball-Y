@@ -102,6 +102,8 @@ func take_damage(strength_attacker, direction, knockback, agility_attacker):
 	if(percent > dodge_chance):
 		if(!is_dead):
 			emit_signal("got_hit")
+			if(self.is_connected("got_hit",get_tree().get_root().get_node("Dev Island").get_node("Player"),"punch_success")):
+				self.disconnect("got_hit", get_tree().get_root().get_node("Dev Island").get_node("Player"),"punch_success")
 			var hitFor = 0.0
 			if (strength_attacker >= defense):
 				hitFor = strength_attacker * 2 - defense
